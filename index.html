@@ -63,17 +63,13 @@
         left: 0;
         padding: 8px;
         margin: 8px;
-
         opacity: .8;
-
         border-radius: 8px;
-
         background-color: rgb(255, 255, 255);
-
-        svg {
-          width: 35px;
-          aspect-ratio: 1;
-        }
+      }
+      .logo svg {
+        width: 35px;
+        aspect-ratio: 1;
       }
     </style>
   </head>
@@ -301,6 +297,16 @@
         </div>
       </header>
 
+      <!-- BANNER PROMOCIONAL (IMAGEM DO SORTEIO) -->
+      <div class="w-full bg-[#fdfbf7] border-b border-[#e6dccf]">
+        <img
+          src="./assets/images/promotions/promotion_natal.png"
+          alt="Promoção Sorteio de Natal - Participe no nosso Instagram"
+          class="w-full h-auto object-cover"
+          onerror="this.onerror=null; this.src='https://placehold.co/900x300/8b0000/e6dccf?text=Banner+do+Sorteio+de+Natal+(Coloque+sua+imagem+aqui)';"
+        />
+      </div>
+
       <main class="p-6 md:p-12">
         <!-- INTRO -->
         <div class="text-center mb-10 max-w-2xl mx-auto">
@@ -395,7 +401,8 @@
                     Café (Tiramisu Brasileiro)
                   </h4>
                   <p class="text-sm text-gray-600">
-                    Para os amantes de café: creme saborizado ou biscoitos
+                    <!-- CORRIGIDO: de "ou" para "e" -->
+                    Para os amantes de café: creme saborizado e biscoitos
                     embebidos no café.
                   </p>
                 </div>
@@ -411,6 +418,16 @@
                     <span class="font-semibold text-[#8b0000]"
                       >Uva ou Morango</span
                     >.
+                  </p>
+                </div>
+              </div>
+              <!-- NOVO ITEM: Paçoca -->
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Paçoca</h4>
+                  <p class="text-sm text-gray-600">
+                    Um delicioso creme de paçoca para os amantes de amendoim.
                   </p>
                 </div>
               </div>
@@ -466,7 +483,17 @@
                 <div>
                   <h4 class="font-bold text-gray-800 text-lg">Especiais</h4>
                   <p class="text-sm text-gray-600">
-                    Variações com Paçoca, Ouro Branco, Sonho de Valsa ou Bis.
+                    Variações com Ouro Branco, Sonho de Valsa ou Bis.
+                  </p>
+                </div>
+              </div>
+              <!-- NOVO ITEM: Manjar -->
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Manjar de Coco</h4>
+                  <p class="text-sm text-gray-600">
+                    Tradicional manjar branco cremoso e suave com calda de ameixa.
                   </p>
                 </div>
               </div>
@@ -485,7 +512,7 @@
 
           <!-- Sabores -->
           <div class="text-center mb-8">
-            <div class="inline-flex flex-wrap justify-center gap-3">
+            <div class="inline-flex flex-wrap justify-center gap-3 mb-4">
               <span
                 class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
                 >Torta Alemã</span
@@ -506,6 +533,14 @@
                 class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
                 >Torta de Pêssego</span
               >
+            </div>
+            
+            <!-- AVISO DE ACRÉSCIMO -->
+            <div class="bg-red-50 border border-red-100 rounded-lg p-3 max-w-2xl mx-auto">
+               <p class="text-sm text-[#8b0000] italic">
+                 <i class="fas fa-info-circle mr-1"></i>
+                 Variações com <strong>bombom, frutas frescas, castanhas ou geleias</strong> têm um acréscimo no valor mínimo de <strong>R$ 15,00</strong> (dependendo do tamanho da torta e do item acrescido).
+               </p>
             </div>
           </div>
 
@@ -643,6 +678,48 @@
             </div>
           </div>
         </div>
+
+        <!-- SECTION 4: SORTEIO -->
+        <div class="mt-12 bg-gradient-to-br from-[#8b0000] to-[#600000] rounded-xl text-white p-6 md:p-8 relative overflow-hidden shadow-lg border-2 border-[#c9a227]">
+             <!-- Decorative stars -->
+             <div class="absolute top-2 right-2 text-[#c9a227] opacity-30 text-4xl"><i class="fas fa-star"></i></div>
+             <div class="absolute bottom-2 left-2 text-[#c9a227] opacity-30 text-4xl"><i class="fas fa-gift"></i></div>
+
+             <div class="relative z-10 text-center">
+                <h3 class="serif-font text-3xl md:text-4xl text-[#c9a227] mb-4 drop-shadow-md">
+                   <i class="fas fa-gifts mr-2"></i> Sorteio de Natal
+                </h3>
+                
+                <div class="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20 mb-6">
+                   <p class="text-xl font-bold mb-2 text-[#f3e5d8]">Prêmio: <span class="text-[#c9a227]">Um delicioso Pavê Dois Amores! ✨</span></p>
+                   <p class="text-sm md:text-base mb-1"><i class="far fa-calendar-alt mr-2"></i> Data do sorteio: <strong>24/12 às 10h</strong></p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto mb-8 text-sm md:text-base">
+                   <div>
+                      <h4 class="font-bold text-[#c9a227] mb-2 border-b border-white/20 pb-1">Como participar:</h4>
+                      <ul class="space-y-2 list-none">
+                         <li><i class="fas fa-check text-green-400 mr-2"></i> Curtir a foto oficial no Instagram</li>
+                         <li><i class="fas fa-check text-green-400 mr-2"></i> Seguir <a href="https://www.instagram.com/littlecandy.dream/" target="_blank" class="underline decoration-[#c9a227] hover:text-[#c9a227]">@littlecandy.dream</a></li>
+                         <li><i class="fas fa-check text-green-400 mr-2"></i> Marcar 3 amigos na postagem</li>
+                      </ul>
+                   </div>
+                   <div>
+                      <h4 class="font-bold text-[#c9a227] mb-2 border-b border-white/20 pb-1">Regra Importante:</h4>
+                      <ul class="space-y-2 list-none">
+                         <li><i class="fas fa-exclamation-circle text-[#c9a227] mr-2"></i> Comprar qualquer doce de Natal conosco até dia <strong>19/12</strong>.</li>
+                      </ul>
+                   </div>
+                </div>
+
+                <a href="https://www.instagram.com/p/DSLVwcfkoUS/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA==" target="_blank" 
+                   class="inline-block bg-[#c9a227] text-[#8b0000] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#e6cfa3] hover:scale-105 transition-all duration-300">
+                   <i class="fab fa-instagram mr-2"></i> Ir para a Foto Oficial
+                </a>
+                <p class="text-xs opacity-70 mt-4 italic">Consulte outras informações no post oficial.</p>
+             </div>
+        </div>
+
       </main>
 
       <!-- Footer -->

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cardápio de Natal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: #fdfbf7;
+        color: #4a4a4a;
+      }
+      h1,
+      h2,
+      h3,
+      .serif-font {
+        font-family: "Playfair Display", serif;
+      }
+      .section-divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 2rem 0;
+      }
+      .section-divider::before,
+      .section-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #c9a227; /* Gold */
+      }
+      .section-divider span {
+        padding: 0 1rem;
+        color: #8b0000; /* Christmas Red */
+        font-size: 1.5rem;
+      }
+      .card-shadow {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      }
+      .bg-pattern {
+        /* Subtle snowflake-like dot pattern */
+        background-image: radial-gradient(#d4b08c 1.5px, transparent 1.5px);
+        background-size: 25px 25px;
+        opacity: 0.15;
+      }
+      .christmas-border {
+        border: 1px solid #e6dccf;
+        border-top: 4px solid #8b0000;
+      }
+      .logo {
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        padding: 8px;
+        margin: 8px;
+        opacity: .8;
+        border-radius: 8px;
+        background-color: rgb(255, 255, 255);
+      }
+      .logo svg {
+        width: 35px;
+        aspect-ratio: 1;
+      }
+    </style>
+  </head>
+  <body class="antialiased min-h-screen relative">
+    
+    <!-- BOTÃO VOLTAR ADICIONADO AQUI -->
+    <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#8b0000] px-4 py-2 rounded-full shadow-lg hover:bg-[#8b0000] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-red-100">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
+
+    <div
+      class="relative z-10 max-w-4xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden border-t-8 border-[#1a472a]"
+    >
+      <!-- Green top border -->
+
+      <!-- Header -->
+      <header
+        class="bg-[#8b0000] text-[#f3e5d8] p-10 text-center relative overflow-hidden"
+      >
+        <div
+          class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
+        >
+          <!-- Christmas Icons Background -->
+          <i class="fas fa-snowflake absolute top-4 left-4 text-4xl"></i>
+          <i class="fas fa-sleigh absolute bottom-4 right-8 text-5xl"></i>
+          <i class="fas fa-tree absolute top-10 right-10 text-3xl"></i>
+          <i class="fas fa-gift absolute bottom-10 left-10 text-4xl"></i>
+        </div>
+
+        <div class="relative z-10">
+          <div class="text-[#c9a227] text-2xl mb-2">
+            <i class="fas fa-star"></i>
+          </div>
+          <h1
+            class="text-4xl md:text-6xl font-bold mb-2 tracking-wide text-white drop-shadow-md"
+          >
+            Cardápio de Natal
+          </h1>
+          <p class="text-lg md:text-xl font-light italic text-[#e6cfa3]">
+            Doces, Tortas e Memórias Festivas
+          </p>
+        </div>
+      </header>
+
+      <!-- BANNER PROMOCIONAL -->
+      <div class="w-full bg-[#fdfbf7] border-b border-[#e6dccf]">
+        <!-- Fallback adicionado para garantir que algo apareça se a imagem não carregar -->
+        <div class="w-full h-64 bg-gray-100 flex items-center justify-center text-gray-400 bg-cover bg-center" style="background-image: url('./assets/images/promotions/promotion_natal.png');">
+            <span class="sr-only">Banner Promocional</span>
+        </div>
+      </div>
+
+      <main class="p-6 md:p-12">
+        <!-- INTRO -->
+        <div class="text-center mb-10 max-w-2xl mx-auto">
+          <p class="text-gray-600 leading-relaxed italic text-lg">
+            "Celebre o Natal com doçura. Nossas sobremesas são feitas
+            artesanalmente para tornar sua ceia inesquecível."
+          </p>
+          <div class="text-[#8b0000] mt-4 text-2xl">
+            <i class="fas fa-holly-berry"></i>
+          </div>
+        </div>
+
+        <!-- SECTION 1: PAVÊS -->
+        <div class="mb-12">
+          <div class="section-divider">
+            <span class="serif-font font-bold italic"
+              ><i class="fas fa-snowflake mr-2 text-sm text-[#c9a227]"></i>
+              Pavês de Natal</span
+            >
+          </div>
+
+          <!-- Pricing Box -->
+          <div
+            class="bg-[#fcf8f2] border border-[#e6dccf] p-6 rounded-lg text-center mb-8 mx-auto max-w-lg shadow-sm relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b0000] via-[#1a472a] to-[#8b0000]"
+            ></div>
+            <h3
+              class="text-[#8b0000] font-bold text-lg mb-4 uppercase tracking-widest"
+            >
+              Valores (por Kg)
+            </h3>
+            <div
+              class="flex flex-col md:flex-row justify-center items-center gap-6 text-sm md:text-base"
+            >
+              <div>
+                <span
+                  class="block text-gray-500 text-xs uppercase tracking-wider mb-1"
+                  >Com Bolacha Maisena</span
+                >
+                <span class="font-bold text-3xl text-[#1a472a]">R$ 85,00</span>
+              </div>
+              <div class="hidden md:block w-px h-12 bg-[#d4b08c]"></div>
+              <div>
+                <span
+                  class="block text-gray-500 text-xs uppercase tracking-wider mb-1"
+                  >Com Bolacha Champagne</span
+                >
+                <span class="font-bold text-3xl text-[#1a472a]">R$ 110,00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Flavor Group 1 -->
+            <div class="space-y-5">
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Chocolate</h4>
+                  <p class="text-sm text-gray-600">
+                    Com creme de brigadeiro cremoso ou mousse aerado de
+                    chocolate.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Morango</h4>
+                  <p class="text-sm text-gray-600">
+                    Fruta fresca ou geleia, com mousse de chocolate
+                    (branco/preto) ou creme patissière.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Limão</h4>
+                  <p class="text-sm text-gray-600">
+                    Refrescante! O equilíbrio perfeito entre o creme azedinho e
+                    doce.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">
+                    Café (Tiramisu Brasileiro)
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Para os amantes de café: creme saborizado e biscoitos
+                    embebidos no café.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">
+                    Bombom de Travessa
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Deliciosas camadas de creme e ganache. Opções:
+                    <span class="font-semibold text-[#8b0000]"
+                      >Uva ou Morango</span
+                    >.
+                  </p>
+                </div>
+              </div>
+              <!-- ITEM: Paçoca -->
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Paçoca</h4>
+                  <p class="text-sm text-gray-600">
+                    Um delicioso creme de paçoca para os amantes de amendoim.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Flavor Group 2 -->
+            <div class="space-y-5">
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Doce de Leite</h4>
+                  <p class="text-sm text-gray-600">
+                    Cremoso e doce na medida certa. Opção de combinar com coco.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Banoffe</h4>
+                  <p class="text-sm text-gray-600">
+                    Doce de banana caseiro, creme patissière e finalizado com
+                    chantilly ou merengue.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">
+                    Pêssego
+                    <span
+                      class="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded-full ml-1"
+                      >Clássico de Natal</span
+                    >
+                  </h4>
+                  <p class="text-sm text-gray-600">
+                    Clássico festivo com pêssegos em calda e creme patissière.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Abacaxi</h4>
+                  <p class="text-sm text-gray-600">
+                    Abacaxi em calda caseiro com creme suave ou coco.
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Especiais</h4>
+                  <p class="text-sm text-gray-600">
+                    Variações com Ouro Branco, Sonho de Valsa ou Bis.
+                  </p>
+                </div>
+              </div>
+              <!-- ITEM: Manjar -->
+              <div class="flex items-start">
+                <i class="fas fa-gift text-[#8b0000] mt-1 mr-3 text-sm"></i>
+                <div>
+                  <h4 class="font-bold text-gray-800 text-lg">Manjar de Coco</h4>
+                  <p class="text-sm text-gray-600">
+                    Tradicional manjar branco cremoso e suave com calda de ameixa.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: TORTAS -->
+        <div class="mb-12">
+          <div class="section-divider">
+            <span class="serif-font font-bold italic"
+              ><i class="fas fa-star mr-2 text-sm text-[#c9a227]"></i> Tortas
+              Amanteigadas</span
+            >
+          </div>
+
+          <!-- Sabores -->
+          <div class="text-center mb-8">
+            <div class="inline-flex flex-wrap justify-center gap-3 mb-4">
+              <span
+                class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
+                >Torta Alemã</span
+              >
+              <span
+                class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
+                >Torta Holandesa</span
+              >
+              <span
+                class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
+                >Torta de Limão</span
+              >
+              <span
+                class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
+                >2 Amores</span
+              >
+              <span
+                class="px-4 py-1 bg-green-50 text-[#1a472a] border border-green-100 rounded-full text-sm"
+                >Torta de Pêssego</span
+              >
+            </div>
+            
+            <!-- AVISO DE ACRÉSCIMO -->
+            <div class="bg-red-50 border border-red-100 rounded-lg p-3 max-w-2xl mx-auto">
+               <p class="text-sm text-[#8b0000] italic">
+                 <i class="fas fa-info-circle mr-1"></i>
+                 Variações com <strong>bombom, frutas frescas, castanhas ou geleias</strong> têm um acréscimo no valor mínimo de <strong>R$ 15,00</strong> (dependendo do tamanho da torta e do item acrescido).
+               </p>
+            </div>
+          </div>
+
+          <!-- Tabela de Preços Tortas -->
+          <div class="grid grid-cols-3 gap-4 max-w-xl mx-auto text-center">
+            <div class="christmas-border bg-white p-4 rounded-lg shadow-sm">
+              <div class="text-gray-400 font-bold text-lg mb-1">P</div>
+              <div class="text-[#8b0000] font-bold text-xl">R$ 85,00</div>
+            </div>
+            <div
+              class="christmas-border bg-white p-4 rounded-lg shadow-md transform scale-110 z-10"
+            >
+              <div class="text-[#c9a227] font-bold text-xl mb-1">
+                <i class="fas fa-star text-xs"></i> M
+                <i class="fas fa-star text-xs"></i>
+              </div>
+              <div class="text-[#8b0000] font-bold text-2xl">R$ 100,00</div>
+            </div>
+            <div class="christmas-border bg-white p-4 rounded-lg shadow-sm">
+              <div class="text-gray-400 font-bold text-lg mb-1">G</div>
+              <div class="text-[#8b0000] font-bold text-xl">R$ 130,00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: OUTROS -->
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+          <!-- Bolos e Rabanada -->
+          <div
+            class="bg-white p-6 rounded-xl border border-gray-100 shadow-md relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 right-0 p-2 text-gray-100 text-6xl opacity-20 transform rotate-12"
+            >
+              <i class="fas fa-holly-berry"></i>
+            </div>
+            <h3
+              class="serif-font text-xl font-bold text-[#1a472a] mb-6 border-b border-[#e6dccf] pb-2"
+            >
+              Especiais de Natal
+            </h3>
+
+            <div
+              class="flex justify-between items-center mb-6 border-b border-dashed border-gray-200 pb-4"
+            >
+              <div>
+                <span class="font-bold text-gray-800 text-lg"
+                  >Bolo de Porcelana</span
+                >
+                <span class="block text-sm text-gray-500">Tamanho Grande</span>
+              </div>
+              <span class="font-bold text-[#8b0000] text-xl">R$ 40,00</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <div class="flex items-center">
+                <div class="bg-red-100 text-[#8b0000] p-2 rounded-full mr-3">
+                  <i class="fas fa-bread-slice"></i>
+                </div>
+                <div>
+                  <span class="font-bold text-gray-800 text-lg">Rabanada</span>
+                  <span class="block text-sm text-gray-500"
+                    >Tradicional Natalina</span
+                  >
+                </div>
+              </div>
+              <span class="font-bold text-[#8b0000] text-xl"
+                >R$ 3,50
+                <span class="text-xs font-normal text-gray-500"
+                  >/unid</span
+                ></span
+              >
+            </div>
+          </div>
+
+          <!-- Biscoitos -->
+          <div
+            class="bg-white p-6 rounded-xl border border-gray-100 shadow-md relative overflow-hidden"
+          >
+            <div
+              class="absolute top-0 right-0 p-2 text-gray-100 text-6xl opacity-20 transform -rotate-12"
+            >
+              <i class="fas fa-cookie-bite"></i>
+            </div>
+            <h3
+              class="serif-font text-xl font-bold text-[#1a472a] mb-6 border-b border-[#e6dccf] pb-2"
+            >
+              Biscoitos Decorados
+            </h3>
+
+            <div class="space-y-4">
+              <div
+                class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2"
+              >
+                <span class="font-bold text-gray-800">Amanteigados</span>
+                <span class="font-bold text-[#8b0000]"
+                  >R$ 80,00
+                  <span class="text-xs font-normal text-gray-500"
+                    >/kg</span
+                  ></span
+                >
+              </div>
+
+              <div
+                class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2"
+              >
+                <span class="font-bold text-gray-800">Gingerbread Simples</span>
+                <span class="font-bold text-[#8b0000]"
+                  >R$ 90,00
+                  <span class="text-xs font-normal text-gray-500"
+                    >/kg</span
+                  ></span
+                >
+              </div>
+
+              <div
+                class="flex justify-between items-center bg-red-50 p-2 rounded -mx-2"
+              >
+                <div>
+                  <span class="font-bold text-[#8b0000]"
+                    ><i class="fas fa-star text-xs text-[#c9a227] mr-1"></i>
+                    Gingerbread Decorado</span
+                  >
+                  <span class="block text-xs text-gray-600"
+                    >Com Glacê Real</span
+                  >
+                </div>
+                <span class="font-bold text-[#8b0000]"
+                  >R$ 100,00
+                  <span class="text-xs font-normal text-gray-500"
+                    >/kg</span
+                  ></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: SORTEIO -->
+        <div class="mt-12 bg-gradient-to-br from-[#8b0000] to-[#600000] rounded-xl text-white p-6 md:p-8 relative overflow-hidden shadow-lg border-2 border-[#c9a227]">
+             <!-- Decorative stars -->
+             <div class="absolute top-2 right-2 text-[#c9a227] opacity-30 text-4xl"><i class="fas fa-star"></i></div>
+             <div class="absolute bottom-2 left-2 text-[#c9a227] opacity-30 text-4xl"><i class="fas fa-gift"></i></div>
+
+             <div class="relative z-10 text-center">
+                <h3 class="serif-font text-3xl md:text-4xl text-[#c9a227] mb-4 drop-shadow-md">
+                   <i class="fas fa-gifts mr-2"></i> Sorteio de Natal
+                </h3>
+                
+                <div class="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20 mb-6">
+                   <p class="text-xl font-bold mb-2 text-[#f3e5d8]">Prêmio: <span class="text-[#c9a227]">Um delicioso Pavê Dois Amores! ✨</span></p>
+                   <p class="text-sm md:text-base mb-1"><i class="far fa-calendar-alt mr-2"></i> Data do sorteio: <strong>24/12 às 10h</strong></p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto mb-8 text-sm md:text-base">
+                   <div>
+                      <h4 class="font-bold text-[#c9a227] mb-2 border-b border-white/20 pb-1">Como participar:</h4>
+                      <ul class="space-y-2 list-none">
+                         <li><i class="fas fa-check text-green-400 mr-2"></i> Curtir a foto oficial no Instagram</li>
+                         <li><i class="fas fa-check text-green-400 mr-2"></i> Seguir <a href="https://www.instagram.com/littlecandy.dream/" target="_blank" class="underline decoration-[#c9a227] hover:text-[#c9a227]">@littlecandy.dream</a></li>
+                         <li><i class="fas fa-check text-green-400 mr-2"></i> Marcar 3 amigos na postagem</li>
+                      </ul>
+                   </div>
+                   <div>
+                      <h4 class="font-bold text-[#c9a227] mb-2 border-b border-white/20 pb-1">Regra Importante:</h4>
+                      <ul class="space-y-2 list-none">
+                         <li><i class="fas fa-exclamation-circle text-[#c9a227] mr-2"></i> Comprar qualquer doce de Natal conosco até dia <strong>19/12</strong>.</li>
+                      </ul>
+                   </div>
+                </div>
+
+                <a href="https://www.instagram.com/p/DSLVwcfkoUS/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA==" target="_blank" 
+                   class="inline-block bg-[#c9a227] text-[#8b0000] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#e6cfa3] hover:scale-105 transition-all duration-300">
+                   <i class="fab fa-instagram mr-2"></i> Ir para a Foto Oficial
+                </a>
+                <p class="text-xs opacity-70 mt-4 italic">Consulte outras informações no post oficial.</p>
+             </div>
+        </div>
+
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="bg-[#1a472a] text-[#e6dccf] py-8 text-center text-sm border-t-4 border-[#8b0000]"
+      >
+        <p class="font-playfair text-xl mb-2 font-bold italic">Boas Festas!</p>
+        <p class="opacity-80 mb-4">
+          Faça sua encomenda com antecedência. <br />Os produtos podem conter
+          glúten, lactose e oleaginosas.
+        </p>
+        <div class="flex justify-center gap-6">
+          <a href="https://wa.link/n2mk1r" class="hover:text-white transition-colors"
+            ><i class="fab fa-whatsapp text-3xl"></i
+          ></a>
+          <a href="https://www.instagram.com/littlecandy.dream/" class="hover:text-white transition-colors"
+            ><i class="fab fa-instagram text-3xl"></i
+          ></a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

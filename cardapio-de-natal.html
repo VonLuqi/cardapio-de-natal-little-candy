@@ -56,26 +56,11 @@
         border: 1px solid #e6dccf;
         border-top: 4px solid #8b0000;
       }
-      .logo {
-        position: fixed;
-        z-index: 999;
-        top: 0;
-        left: 0;
-        padding: 8px;
-        margin: 8px;
-        opacity: .8;
-        border-radius: 8px;
-        background-color: rgb(255, 255, 255);
-      }
-      .logo svg {
-        width: 35px;
-        aspect-ratio: 1;
-      }
     </style>
   </head>
   <body class="antialiased min-h-screen relative">
     
-    <!-- BOTÃO VOLTAR ADICIONADO AQUI -->
+    <!-- BOTÃO VOLTAR -->
     <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#8b0000] px-4 py-2 rounded-full shadow-lg hover:bg-[#8b0000] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-red-100">
         <i class="fas fa-arrow-left"></i> Voltar
     </a>
@@ -117,12 +102,14 @@
         </div>
       </header>
 
-      <!-- BANNER PROMOCIONAL -->
+      <!-- BANNER PROMOCIONAL (CORRIGIDO PARA RESPONSIVIDADE) -->
       <div class="w-full bg-[#fdfbf7] border-b border-[#e6dccf]">
-        <!-- Fallback adicionado para garantir que algo apareça se a imagem não carregar -->
-        <div class="w-full h-64 bg-gray-100 flex items-center justify-center text-gray-400 bg-cover bg-center" style="background-image: url('./assets/images/promotions/promotion_natal.png');">
-            <span class="sr-only">Banner Promocional</span>
-        </div>
+        <img
+          src="assets/images/promotions/promotion_natal.png"
+          alt="Promoção Sorteio de Natal"
+          class="w-full h-auto block"
+          onerror="this.style.display='none'" 
+        />
       </div>
 
       <main class="p-6 md:p-12">

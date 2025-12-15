@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docinhos Clássicos - Little Candy Dream</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: #fdfbf7;
+        color: #4a4a4a;
+      }
+      h1, h2, h3, .serif-font {
+        font-family: "Playfair Display", serif;
+      }
+      .bg-pattern {
+        background-image: radial-gradient(#d4b08c 1.5px, transparent 1.5px);
+        background-size: 25px 25px;
+        opacity: 0.15;
+      }
+      .gold-border {
+        border: 1px solid #e6dccf;
+        border-top: 4px solid #c9a227;
+      }
+      .price-tag {
+        font-weight: 700;
+        color: #c9a227;
+      }
+      .section-title {
+        color: #1a472a;
+        border-bottom: 2px solid #f0e6d2;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body class="antialiased min-h-screen relative">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
+
+    <!-- Botão Voltar (Estilo atualizado igual ao Zero Açúcar) -->
+    <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#c9a227] px-4 py-2 rounded-full shadow-lg hover:bg-[#c9a227] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-[#c9a227]">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
+    <div class="relative z-10 max-w-4xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden border-t-8 border-[#c9a227]">
+      
+      <!-- Header -->
+      <header class="bg-[#fcf8f2] p-10 text-center relative overflow-hidden border-b border-[#e6dccf]">
+        <div class="relative z-10">
+          <div class="text-[#c9a227] text-3xl mb-2">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-wide text-[#1a472a]">
+            Docinhos Clássicos
+          </h1>
+          <p class="text-lg italic text-[#8c7b50] serif-font">
+            Clássicos para todas as ocasiões
+          </p>
+        </div>
+      </header>
+
+      <main class="p-6 md:p-12">
+        
+        <!-- AVISO IMPORTANTE -->
+        <div class="bg-yellow-50 border-l-4 border-[#c9a227] p-4 mb-10 rounded-r shadow-sm">
+            <div class="flex items-start">
+                <i class="fas fa-exclamation-circle text-[#c9a227] mt-1 mr-3 text-xl"></i>
+                <div>
+                    <h4 class="font-bold text-[#8c7b50] uppercase text-sm tracking-wider">Informação Importante</h4>
+                    <p class="text-gray-600 italic">Pedido mínimo de <strong>20 unidades</strong> de cada sabor.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            
+            <!-- SEÇÃO 1: DOCINHOS TRADICIONAIS -->
+            <div class="bg-white p-6 rounded-xl gold-border shadow-sm">
+                <div class="flex flex-col mb-4 border-b border-gray-100 pb-2">
+                    <h3 class="serif-font text-2xl font-bold text-[#1a472a] leading-tight mb-1">Tradicionais</h3>
+                    <p class="text-xs text-[#8c7b50] italic mb-2">ou repaginados em formato de flores</p>
+                    <span class="price-tag text-lg self-end">R$ 1,60 <span class="text-xs text-gray-400 font-normal">/unid</span></span>
+                </div>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Brigadeiro</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Beijinho</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Casadinho</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Ninho</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Paçoca ou Cajuzinho</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Bicho de Pé</li>
+                </ul>
+            </div>
+
+            <!-- SEÇÃO 2: DOCINHOS BASE DE NINHO (PREÇO ATUALIZADO) -->
+            <div class="bg-white p-6 rounded-xl gold-border shadow-sm">
+                <div class="flex justify-between items-end mb-4 border-b border-gray-100 pb-2">
+                    <h3 class="serif-font text-2xl font-bold text-[#1a472a]">Base de Ninho</h3>
+                    <span class="price-tag text-lg">R$ 1,60 <span class="text-xs text-gray-400 font-normal">/unid</span></span>
+                </div>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Chocolate</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Paçoca</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Ninho</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Casadinho</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Coco</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Morango</li>
+                    <li class="flex items-center"><i class="fas fa-circle text-[8px] text-[#d4b08c] mr-3"></i>Coloridos <span class="text-xs bg-gray-100 px-2 py-0.5 rounded ml-2">Qualquer cor</span></li>
+                </ul>
+            </div>
+
+            <!-- SEÇÃO 3: BRIGADEIROS GOURMET -->
+            <div class="bg-white p-6 rounded-xl gold-border shadow-sm md:col-span-2">
+                <div class="flex justify-between items-end mb-2">
+                    <h3 class="serif-font text-2xl font-bold text-[#1a472a]">Brigadeiros Gourmet</h3>
+                    <span class="price-tag text-lg">R$ 1,90 <span class="text-xs text-gray-400 font-normal">/unid</span></span>
+                </div>
+                <p class="text-sm text-gray-500 italic mb-6">Cobertos com granulado ou castanhas trituradas.</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Meio Amargo</li>
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Limão</li>
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Maracujá</li>
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Morango</li>
+                    </ul>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Abacaxi</li>
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Chocolate Branco</li>
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Churros</li>
+                        <li class="flex items-center"><i class="fas fa-star text-[8px] text-[#c9a227] mr-3"></i>Ninho com Nutella</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 4: DOCES FINOS -->
+            <div class="bg-white p-6 rounded-xl gold-border shadow-sm md:col-span-2">
+                <h3 class="serif-font text-2xl font-bold text-[#1a472a] mb-6 border-b border-gray-100 pb-2">Doces Finos</h3>
+                
+                <div class="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Surpresa de Uva</span>
+                        <span class="font-bold text-[#c9a227]">R$ 2,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Surpresa de Morango</span>
+                        <span class="font-bold text-[#c9a227]">R$ 2,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Bombom de Uva <span class="text-xs text-gray-400 block sm:inline">(branca/colorida)</span></span>
+                        <span class="font-bold text-[#c9a227]">R$ 2,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Olho de Sogra</span>
+                        <span class="font-bold text-[#c9a227]">R$ 2,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Copinho de Chocolate</span>
+                        <span class="font-bold text-[#c9a227]">R$ 3,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Bombom de Cereja</span>
+                        <span class="font-bold text-[#c9a227]">R$ 4,50</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-dashed border-gray-200 pb-2">
+                        <span class="text-gray-700">Camafeu de Nozes</span>
+                        <span class="font-bold text-[#c9a227]">R$ 4,50</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 5: OUTRAS OPÇÕES -->
+            <div class="bg-[#fcf8f2] p-6 rounded-xl border border-[#e6dccf] shadow-sm md:col-span-2">
+                <h3 class="serif-font text-xl font-bold text-[#1a472a] mb-6 flex items-center">
+                    <i class="fas fa-gift mr-2 text-[#c9a227]"></i> Outras Opções
+                </h3>
+
+                <div class="grid sm:grid-cols-3 gap-6 text-center">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl text-[#c9a227] mb-2"><i class="fas fa-spoon"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-1">Brigadeiro de Colher</h4>
+                        <p class="text-xs text-gray-500 mb-2">Sabores tradicionais</p>
+                        <span class="block font-bold text-[#1a472a] text-lg">R$ 4,00</span>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl text-[#c9a227] mb-2"><i class="fas fa-candy-cane"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-1">Bombons</h4>
+                        <p class="text-xs text-gray-500 mb-2">Sabores diversos</p>
+                        <span class="block font-bold text-[#1a472a] text-lg">R$ 3,00</span>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl text-[#c9a227] mb-2"><i class="fas fa-birthday-cake"></i></div>
+                        <h4 class="font-bold text-gray-800 mb-1">Cake Pop</h4>
+                        <p class="text-xs text-gray-500 mb-2">Choc. ou Branco</p>
+                        <span class="block font-bold text-[#1a472a] text-lg">R$ 6,00 - 7,00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NOVO: Nota Final sobre Temáticos -->
+        <div class="mt-8 text-center bg-green-50 rounded-lg p-4 border border-green-100">
+            <p class="text-[#1a472a] italic text-sm md:text-base">
+                <i class="fas fa-paw mr-2"></i>
+                Também fazemos doces temáticos em formatos de bichinhos ou no tema da sua festa!
+                <span class="font-bold">Consulte-nos.</span>
+            </p>
+        </div>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-[#1a472a] text-[#e6dccf] py-8 text-center text-sm border-t-4 border-[#c9a227]">
+        <p class="font-playfair text-xl mb-2 font-bold italic">Little Candy Dream</p>
+        <p class="opacity-80 mb-4">
+          Transformando sonhos em doces momentos. <br />Os produtos podem conter
+          glúten, lactose e oleaginosas.
+        </p>
+        <div class="flex justify-center gap-6">
+          <a href="https://wa.link/9lhmg7" class="hover:text-white transition-colors"><i class="fab fa-whatsapp text-3xl"></i></a>
+          <a href="https://www.instagram.com/littlecandy.dream/" class="hover:text-white transition-colors"><i class="fab fa-instagram text-3xl"></i></a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bolos Artesanais - Little Candy Dream</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+        background-color: #fdfbf7;
+        color: #4a4a4a;
+      }
+      h1, h2, h3, .serif-font {
+        font-family: "Playfair Display", serif;
+      }
+      .bg-pattern {
+        /* Padrão sutil de granulado de chocolate */
+        background-image: radial-gradient(#8d6e63 1.5px, transparent 1.5px);
+        background-size: 25px 25px;
+        opacity: 0.15;
+      }
+      .chocolate-border {
+        border: 1px solid #e6dccf;
+        border-top: 4px solid #5d4037;
+      }
+      .price-tag {
+        font-weight: 700;
+        color: #5d4037;
+      }
+      /* Efeito de hover suave nos cards */
+      .cake-card {
+        transition: transform 0.2s ease-in-out;
+      }
+      .cake-card:hover {
+        transform: translateY(-3px);
+      }
+    </style>
+  </head>
+  <body class="antialiased min-h-screen relative">
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
+
+    <!-- Botão Voltar -->
+    <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#5d4037] px-4 py-2 rounded-full shadow-lg hover:bg-[#5d4037] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-[#d7ccc8]">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
+    <div class="relative z-10 max-w-4xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden border-t-8 border-[#5d4037]">
+      
+      <!-- Header -->
+      <header class="bg-[#efebe9] p-10 text-center relative overflow-hidden border-b border-[#d7ccc8]">
+        <!-- Ícones de fundo decorativos -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+             <i class="fas fa-birthday-cake absolute top-4 left-10 text-6xl"></i>
+             <i class="fas fa-utensils absolute bottom-4 right-10 text-6xl"></i>
+        </div>
+
+        <div class="relative z-10">
+          <div class="text-[#5d4037] text-3xl mb-2">
+            <i class="fas fa-cake-candles"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-wide text-[#3e2723]">
+            Bolos Artesanais
+          </h1>
+          <p class="text-lg italic text-[#6d4c41] serif-font">
+            Feitos com carinho, para celebrar a vida
+          </p>
+        </div>
+      </header>
+
+      <main class="p-6 md:p-12">
+        
+        <!-- INTRODUÇÃO -->
+        <div class="text-center mb-10 max-w-2xl mx-auto">
+          <p class="text-gray-600 leading-relaxed italic">
+            "Do simples café da tarde às grandes comemorações. Nossos bolos são feitos com ingredientes selecionados e muito amor em cada fatia."
+          </p>
+        </div>
+
+        <!-- SEÇÃO 1: BOLOS DE POTE / FATIA -->
+        <div class="mb-12">
+            <h3 class="serif-font text-2xl font-bold text-[#5d4037] mb-6 flex items-center border-b border-[#d7ccc8] pb-2">
+                <i class="fas fa-spoon mr-3 text-[#8d6e63]"></i> Para Adoçar o Dia
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Card Bolo de Pote (Atualizado com Médio e Grande) -->
+                <div class="cake-card bg-[#fffefe] p-5 rounded-xl chocolate-border shadow-sm flex flex-col justify-between">
+                    <div class="mb-3">
+                        <h4 class="font-bold text-gray-800 text-lg">Bolo de Pote</h4>
+                        <p class="text-sm text-gray-500 italic">Sabores variados do dia</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center border-b border-dashed border-[#e6dccf] pb-1">
+                             <span class="text-sm text-[#5d4037]">Médio</span>
+                             <span class="price-tag">R$ 12,00</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                             <span class="text-sm text-[#5d4037]">Grande</span>
+                             <span class="price-tag">R$ 15,00</span>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Card Fatia Supreme -->
+                 <div class="cake-card bg-[#fffefe] p-5 rounded-xl chocolate-border shadow-sm flex flex-col justify-center items-center text-center">
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">Fatia Supreme</h4>
+                        <p class="text-sm text-gray-500 italic mb-3">Generosa e super recheada</p>
+                    </div>
+                    <div>
+                        <span class="block price-tag text-2xl">R$ 18,00</span>
+                        <span class="text-xs text-gray-400">unidade</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 2: BOLOS CASEIROS -->
+        <div class="mb-12">
+            <h3 class="serif-font text-2xl font-bold text-[#5d4037] mb-6 flex items-center border-b border-[#d7ccc8] pb-2">
+                <i class="fas fa-home mr-3 text-[#8d6e63]"></i> Caseirinhos & Vulcão
+            </h3>
+            
+            <div class="bg-[#fcf8f2] border border-[#e6dccf] rounded-xl p-6 shadow-sm">
+                <div class="grid md:grid-cols-2 gap-y-6 gap-x-12">
+                    
+                    <!-- Item 1 -->
+                    <div class="flex justify-between items-end border-b border-dashed border-[#d7ccc8] pb-2">
+                        <div>
+                            <span class="font-bold text-[#3e2723]">Cenoura com Chocolate</span>
+                            <span class="block text-xs text-gray-500">O clássico que todo mundo ama</span>
+                        </div>
+                        <span class="font-bold text-[#5d4037]">R$ 35,00</span>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex justify-between items-end border-b border-dashed border-[#d7ccc8] pb-2">
+                        <div>
+                            <span class="font-bold text-[#3e2723]">Laranja ou Limão</span>
+                            <span class="block text-xs text-gray-500">Com glacê cítrico</span>
+                        </div>
+                        <span class="font-bold text-[#5d4037]">R$ 30,00</span>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex justify-between items-end border-b border-dashed border-[#d7ccc8] pb-2">
+                        <div>
+                            <span class="font-bold text-[#3e2723]">Chocolate Vulcão</span>
+                            <span class="block text-xs text-gray-500">Muita cobertura de brigadeiro</span>
+                        </div>
+                        <span class="font-bold text-[#5d4037]">R$ 45,00</span>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="flex justify-between items-end border-b border-dashed border-[#d7ccc8] pb-2">
+                        <div>
+                            <span class="font-bold text-[#3e2723]">Ninho com Nutella</span>
+                            <span class="block text-xs text-gray-500">Massa fofinha e cobertura dupla</span>
+                        </div>
+                        <span class="font-bold text-[#5d4037]">R$ 55,00</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO 3: BOLOS DE FESTA (POR ENCOMENDA) -->
+        <div class="mb-8">
+            <h3 class="serif-font text-2xl font-bold text-[#5d4037] mb-6 flex items-center border-b border-[#d7ccc8] pb-2">
+                <i class="fas fa-birthday-cake mr-3 text-[#8d6e63]"></i> Bolos de Festa
+            </h3>
+
+            <!-- Card Destaque Bento Cake -->
+            <div class="bg-white p-6 rounded-xl border-l-4 border-[#8d6e63] shadow-md mb-6 flex flex-col md:flex-row items-center gap-6">
+                 <div class="bg-[#efebe9] rounded-full w-20 h-20 flex items-center justify-center text-[#5d4037] text-3xl shrink-0">
+                    <i class="fas fa-comment-dots"></i>
+                 </div>
+                 <div class="flex-1 text-center md:text-left">
+                    <h4 class="font-bold text-xl text-[#3e2723] mb-1">Bento Cake</h4>
+                    <p class="text-sm text-gray-600 mb-2">O queridinho do momento! Mini bolo na marmitinha (aprox. 350g) com frase divertida personalizada.</p>
+                    <span class="inline-block bg-[#5d4037] text-white text-sm px-3 py-1 rounded-full">A partir de R$ 45,00</span>
+                 </div>
+            </div>
+
+            <!-- Tabela Preços Bolos Decorados -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-[#efebe9] text-[#5d4037]">
+                            <th class="p-4 rounded-tl-lg font-bold">Tamanho</th>
+                            <th class="p-4 font-bold">Fatias (aprox.)</th>
+                            <th class="p-4 rounded-tr-lg font-bold text-right">Valor Inicial</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600">
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Mini (10cm)</td>
+                            <td class="p-4">4 a 6 fatias</td>
+                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 65,00</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Pequeno (15cm)</td>
+                            <td class="p-4">10 a 12 fatias</td>
+                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 120,00</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Médio (20cm)</td>
+                            <td class="p-4">20 a 25 fatias</td>
+                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 180,00</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-semibold">Grande (25cm)</td>
+                            <td class="p-4">30 a 35 fatias</td>
+                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 240,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-xs text-gray-400 mt-2 italic text-center md:text-right">* Valores podem variar conforme decoração e recheio.</p>
+        </div>
+
+        <!-- MENSAGEM FINAL -->
+        <div class="bg-[#efebe9] rounded-lg p-6 text-center mt-10">
+             <h4 class="font-bold text-[#5d4037] mb-2">Quer um sabor específico?</h4>
+             <p class="text-sm text-[#6d4c41] mb-4">Trabalhamos com encomendas personalizadas. Fale connosco!</p>
+             <a href="https://wa.link/1synd7" class="inline-block bg-[#25D366] text-white font-bold py-2 px-6 rounded-full hover:bg-[#128C7E] transition-colors shadow-sm">
+                <i class="fab fa-whatsapp mr-2"></i> Solicitar Orçamento
+             </a>
+        </div>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-[#5d4037] text-[#d7ccc8] py-8 text-center text-sm border-t-4 border-[#8d6e63]">
+        <p class="font-playfair text-xl mb-2 font-bold italic">Little Candy Dream</p>
+        <p class="opacity-80 mb-4">
+          Transformando sonhos em doces momentos. <br />Os produtos podem conter
+          glúten, lactose e oleaginosas.
+        </p>
+        <div class="flex justify-center gap-6">
+          <a href="https://wa.link/9lhmg7" class="hover:text-white transition-colors"><i class="fab fa-whatsapp text-3xl"></i></a>
+          <a href="https://www.instagram.com/littlecandy.dream/" class="hover:text-white transition-colors"><i class="fab fa-instagram text-3xl"></i></a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+/* ===================================
+   DEFAULT.CSS - Variáveis CSS Globais
+   Little Candy Dream
+   =================================== */
+
+:root {
+  /* ===================================
+     CORES - Paleta Geral
+     =================================== */
+  
+  /* Cores de Fundo */
+  --color-bg-light: #fdfbf7;
+  --color-bg-white: #ffffff;
+  
+  /* Cores de Texto */
+  --color-text-dark: #4a4a4a;
+  --color-text-light: #6d4c41;
+  --color-text-gray: #999999;
+  
+  /* ===================================
+     CORES - Tema Natal (Vermelho/Ouro)
+     =================================== */
+  --color-natal-primary: #8b0000;
+  --color-natal-secondary: #c9a227;
+  --color-natal-light: #f3e5d8;
+  --color-natal-border: #e6dccf;
+  
+  /* ===================================
+     CORES - Tema Clássicos (Ouro)
+     =================================== */
+  --color-classics-primary: #c9a227;
+  --color-classics-border: #e6dccf;
+  --color-classics-accent: #d4b08c;
+  --color-classics-dark: #8c7b50;
+  
+  /* ===================================
+     CORES - Tema Bolos (Chocolate)
+     =================================== */
+  --color-bolos-primary: #5d4037;
+  --color-bolos-secondary: #8d6e63;
+  --color-bolos-light: #efebe9;
+  --color-bolos-border: #d7ccc8;
+  --color-bolos-dark: #3e2723;
+  
+  /* ===================================
+     CORES - Tema Zero Açúcar (Verde)
+     =================================== */
+  --color-zero-primary: #1a472a;
+  --color-zero-secondary: #a3b18a;
+  --color-zero-light: #e8f5e9;
+  --color-zero-accent: #2d5f3f;
+  
+  /* ===================================
+     TIPOGRAFIA
+     =================================== */
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Lato", sans-serif;
+  
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  
+  /* ===================================
+     ESPAÇAMENTO
+     =================================== */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  
+  /* ===================================
+     BORDER RADIUS
+     =================================== */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* ===================================
+     SOMBRAS
+     =================================== */
+  --shadow-sm: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* ===================================
+     TRANSIÇÕES
+     =================================== */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease-out;
+  
+  /* ===================================
+     Z-INDEX
+     =================================== */
+  --z-background: 0;
+  --z-base: 10;
+  --z-fixed: 50;
+  
+  /* ===================================
+     BREAKPOINTS
+     =================================== */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}

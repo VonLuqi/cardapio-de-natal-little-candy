@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kit Festa - Little Candy Dream</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/hidden-coupon.css" />
+    <link rel="stylesheet" href="css/santa-flight.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body class="antialiased min-h-screen relative">
+    
+    <!-- Botão Voltar -->
+    <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#c9a227] px-4 py-2 rounded-full shadow-lg hover:bg-[#c9a227] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-[#c9a227]">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden border-t-8 border-[#c9a227]">
+      
+      <!-- Header -->
+      <header class="bg-[#fcf8f2] p-10 text-center relative overflow-hidden border-b border-[#e6dccf]">
+        <div class="relative z-10">
+          <div class="text-[#c9a227] text-3xl mb-2">
+            <i class="fas fa-gift"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-2 tracking-wide text-[#1a472a]">
+            Kit Festa
+          </h1>
+          <p class="text-lg italic text-[#8c7b50] serif-font">
+            Personalizado para suas comemorações especiais
+          </p>
+        </div>
+      </header>
+
+      <main class="p-6 md:p-12">
+        
+        <!-- INTRODUÇÃO -->
+        <div class="text-center mb-10 max-w-2xl mx-auto">
+          <p class="text-gray-600 leading-relaxed italic">
+            "Kits festa totalmente personalizados para suas comemorações! Ideal para festas infantis, mas também personalizamos para outras idades. O conteúdo é de sua escolha e não se restringe aos itens listados abaixo."
+          </p>
+        </div>
+
+        <!-- AVISO IMPORTANTE -->
+        <div class="bg-blue-50 border-l-4 border-[#c9a227] p-4 mb-10 rounded-r shadow-sm">
+            <div class="flex items-start">
+                <i class="fas fa-lightbulb text-[#c9a227] mt-1 mr-3 text-xl"></i>
+                <div>
+                    <h4 class="font-bold text-[#8c7b50] uppercase text-sm tracking-wider">Como Funciona</h4>
+                    <p class="text-gray-600 italic">Escolha os itens que deseja, a quantidade e nós montamos seu kit perfeito! Consulte-nos para opções personalizadas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO: ITENS DO KIT -->
+        <div class="mb-12">
+          <h3 class="serif-font text-2xl font-bold text-[#1a472a] mb-6 flex items-center border-b border-[#e6dccf] pb-2">
+            <i class="fas fa-star mr-3 text-[#c9a227]"></i> Itens Disponíveis
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            
+            <!-- Item 1: Mini Cup cake -->
+            <div class="bg-white p-6 rounded-xl border-l-4 border-[#c9a227] shadow-sm">
+                <h4 class="font-bold text-[#1a472a] text-lg mb-2 flex items-center">
+                    <i class="fas fa-birthday-cake mr-2 text-[#c9a227]"></i> Mini Cup cake
+                </h4>
+                <p class="text-sm text-gray-600 mb-3">Recheado e confeitado com chantininho</p>
+                <div class="bg-yellow-50 border border-[#e6dccf] rounded p-3 text-center">
+                    <span class="text-2xl font-bold text-[#1a472a]">R$ 6,00</span>
+                    <p class="text-xs text-gray-500 mt-1">por unidade</p>
+                </div>
+            </div>
+
+            <!-- Item 2: Salada de Frutas -->
+            <div class="bg-white p-6 rounded-xl border-l-4 border-[#c9a227] shadow-sm">
+                <h4 class="font-bold text-[#1a472a] text-lg mb-2 flex items-center">
+                    <i class="fas fa-apple-alt mr-2 text-[#c9a227]"></i> Salada de Frutas
+                </h4>
+                <p class="text-sm text-gray-600 mb-3">Frutas frescas selecionadas</p>
+                <div class="bg-yellow-50 border border-[#e6dccf] rounded p-3 text-center">
+                    <span class="text-2xl font-bold text-[#1a472a]">R$ 7,00</span>
+                    <p class="text-xs text-gray-500 mt-1">por porção</p>
+                </div>
+            </div>
+
+            <!-- Item 3: Sanduíche/Salgadinhos -->
+            <div class="bg-white p-6 rounded-xl border-l-4 border-[#c9a227] shadow-sm">
+                <h4 class="font-bold text-[#1a472a] text-lg mb-2 flex items-center">
+                    <i class="fas fa-leaf mr-2 text-[#c9a227]"></i> Sanduíche Natural
+                </h4>
+                <p class="text-sm text-gray-600 mb-3">Ou salgadinhos assados</p>
+                <div class="bg-yellow-50 border border-[#e6dccf] rounded p-3 text-center">
+                    <span class="text-2xl font-bold text-[#1a472a]">R$ 6,00</span>
+                    <p class="text-xs text-gray-500 mt-1">sua escolha</p>
+                </div>
+            </div>
+
+            <!-- Item 4: Suco -->
+            <div class="bg-white p-6 rounded-xl border-l-4 border-[#c9a227] shadow-sm">
+                <h4 class="font-bold text-[#1a472a] text-lg mb-2 flex items-center">
+                    <i class="fas fa-wine-glass-alt mr-2 text-[#c9a227]"></i> Suco de Caixinha
+                </h4>
+                <p class="text-sm text-gray-600 mb-3">Diversos sabores disponíveis</p>
+                <div class="bg-yellow-50 border border-[#e6dccf] rounded p-3 text-center">
+                    <span class="text-2xl font-bold text-[#1a472a]">R$ 4,00</span>
+                    <p class="text-xs text-gray-500 mt-1">por unidade</p>
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SEÇÃO: COMO É ENTREGUE -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-8 mb-12">
+            <h3 class="serif-font text-2xl font-bold text-[#1a472a] mb-4 flex items-center">
+                <i class="fas fa-box text-[#c9a227] mr-3"></i> Como Entregamos
+            </h3>
+            <p class="text-gray-700 mb-4">
+                Cada kit é cuidadosamente preparado e embalado pensando na praticidade e apresentação:
+            </p>
+            <div class="bg-white rounded-lg p-6 border border-green-200 space-y-3">
+                <div class="flex items-start">
+                    <div class="bg-green-100 text-green-700 rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0 text-sm font-bold">✓</div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Saquinho de Papel Pardo</p>
+                        <p class="text-sm text-gray-600">Cada pessoa recebe um kit em saquinho de papel pardo</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 text-green-700 rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0 text-sm font-bold">✓</div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Itens Separados</p>
+                        <p class="text-sm text-gray-600">Todos os itens vêm com embalagens individuais e dentro do saquinho</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 text-green-700 rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0 text-sm font-bold">✓</div>
+                    <div>
+                        <p class="font-semibold text-gray-800">Talheres e Guardanapos</p>
+                        <p class="text-sm text-gray-600">Inclusos talheres e guardanapos individualizados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p class="text-sm text-gray-700">
+                    <i class="fas fa-star text-[#c9a227] mr-2"></i> <strong>Embalagens Personalizadas:</strong> Providenciamos embalagens diferentes conforme gosto do cliente, mediante pagamento extra. Consulte-nos!
+                </p>
+            </div>
+        </div>
+
+        <!-- SEÇÃO: OUTRAS OPÇÕES -->
+        <div class="bg-[#fcf8f2] rounded-xl p-8 border border-[#e6dccf] mb-12">
+            <h3 class="serif-font text-2xl font-bold text-[#1a472a] mb-6 flex items-center">
+                <i class="fas fa-sparkles mr-3 text-[#c9a227]"></i> Mais Opções
+            </h3>
+            <p class="text-gray-700 mb-4">
+                Os itens listados acima são apenas sugestões! Temos muitas outras opções disponíveis:
+            </p>
+            <ul class="grid md:grid-cols-2 gap-3 text-gray-700">
+                <li class="flex items-center"><i class="fas fa-star text-[#c9a227] text-xs mr-2"></i> Brigadeiros gourmet</li>
+                <li class="flex items-center"><i class="fas fa-star text-[#c9a227] text-xs mr-2"></i> Biscoitos decorados</li>
+                <li class="flex items-center"><i class="fas fa-star text-[#c9a227] text-xs mr-2"></i> Chocolates personalizados</li>
+                <li class="flex items-center"><i class="fas fa-star text-[#c9a227] text-xs mr-2"></i> Docinhos finos</li>
+                <li class="flex items-center"><i class="fas fa-star text-[#c9a227] text-xs mr-2"></i> Pavês</li>
+                <li class="flex items-center"><i class="fas fa-star text-[#c9a227] text-xs mr-2"></i> E muito mais!</li>
+            </ul>
+        </div>
+
+        <!-- DICAS -->
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="text-center">
+                <div class="bg-[#c9a227] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <h4 class="font-bold text-[#1a472a] mb-2">Prazo Mínimo</h4>
+                <p class="text-sm text-gray-600">Antecedência mínima de <strong>3 dias</strong></p>
+            </div>
+            <div class="text-center">
+                <div class="bg-[#c9a227] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h4 class="font-bold text-[#1a472a] mb-2">Quantidade Mínima</h4>
+                <p class="text-sm text-gray-600">Depende dos itens escolhidos</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-[#c9a227] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h4 class="font-bold text-[#1a472a] mb-2">Personalização</h4>
+                <p class="text-sm text-gray-600">Temas e designs customizados</p>
+            </div>
+        </div>
+
+        <!-- SEÇÃO: DESIGNS PERSONALIZADOS -->
+        <div class="bg-red-50 border border-red-200 rounded-xl p-8 mb-12">
+            <h3 class="serif-font text-2xl font-bold text-[#1a472a] mb-4 flex items-center">
+                <i class="fas fa-star text-[#c9a227] mr-3"></i> Temas e Designs Customizados
+            </h3>
+            <p class="text-gray-700 mb-4">
+                Oferecemos temas e designs personalizados para deixar sua festa ainda mais especial! <span class="font-semibold">As opções de customização são infinitas</span> e podem ser totalmente conversadas com você.
+            </p>
+            <div class="bg-white rounded-lg p-4 border border-red-200">
+                <p class="font-semibold text-[#1a472a] mb-2">💎 Tabela de Preços:</p>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-[#c9a227] font-bold mr-3">•</span>
+                        <span><strong>R$ 6,00</strong> por folha de adesivos personalizados</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-[#c9a227] font-bold mr-3">•</span>
+                        <span>Uma folha rende aproximadamente <strong>24 adesivos personalizados</strong></span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-[#c9a227] font-bold mr-3">•</span>
+                        <span>Cobrado <strong>à parte</strong> do kit festa</span>
+                    </li>
+                </ul>
+            </div>
+            <p class="text-sm text-red-800 italic mt-4">
+                <i class="fas fa-lightbulb mr-2"></i> Entre em contato para discutir suas ideias e criarmos o design perfeito para sua celebração!
+            </p>
+        </div>        <!-- CTA FINAL -->
+        <div class="bg-gradient-to-r from-[#c9a227] to-[#e6cfa3] rounded-xl text-white p-8 text-center">
+            <h3 class="serif-font text-2xl md:text-3xl font-bold mb-4">
+                Pronto para Montar seu Kit Festa?
+            </h3>
+            <p class="mb-6 text-sm md:text-base opacity-95">
+                Entre em contato conosco para discutir todos os detalhes e personalizar seu kit festa perfeito!
+            </p>
+            <a href="https://wa.link/9lhmg7" class="inline-block bg-white text-[#c9a227] font-bold py-3 px-8 rounded-full hover:bg-[#fdfbf7] transition-colors shadow-lg">
+                <i class="fab fa-whatsapp mr-2"></i> Solicitar Orçamento
+            </a>
+        </div>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-[#1a472a] text-[#e6dccf] py-8 text-center text-sm border-t-4 border-[#c9a227]">
+        <p class="font-playfair text-xl mb-2 font-bold italic">Little Candy Dream</p>
+        <p class="opacity-80 mb-4">
+          Transformando sonhos em doces momentos. <br />Os produtos podem conter
+          glúten, lactose e oleaginosas.
+        </p>
+        <div class="flex justify-center gap-6">
+          <a href="https://wa.link/9lhmg7" class="hover:text-white transition-colors"><i class="fab fa-whatsapp text-3xl"></i></a>
+          <a href="https://www.instagram.com/littlecandy.dream/" class="hover:text-white transition-colors"><i class="fab fa-instagram text-3xl"></i></a>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Hidden Coupon Script -->
+    <script src="script/hidden-coupon.js"></script>
+    <!-- Santa Flight Animation -->
+    <script src="script/santa-flight.js"></script>
+  </body>
+</html>

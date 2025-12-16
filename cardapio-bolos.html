@@ -13,37 +13,12 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      body {
-        font-family: "Lato", sans-serif;
-        background-color: #fdfbf7;
-        color: #4a4a4a;
-      }
-      h1, h2, h3, .serif-font {
-        font-family: "Playfair Display", serif;
-      }
-      .bg-pattern {
-        /* Padrão sutil de granulado de chocolate */
-        background-image: radial-gradient(#8d6e63 1.5px, transparent 1.5px);
-        background-size: 25px 25px;
-        opacity: 0.15;
-      }
-      .chocolate-border {
-        border: 1px solid #e6dccf;
-        border-top: 4px solid #5d4037;
-      }
-      .price-tag {
-        font-weight: 700;
-        color: #5d4037;
-      }
-      /* Efeito de hover suave nos cards */
-      .cake-card {
-        transition: transform 0.2s ease-in-out;
-      }
-      .cake-card:hover {
-        transform: translateY(-3px);
-      }
-    </style>
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/cardapio-bolos.css" />
+    <link rel="stylesheet" href="css/hidden-coupon.css" />
+    <link rel="stylesheet" href="css/santa-flight.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
   <body class="antialiased min-h-screen relative">
     <!-- Background Pattern -->
@@ -86,12 +61,12 @@
           </p>
         </div>
 
-        <!-- SEÇÃO 1: BOLOS DE POTE / FATIA -->
+        <!-- SEÇÃO 1: BOLOS DE POTE -->
         <div class="mb-12">
             <h3 class="serif-font text-2xl font-bold text-[#5d4037] mb-6 flex items-center border-b border-[#d7ccc8] pb-2">
                 <i class="fas fa-spoon mr-3 text-[#8d6e63]"></i> Para Adoçar o Dia
             </h3>
-            <div class="grid md:grid-cols-2 gap-6">
+            <div>
                 <!-- Card Bolo de Pote (Atualizado com Médio e Grande) -->
                 <div class="cake-card bg-[#fffefe] p-5 rounded-xl chocolate-border shadow-sm flex flex-col justify-between">
                     <div class="mb-3">
@@ -107,17 +82,6 @@
                              <span class="text-sm text-[#5d4037]">Grande</span>
                              <span class="price-tag">R$ 15,00</span>
                         </div>
-                    </div>
-                </div>
-                 <!-- Card Fatia Supreme -->
-                 <div class="cake-card bg-[#fffefe] p-5 rounded-xl chocolate-border shadow-sm flex flex-col justify-center items-center text-center">
-                    <div>
-                        <h4 class="font-bold text-gray-800 text-lg">Fatia Supreme</h4>
-                        <p class="text-sm text-gray-500 italic mb-3">Generosa e super recheada</p>
-                    </div>
-                    <div>
-                        <span class="block price-tag text-2xl">R$ 18,00</span>
-                        <span class="text-xs text-gray-400">unidade</span>
                     </div>
                 </div>
             </div>
@@ -175,56 +139,161 @@
         <!-- SEÇÃO 3: BOLOS DE FESTA (POR ENCOMENDA) -->
         <div class="mb-8">
             <h3 class="serif-font text-2xl font-bold text-[#5d4037] mb-6 flex items-center border-b border-[#d7ccc8] pb-2">
-                <i class="fas fa-birthday-cake mr-3 text-[#8d6e63]"></i> Bolos de Festa
+                <i class="fas fa-birthday-cake mr-3 text-[#8d6e63]"></i> Bolo Decorado Recheio Tradicional
             </h3>
 
-            <!-- Card Destaque Bento Cake -->
-            <div class="bg-white p-6 rounded-xl border-l-4 border-[#8d6e63] shadow-md mb-6 flex flex-col md:flex-row items-center gap-6">
-                 <div class="bg-[#efebe9] rounded-full w-20 h-20 flex items-center justify-center text-[#5d4037] text-3xl shrink-0">
-                    <i class="fas fa-comment-dots"></i>
-                 </div>
-                 <div class="flex-1 text-center md:text-left">
-                    <h4 class="font-bold text-xl text-[#3e2723] mb-1">Bento Cake</h4>
-                    <p class="text-sm text-gray-600 mb-2">O queridinho do momento! Mini bolo na marmitinha (aprox. 350g) com frase divertida personalizada.</p>
-                    <span class="inline-block bg-[#5d4037] text-white text-sm px-3 py-1 rounded-full">A partir de R$ 45,00</span>
-                 </div>
+            <!-- Preço Inicial -->
+            <div class="bg-[#fcf8f2] rounded-xl p-6 mb-6 border border-[#e6dccf]">
+                <p class="text-center text-3xl font-bold text-[#5d4037] mb-4">R$ 95,00</p>
+                
+                <!-- Tabela Tamanhos e Preços -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-[#efebe9] text-[#5d4037]">
+                                <th class="p-3 rounded-tl-lg font-bold">Tamanho</th>
+                                <th class="p-3 font-bold">Fatias (aprox.)</th>
+                                <th class="p-3 rounded-tr-lg font-bold text-right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600">
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="p-3 font-semibold">P - Pequeno</td>
+                                <td class="p-3">12 a 15 fatias</td>
+                                <td class="p-3 text-right font-bold text-[#5d4037]">R$ 95,00 a R$ 110,00</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="p-3 font-semibold">M - Médio</td>
+                                <td class="p-3">25 a 28 fatias</td>
+                                <td class="p-3 text-right font-bold text-[#5d4037]">R$ 165,00 a R$ 180,00</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="p-3 font-semibold">M+ - Médio Plus</td>
+                                <td class="p-3">35 a 42 fatias</td>
+                                <td class="p-3 text-right font-bold text-[#5d4037]">R$ 185,00 a R$ 210,00</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold">G - Grande</td>
+                                <td class="p-3">45 a 52 fatias</td>
+                                <td class="p-3 text-right font-bold text-[#5d4037]">R$ 230,00 a R$ 250,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <!-- Tabela Preços Bolos Decorados -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-[#efebe9] text-[#5d4037]">
-                            <th class="p-4 rounded-tl-lg font-bold">Tamanho</th>
-                            <th class="p-4 font-bold">Fatias (aprox.)</th>
-                            <th class="p-4 rounded-tr-lg font-bold text-right">Valor Inicial</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-600">
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="p-4 font-semibold">Mini (10cm)</td>
-                            <td class="p-4">4 a 6 fatias</td>
-                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 65,00</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="p-4 font-semibold">Pequeno (15cm)</td>
-                            <td class="p-4">10 a 12 fatias</td>
-                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 120,00</td>
-                        </tr>
-                        <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="p-4 font-semibold">Médio (20cm)</td>
-                            <td class="p-4">20 a 25 fatias</td>
-                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 180,00</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-4 font-semibold">Grande (25cm)</td>
-                            <td class="p-4">30 a 35 fatias</td>
-                            <td class="p-4 text-right font-bold text-[#5d4037]">R$ 240,00</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- RECHEIOS TRADICIONAIS -->
+            <div class="bg-white p-6 rounded-xl chocolate-border shadow-sm mb-6">
+                <h4 class="font-bold text-[#5d4037] text-lg mb-6 flex items-center border-b border-[#d7ccc8] pb-3">
+                    <i class="fas fa-layer-group mr-2 text-[#8d6e63]"></i> Recheios Tradicionais Base
+                </h4>
+                
+                <!-- Recheios Base -->
+                <div class="mb-6">
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Trufado de chocolate ao leite</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Trufado chocolate branco</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Creme patissiere</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Mousses</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Doce de Leite</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Cocada Cremosa</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Baba de Moça</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Subsessão: Brigadeiros -->
+                <div class="border-t border-[#d7ccc8] pt-4">
+                    <h5 class="font-bold text-[#5d4037] text-base mb-4 flex items-center">
+                        <i class="fas fa-heart mr-2 text-[#8d6e63]"></i> Brigadeiros
+                    </h5>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Ao leite</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Meio amargo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#8d6e63] font-bold mr-3">•</span>
+                            <span class="text-gray-700">Branco</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <p class="text-xs text-gray-400 mt-2 italic text-center md:text-right">* Valores podem variar conforme decoração e recheio.</p>
+
+            <!-- INFORMAÇÕES ADICIONAIS -->
+            <div class="bg-[#fcf8f2] rounded-xl p-6 border border-[#e6dccf] space-y-4">
+                <div class="border-b border-[#d7ccc8] pb-4">
+                    <h5 class="font-bold text-[#5d4037] mb-2 text-sm uppercase tracking-wider">Personalização</h5>
+                    <p class="text-sm text-gray-700">
+                        Personalizamos seus bolos com <span class="font-semibold">topos personalizados</span> e <span class="font-semibold">artes customizadas</span> conforme o tema da sua festa ou celebração. Consulte nossas opções disponíveis!
+                    </p>
+                </div>
+
+                <div class="border-b border-[#d7ccc8] pb-4">
+                    <h5 class="font-bold text-[#5d4037] mb-2 text-sm uppercase tracking-wider">Massa Base</h5>
+                    <p class="text-sm text-gray-700">
+                        <span class="font-semibold">Branca</span> (baunilha) ou <span class="font-semibold">Chocolate</span>
+                    </p>
+                </div>
+
+                <div class="border-b border-[#d7ccc8] pb-4">
+                    <h5 class="font-bold text-[#5d4037] mb-2 text-sm uppercase tracking-wider">Coberturas</h5>
+                    <ul class="text-sm text-gray-700 space-y-1 mb-3">
+                        <li>• Chantininho</li>
+                        <li>• Creme Patissiere</li>
+                        <li>• Merengue Suíço</li>
+                        <li>• Ganache de Chocolate</li>
+                    </ul>
+                    <div class="bg-red-50 border border-red-100 rounded p-2 text-xs text-red-800">
+                        <i class="fas fa-exclamation-circle mr-1"></i>
+                        <span class="font-semibold">Ganache de Chocolate</span> é cobrado como adicional e varia conforme o tamanho do bolo. Consulte-nos para orçamento!
+                    </div>
+                </div>
+
+                <div class="border-b border-[#d7ccc8] pb-4">
+                    <h5 class="font-bold text-[#5d4037] mb-2 text-sm uppercase tracking-wider">Adicionais & Extras</h5>
+                    <p class="text-sm text-gray-700 mb-2">
+                        Todas essas bases podem ser agregadas qualquer sabor de sua preferência.
+                    </p>
+                    <div class="bg-white rounded-lg p-3 text-sm">
+                        <p class="font-semibold text-[#5d4037] mb-2">Frutas, geleias, castanhas e especiarias:</p>
+                        <p class="text-gray-700">
+                            Frutas frescas, geleias, castanhas, especiarias (canela, gengibre) e Nutella.
+                        </p>
+                        <p class="font-semibold text-[#5d4037] mt-3 mb-1">Acréscimo: R$ 15,00 (em média)</p>
+                        <p class="text-xs text-gray-500">* Valor pode variar conforme o tamanho do bolo</p>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-400 italic">
+                    * Os valores podem variar conforme tamanho, personalização, decoração, escolha de recheios, coberturas e adicionais (frutas, castanhas, etc).
+                </p>
+            </div>
+
         </div>
 
         <!-- MENSAGEM FINAL -->
@@ -251,5 +320,9 @@
         </div>
       </footer>
     </div>
+    <!-- Hidden Coupon Script -->
+    <script src="script/hidden-coupon.js"></script>
+    <!-- Santa Flight Animation -->
+    <script src="script/santa-flight.js"></script>
   </body>
 </html>

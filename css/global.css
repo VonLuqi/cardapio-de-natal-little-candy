@@ -1,0 +1,64 @@
+/* ===================================
+   ESTILOS GLOBAIS - Little Candy Dream
+   =================================== */
+
+/* Base */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+}
+
+h1, h2, h3, .serif-font {
+  font-family: var(--font-serif);
+}
+
+/* Pattern decorativo de fundo */
+.bg-pattern {
+  background-image: radial-gradient(#d4b08c 1.5px, transparent 1.5px);
+  background-size: 25px 25px;
+  opacity: 0.15;
+}
+
+/* Animação suave para os botões */
+.menu-card {
+  transition: all var(--transition-normal);
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(139, 0, 0, 0.15);
+}
+
+/* Hover states para diferentes temas */
+.btn-traditional:hover {
+  border-color: var(--color-natal-primary);
+}
+
+.btn-diet:hover {
+  border-color: var(--color-zero-primary);
+}
+
+.btn-classics:hover {
+  border-color: var(--color-classics-primary);
+}
+
+.btn-cakes:hover {
+  border-color: var(--color-bolos-primary);
+}
+
+/* Animação fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-slow);
+}

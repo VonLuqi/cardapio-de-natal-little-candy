@@ -1,0 +1,192 @@
+/* ===================================
+   Santa Flight Animation
+   Little Candy Dream - Natal 2025
+   =================================== */
+
+.santa-flight-container {
+  position: fixed;
+  top: 15%;
+  left: -300px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.santa-flight-container.active {
+  animation: flyAcrossScreen 8s linear forwards;
+  opacity: 1;
+}
+
+/* Animação de voo da direita para esquerda */
+@keyframes flyAcrossScreen {
+  0% {
+    left: -300px;
+    transform: translateY(0) rotate(-5deg);
+  }
+  20% {
+    transform: translateY(-20px) rotate(-3deg);
+  }
+  40% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+  60% {
+    transform: translateY(-25px) rotate(-2deg);
+  }
+  80% {
+    transform: translateY(-15px) rotate(-4deg);
+  }
+  100% {
+    left: calc(100vw + 100px);
+    transform: translateY(-10px) rotate(-3deg);
+  }
+}
+
+/* Container do trenó */
+.santa-sleigh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Renas */
+.reindeer {
+  font-size: 2.5rem;
+  color: #8b4513;
+  animation: reindeerBounce 0.6s ease-in-out infinite;
+  position: relative;
+}
+
+.reindeer:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.reindeer:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.reindeer:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes reindeerBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Papai Noel no trenó */
+.santa {
+  font-size: 3rem;
+  color: #c41e3a;
+  animation: santaBounce 0.8s ease-in-out infinite;
+  margin-left: 5px;
+}
+
+@keyframes santaBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.05);
+  }
+}
+
+/* Estrelas/brilho ao redor */
+.santa-stars {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+}
+
+.santa-star {
+  font-size: 1.2rem;
+  color: #ffd700;
+  animation: starTwinkle 1s ease-in-out infinite;
+}
+
+.santa-star:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.santa-star:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.santa-star:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Rastro de neve */
+.snow-trail {
+  position: absolute;
+  top: 50%;
+  left: -50px;
+  width: 200px;
+  height: 3px;
+  pointer-events: none;
+}
+
+.snow-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: snowFall 2s linear infinite;
+}
+
+.snow-particle:nth-child(1) { left: 10px; animation-delay: 0s; }
+.snow-particle:nth-child(2) { left: 30px; animation-delay: 0.3s; }
+.snow-particle:nth-child(3) { left: 50px; animation-delay: 0.6s; }
+.snow-particle:nth-child(4) { left: 70px; animation-delay: 0.9s; }
+.snow-particle:nth-child(5) { left: 90px; animation-delay: 1.2s; }
+
+@keyframes snowFall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(60px) translateX(-20px);
+  }
+}
+
+/* Responsivo - em mobile menor */
+@media (max-width: 768px) {
+  .reindeer {
+    font-size: 1.8rem;
+  }
+  
+  .santa {
+    font-size: 2.2rem;
+  }
+  
+  .santa-star {
+    font-size: 0.9rem;
+  }
+  
+  .santa-flight-container.active {
+    animation-duration: 6s;
+  }
+}

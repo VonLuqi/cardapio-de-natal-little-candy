@@ -138,6 +138,38 @@
   transform: translateY(0);
 }
 
+.coupon-input-group {
+  margin: 16px 0;
+  width: 100%;
+}
+
+.coupon-input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8b0000;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coupon-input-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e6dccf;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.coupon-input-group input:focus {
+  outline: none;
+  border-color: #8b0000;
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
 .coupon-close {
   position: absolute;
   top: 12px;

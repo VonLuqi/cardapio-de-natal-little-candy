@@ -4,8 +4,8 @@
    =================================== */
 
 (function() {
-  // Probabilidade de aparecer: 1% (1 em 100 visitantes)
-  const APPEARANCE_CHANCE = 0.01;
+  // Probabilidade de aparecer: 0.5% (1 em 100 visitantes)
+  const APPEARANCE_CHANCE = 0.005;
   
   // Verifica se o cupom já foi coletado nesta sessão
   const SESSION_KEY = 'littlecandy_coupon_collected';
@@ -47,6 +47,26 @@
             <p class="coupon-code">Clique para gerar seu cupom</p>
           </div>
         </div>
+        <div class="coupon-input-group">
+          <label for="coupon-name">Seu Nome *</label>
+          <input 
+            type="text" 
+            id="coupon-name" 
+            placeholder="Digite seu nome aqui" 
+            required
+            maxlength="30"
+          />
+        </div>
+        <div class="coupon-input-group">
+          <label for="coupon-name">Seu Nome *</label>
+          <input 
+            type="text" 
+            id="coupon-name" 
+            placeholder="Digite seu nome aqui" 
+            required
+            maxlength="30"
+          />
+        </div>
         <button id="coupon-btn" class="coupon-btn">
           <i class="fas fa-download"></i> Baixar Cupom
         </button>
@@ -87,6 +107,16 @@
   }
 
   function generateAndDownloadPDF() {
+    // Pega o nome do input
+    const nameInput = document.getElementById('coupon-name');
+    const customerName = nameInput ? nameInput.value.trim() : '';
+    
+    // Valida se o nome foi preenchido
+    if (!customerName) {
+      alert('Por favor, digite seu nome para gerar o cupom!');
+      return;
+    }
+
     // Marca como coletado nesta sessão
     sessionStorage.setItem(SESSION_KEY, 'true');
 
@@ -100,7 +130,7 @@
     const jsPDFLib = getjsPDF();
     
     if (!jsPDFLib) {
-      alert('Cupom: LITTLECANDY10\n\nDesconto de 10% na sua compra!\nValidade: 31 de dezembro de 2025');
+      alert(`Cupom para: ${customerName}\nCódigo: LITTLECANDY10\n\nDesconto de 10% na sua compra!\nValidade: 31 de dezembro de 2025`);
       closeCoupon();
       return;
     }
@@ -135,50 +165,55 @@
       doc.setFont(undefined, 'bold');
       doc.text('CUPOM ESPECIAL', doc.internal.pageSize.getWidth() / 2, 12, { align: 'center' });
 
-      // Logo text
+      // Nome do cliente
       doc.setTextColor(...primaryColor);
-      doc.setFontSize(16);
+      doc.setFontSize(11);
       doc.setFont(undefined, 'bold');
-      doc.text('10% OFF', doc.internal.pageSize.getWidth() / 2, 35, { align: 'center' });
+      doc.text(`Para: ${customerName}`, doc.internal.pageSize.getWidth() / 2, 28, { align: 'center' });
+
+      // Desconto
+      doc.setFontSize(18);
+      doc.setFont(undefined, 'bold');
+      doc.text('10% OFF', doc.internal.pageSize.getWidth() / 2, 40, { align: 'center' });
 
       // Descrição
       doc.setFontSize(10);
       doc.setFont(undefined, 'normal');
       doc.setTextColor(74, 74, 74);
-      doc.text('Desconto exclusivo para você!', doc.internal.pageSize.getWidth() / 2, 45, { align: 'center' });
+      doc.text('Desconto exclusivo para você!', doc.internal.pageSize.getWidth() / 2, 50, { align: 'center' });
 
       // Código do cupom
       doc.setFillColor(...secondaryColor);
-      doc.rect(8, 52, doc.internal.pageSize.getWidth() - 16, 15, 'F');
+      doc.rect(8, 56, doc.internal.pageSize.getWidth() - 16, 15, 'F');
       
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(12);
       doc.setFont(undefined, 'bold');
       const couponCode = 'LITTLECANDY10';
-      doc.text(couponCode, doc.internal.pageSize.getWidth() / 2, 62, { align: 'center' });
+      doc.text(couponCode, doc.internal.pageSize.getWidth() / 2, 66, { align: 'center' });
 
       // Informações adicionais
       doc.setTextColor(74, 74, 74);
-      doc.setFontSize(9);
+      doc.setFontSize(8);
       doc.setFont(undefined, 'normal');
-      doc.text('Válido até: 31 de Dezembro de 2025', doc.internal.pageSize.getWidth() / 2, 72, { align: 'center' });
+      doc.text('Válido até: 31 de Dezembro de 2025', doc.internal.pageSize.getWidth() / 2, 76, { align: 'center' });
 
       // Footer
-      doc.setFontSize(8);
+      doc.setFontSize(7);
       doc.setTextColor(150, 150, 150);
-      doc.text('Little Candy Dream - Natal 2025', doc.internal.pageSize.getWidth() / 2, 88, { align: 'center' });
-      doc.text('Use para ganhar 10% de desconto!', doc.internal.pageSize.getWidth() / 2, 92, { align: 'center' });
+      doc.text('Little Candy Dream - Natal 2025', doc.internal.pageSize.getWidth() / 2, 86, { align: 'center' });
+      doc.text('Use para ganhar 10% de desconto!', doc.internal.pageSize.getWidth() / 2, 90, { align: 'center' });
 
       // Salva o PDF
-      doc.save('cupom-littlecandy-10off.pdf');
+      doc.save(`cupom-littlecandy-${customerName.toLowerCase().replace(/\s+/g, '-')}.pdf`);
       
       // Mostra mensagem de sucesso
-      alert('Cupom baixado com sucesso!\nCódigo: LITTLECANDY10\nDesconto: 10% OFF');
+      alert(`Cupom baixado com sucesso!\nCódigo: LITTLECANDY10\nDesconto: 10% OFF`);
       closeCoupon();
 
     } catch (error) {
       console.error('Erro ao gerar PDF:', error);
-      alert('Cupom: LITTLECANDY10\n\nDesconto de 10% na sua compra!\nValidade: 31 de dezembro de 2025');
+      alert(`Cupom para: ${customerName}\nCódigo: LITTLECANDY10\n\nDesconto de 10% na sua compra!\nValidade: 31 de dezembro de 2025`);
       closeCoupon();
     }
   }

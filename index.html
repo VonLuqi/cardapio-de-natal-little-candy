@@ -16,140 +16,159 @@
     <link rel="stylesheet" href="css/default.css" />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/hidden-coupon.css" />
-    <link rel="stylesheet" href="css/santa-flight.css" />
+    <!-- Hidden Coupon CSS - Desabilitado -->
+    <!-- <link rel="stylesheet" href="css/hidden-coupon.css" /> -->
+    <!-- Santa Flight CSS - Desabilitado -->
+    <!-- <link rel="stylesheet" href="css/santa-flight.css" /> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
-  <body class="antialiased min-h-screen flex flex-col items-center justify-center relative p-6">
+  <body class="antialiased min-h-screen flex flex-col items-center justify-center relative p-4 md:p-6">
     <!-- Fundo Decorativo -->
     <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
 
-    <div class="relative z-10 w-full max-w-md text-center">
+    <div class="relative z-10 w-full max-w-2xl">
       
       <!-- Logo / Título -->
-      <div class="mb-12 animate-fade-in">
+      <div class="mb-12 animate-fade-in text-center">
          <div class="mb-6 flex justify-center">
-            <img src="assets/images/logo/LogoIMG.svg" alt="Little Candy Dream Logo" class="h-24 md:h-32 w-auto object-contain">
+            <img src="assets/images/logo/LogoIMG.svg" alt="Little Candy Dream Logo" class="h-24 md:h-32 w-auto object-contain drop-shadow-sm">
          </div>
          <h1 class="text-4xl md:text-5xl font-bold text-[#1a472a] mb-2 tracking-wide">
             Little Candy Dream
          </h1>
-         <p class="text-[#c9a227] italic text-xl serif-font">Natal 2025</p>
+         <p class="text-[#c9a227] italic text-lg md:text-xl serif-font">Doçura Todo Dia</p>
+         <p class="text-gray-500 text-sm mt-3">Escolha seu cardápio e descubra o doce sabor da perfeição</p>
       </div>
 
-      <!-- Opções de Menu -->
-      <div class="space-y-6">
-        
-        <!-- Botão Cardápio Clássico -->
-        <a href="cardapio-classico.html" class="block group">
-            <div class="menu-card btn-classico bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="bg-red-50 text-[#8b0000] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#8b0000] group-hover:text-white transition-colors">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="font-bold text-xl text-gray-800 group-hover:text-[#8b0000] transition-colors">Cardápio Clássico</h2>
-                        <p class="text-sm text-gray-500 italic">Delícias especiais</p>
-                    </div>
-                </div>
-                <div class="text-gray-300 group-hover:text-[#8b0000] transition-colors">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </a>
+      <!-- SEÇÃO: Cardápios Ativos -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-[#5d4037] mb-6 flex items-center justify-center serif-font">
+          <i class="fas fa-heart text-red-400 mr-3"></i> Cardápios Disponíveis
+        </h2>
+        <div class="space-y-4">
+          
+          <!-- Botão Cardápio Clássico -->
+          <a href="cardapio-classico.html" class="block group">
+              <div class="menu-card btn-classico bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer hover:shadow-lg transition-all">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-red-50 text-[#8b0000] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#8b0000] group-hover:text-white transition-colors">
+                          <i class="fas fa-star"></i>
+                      </div>
+                      <div class="text-left">
+                          <h3 class="font-bold text-lg text-gray-800 group-hover:text-[#8b0000] transition-colors">Cardápio Clássico</h3>
+                          <p class="text-sm text-gray-500 italic">Delícias especiais</p>
+                      </div>
+                  </div>
+                  <div class="text-gray-300 group-hover:text-[#8b0000] transition-colors">
+                      <i class="fas fa-chevron-right"></i>
+                  </div>
+              </div>
+          </a>
 
-        <!-- Botão Cardápio de Natal -->
-        <a href="cardapio-de-natal.html" class="block group">
-            <div class="menu-card btn-traditional bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="bg-red-50 text-[#8b0000] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#8b0000] group-hover:text-white transition-colors">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="font-bold text-xl text-gray-800 group-hover:text-[#8b0000] transition-colors">Cardápio de Natal</h2>
-                        <p class="text-sm text-gray-500 italic">Nossos clássicos inesquecíveis</p>
-                    </div>
-                </div>
-                <div class="text-gray-300 group-hover:text-[#8b0000] transition-colors">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </a>
+          <!-- Botão Docinhos Clássicos -->
+          <a href="cardapio-docinhos-classicos.html" class="block group">
+              <div class="menu-card btn-classics bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer hover:shadow-lg transition-all">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-yellow-50 text-[#c9a227] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#c9a227] group-hover:text-white transition-colors">
+                          <i class="fas fa-cookie-bite"></i>
+                      </div>
+                      <div class="text-left">
+                          <h3 class="font-bold text-lg text-gray-800 group-hover:text-[#c9a227] transition-colors">Docinhos Clássicos</h3>
+                          <p class="text-sm text-gray-500 italic">Para todas as ocasiões</p>
+                      </div>
+                  </div>
+                  <div class="text-gray-300 group-hover:text-[#c9a227] transition-colors">
+                      <i class="fas fa-chevron-right"></i>
+                  </div>
+              </div>
+          </a>
 
-        <!-- Botão Docinhos Clássicos -->
-        <a href="cardapio-docinhos-classicos.html" class="block group">
-            <div class="menu-card btn-classics bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="bg-yellow-50 text-[#c9a227] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#c9a227] group-hover:text-white transition-colors">
-                        <!-- ALTERADO: Ícone de docinho (cookie-bite) para diferenciar de bolos -->
-                        <i class="fas fa-cookie-bite"></i>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="font-bold text-xl text-gray-800 group-hover:text-[#c9a227] transition-colors">Docinhos Clássicos</h2>
-                        <p class="text-sm text-gray-500 italic">Para todas as ocasiões</p>
-                    </div>
-                </div>
-                <div class="text-gray-300 group-hover:text-[#c9a227] transition-colors">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </a>
+          <!-- Botão Bolos -->
+          <a href="cardapio-bolos.html" class="block group">
+              <div class="menu-card btn-cakes bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer hover:shadow-lg transition-all">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-[#efebe9] text-[#5d4037] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#5d4037] group-hover:text-white transition-colors">
+                          <i class="fas fa-cake-candles"></i>
+                      </div>
+                      <div class="text-left">
+                          <h3 class="font-bold text-lg text-gray-800 group-hover:text-[#5d4037] transition-colors">Bolos</h3>
+                          <p class="text-sm text-gray-500 italic">Recheados, caseirinhos e mais</p>
+                      </div>
+                  </div>
+                  <div class="text-gray-300 group-hover:text-[#5d4037] transition-colors">
+                      <i class="fas fa-chevron-right"></i>
+                  </div>
+              </div>
+          </a>
 
-        <!-- NOVO: Botão Bolos -->
-        <a href="cardapio-bolos.html" class="block group">
-            <div class="menu-card btn-cakes bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <!-- Fundo bege claro, ícone marrom café -->
-                    <div class="bg-[#efebe9] text-[#5d4037] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#5d4037] group-hover:text-white transition-colors">
-                        <i class="fas fa-cake-candles"></i>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="font-bold text-xl text-gray-800 group-hover:text-[#5d4037] transition-colors">Bolos</h2>
-                        <p class="text-sm text-gray-500 italic">Recheados, Caseirinhos e mais</p>
-                    </div>
-                </div>
-                <div class="text-gray-300 group-hover:text-[#5d4037] transition-colors">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </a>
+          <!-- Botão Cardápio Sem Açúcar -->
+          <a href="cardapio-sem-açucar.html" class="block group">
+              <div class="menu-card btn-diet bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer hover:shadow-lg transition-all">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-green-50 text-[#1a472a] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#1a472a] group-hover:text-white transition-colors">
+                          <i class="fas fa-leaf"></i>
+                      </div>
+                      <div class="text-left">
+                          <h3 class="font-bold text-lg text-gray-800 group-hover:text-[#1a472a] transition-colors">Linha Zero Açúcar</h3>
+                          <p class="text-sm text-gray-500 italic">Leveza e sabor para todos</p>
+                      </div>
+                  </div>
+                  <div class="text-gray-300 group-hover:text-[#1a472a] transition-colors">
+                      <i class="fas fa-chevron-right"></i>
+                  </div>
+              </div>
+          </a>
+        </div>
+      </div>
 
-        <!-- NOVO: Botão Kit Festa -->
-        <a href="cardapio-kit-festa.html" class="block group">
-            <div class="menu-card btn-kits bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="bg-yellow-50 text-[#c9a227] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#c9a227] group-hover:text-white transition-colors">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="font-bold text-xl text-gray-800 group-hover:text-[#c9a227] transition-colors">Kit Festa</h2>
-                        <p class="text-sm text-gray-500 italic">Personalizado para sua celebração</p>
-                    </div>
-                </div>
-                <div class="text-gray-300 group-hover:text-[#c9a227] transition-colors">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </a>
+      <!-- SEPARADOR VISUAL -->
+      <div class="my-8 flex items-center gap-4">
+        <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[#c9a227] to-transparent"></div>
+      </div>
 
-        <!-- Botão Cardápio Sem Açúcar -->
-        <a href="cardapio-sem-açucar.html" class="block group">
-            <div class="menu-card btn-diet bg-white border-2 border-[#e6dccf] rounded-xl p-6 flex items-center justify-between shadow-sm cursor-pointer">
-                <div class="flex items-center gap-4">
-                    <div class="bg-green-50 text-[#1a472a] w-14 h-14 rounded-full flex items-center justify-center text-2xl group-hover:bg-[#1a472a] group-hover:text-white transition-colors">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="font-bold text-xl text-gray-800 group-hover:text-[#1a472a] transition-colors">Linha Zero Açúcar</h2>
-                        <p class="text-sm text-gray-500 italic">Leveza e sabor para todos</p>
-                    </div>
-                </div>
-                <div class="text-gray-300 group-hover:text-[#1a472a] transition-colors">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </div>
-        </a>
+      <!-- SEÇÃO: Cardápios Desativados (Sazonais) -->
+      <div>
+        <h2 class="text-2xl font-bold text-gray-400 mb-6 flex items-center justify-center serif-font">
+          <i class="fas fa-lock text-gray-300 mr-3"></i> Cardápios Sazonais
+        </h2>
+        <div class="space-y-4">
+          
+          <!-- Botão Kit Festa - DESATIVADO -->
+          <div class="block group opacity-70 pointer-events-none">
+              <div class="menu-card btn-kits-disabled bg-gray-100 border-2 border-gray-300 rounded-xl p-6 flex items-center justify-between shadow-sm cursor-not-allowed">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-gray-200 text-gray-400 w-14 h-14 rounded-full flex items-center justify-center text-2xl">
+                          <i class="fas fa-gift"></i>
+                      </div>
+                      <div class="text-left">
+                          <h3 class="font-bold text-lg text-gray-500">Kit Festa</h3>
+                          <p class="text-sm text-gray-400 italic">Disponível em ocasiões especiais</p>
+                      </div>
+                  </div>
+                  <div class="text-gray-300">
+                      <i class="fas fa-lock-alt text-sm"></i>
+                  </div>
+              </div>
+          </div>
 
+          <!-- Botão Cardápio de Natal - DESATIVADO -->
+          <div class="block group opacity-70 pointer-events-none">
+              <div class="menu-card btn-traditional-disabled bg-gray-100 border-2 border-gray-300 rounded-xl p-6 flex items-center justify-between shadow-sm cursor-not-allowed">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-gray-200 text-gray-400 w-14 h-14 rounded-full flex items-center justify-center text-2xl">
+                          <i class="fas fa-snowflake"></i>
+                      </div>
+                      <div class="text-left">
+                          <h3 class="font-bold text-lg text-gray-500">Cardápio de Natal</h3>
+                          <p class="text-sm text-gray-400 italic">Voltará em dezembro</p>
+                      </div>
+                  </div>
+                  <div class="text-gray-300">
+                      <i class="fas fa-lock-alt text-sm"></i>
+                  </div>
+              </div>
+          </div>
+        </div>
       </div>
 
       <!-- Rodapé Simples -->
@@ -159,9 +178,11 @@
 
     </div>
 
-    <!-- Hidden Coupon Script -->
-    <script src="script/hidden-coupon.js"></script>
-    <!-- Santa Flight Animation -->
-    <script src="script/santa-flight.js"></script>
+    <!-- Hidden Coupon Script - Desabilitado -->
+    <!-- <script src="script/hidden-coupon.js"></script> -->
+    <!-- Santa Flight Animation - Desabilitado -->
+    <!-- <script src="script/santa-flight.js"></script> -->
+    <!-- Index Interactions -->
+    <script src="script/index-interactions.js"></script>
   </body>
 </html>

@@ -1,0 +1,696 @@
+/* ===================================
+   COMPONENTS.CSS — Biblioteca de Componentes
+   Little Candy Dream (sem Tailwind)
+   =================================== */
+
+/* ===================================
+   LAYOUT BASE — Páginas de Cardápio
+   =================================== */
+
+.page-bg-pattern {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(#d4b08c 1.5px, transparent 1.5px);
+  background-size: 25px 25px;
+  opacity: 0.15;
+}
+
+.page-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 56rem; /* 896px */
+  margin: 0 auto;
+  background-color: #ffffff;
+  min-height: 100vh;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+/* ===================================
+   BOTÃO VOLTAR FIXO
+   =================================== */
+
+.btn-voltar {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid transparent;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-voltar-red    { color: #8b0000; border-color: rgba(139, 0, 0, 0.3); }
+.btn-voltar-gold   { color: #c9a227; border-color: rgba(201, 162, 39, 0.3); }
+.btn-voltar-brown  { color: #5d4037; border-color: rgba(93, 64, 55, 0.3); }
+.btn-voltar-green  { color: #1a472a; border-color: rgba(26, 71, 42, 0.3); }
+
+.btn-voltar-red:hover   { background-color: #8b0000;  color: #fff; }
+.btn-voltar-gold:hover  { background-color: #c9a227;  color: #fff; }
+.btn-voltar-brown:hover { background-color: #5d4037;  color: #fff; }
+.btn-voltar-green:hover { background-color: #1a472a;  color: #fff; }
+
+/* ===================================
+   HEADER DAS PÁGINAS DE CARDÁPIO
+   =================================== */
+
+.cardapio-header {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #e6dccf;
+}
+
+.cardapio-header-light {
+  background-color: #fcf8f2;
+}
+
+.cardapio-header-dark {
+  color: #f3e5d8;
+}
+
+.cardapio-header-icon {
+  font-size: 1.875rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.cardapio-header h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  margin-bottom: 0.5rem;
+}
+
+.cardapio-header-sub {
+  font-size: 1.1rem;
+  font-style: italic;
+  font-family: var(--font-serif);
+  opacity: 0.85;
+}
+
+/* ===================================
+   MAIN CONTENT
+   =================================== */
+
+.cardapio-main {
+  padding: 1.5rem 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .cardapio-main {
+    padding: 3rem;
+  }
+}
+
+/* ===================================
+   CAIXAS DE AVISO / INFO
+   =================================== */
+
+.info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.info-box-gold  { background-color: #fffbf0; border-left: 4px solid #c9a227; }
+.info-box-green { background-color: #f0f7f2; border-left: 4px solid #1a472a; }
+.info-box-red   { background-color: #fef2f2; border-left: 4px solid #8b0000; }
+.info-box-blue  { background-color: #eff6ff; border-left: 4px solid #3b82f6; }
+
+.info-box-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.info-box-gold  .info-box-icon { color: #c9a227; }
+.info-box-green .info-box-icon { color: #1a472a; }
+.info-box-red   .info-box-icon { color: #8b0000; }
+.info-box-blue  .info-box-icon { color: #3b82f6; }
+
+.info-box-titulo {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+  color: #6b5d4f;
+}
+
+.info-box-texto {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ===================================
+   SEÇÕES DE CARDÁPIO (SUBCATEGORIAS)
+   =================================== */
+
+.secao-cardapio {
+  margin-bottom: 3rem;
+}
+
+/* Título de seção inspirado na imagem de referência — itálico, grande, elegante */
+.secao-titulo {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 0.25rem;
+  line-height: 1.1;
+}
+
+.secao-titulo-red    { color: #8b0000; }
+.secao-titulo-gold   { color: #c9a227; }
+.secao-titulo-brown  { color: #5d4037; }
+.secao-titulo-green  { color: #1a472a; }
+
+.secao-subtitulo {
+  font-size: 0.85rem;
+  color: var(--color-text-gray);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.secao-divider {
+  height: 2px;
+  border: none;
+  margin-bottom: 1.5rem;
+  border-radius: 1px;
+}
+
+.secao-divider-red   { background: linear-gradient(to right, #8b0000, transparent); }
+.secao-divider-gold  { background: linear-gradient(to right, #c9a227, transparent); }
+.secao-divider-brown { background: linear-gradient(to right, #5d4037, transparent); }
+.secao-divider-green { background: linear-gradient(to right, #1a472a, transparent); }
+
+/* Preço de seção (quando todos os itens têm o mesmo preço) */
+.secao-preco-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.secao-preco-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  background-color: #fffbf0;
+  color: #c9a227;
+  border: 1.5px solid rgba(201, 162, 39, 0.35);
+  flex-wrap: wrap;
+  row-gap: 0.2rem;
+}
+
+/* Valor por unidade dentro do badge de seção */
+.secao-preco-unidade {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a07800;
+  background-color: rgba(201, 162, 39, 0.12);
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  margin-left: 0.15rem;
+}
+
+/* ===================================
+   LISTA DE PRODUTOS (ESTILO CARDÁPIO)
+   Inspirado na imagem de referência:
+   Nome .................. Preço
+   =================================== */
+
+.produtos-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.produto-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0e8de;
+  transition: background-color 0.15s ease;
+  padding-right: 0.25rem;
+}
+
+.produto-item:last-child {
+  border-bottom: none;
+}
+
+.produto-item-link {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0.25rem;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.produto-item-link:hover {
+  color: inherit;
+}
+
+.produto-item:hover {
+  background-color: #fffbf5;
+  border-radius: 0.5rem;
+}
+
+.produto-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.produto-item-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.produto-item-dot-red    { background-color: #8b0000; }
+.produto-item-dot-gold   { background-color: #c9a227; }
+.produto-item-dot-brown  { background-color: #5d4037; }
+.produto-item-dot-green  { background-color: #1a472a; }
+
+.produto-item-nome {
+  font-size: 0.975rem;
+  color: #4a4a4a;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.produto-item-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.produto-item-preco {
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.produto-item-preco-red    { color: #8b0000; }
+.produto-item-preco-gold   { color: #c9a227; }
+.produto-item-preco-brown  { color: #5d4037; }
+.produto-item-preco-green  { color: #1a472a; }
+
+.produto-item-arrow {
+  font-size: 0.7rem;
+  color: #c0b8ae;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.produto-item:hover .produto-item-arrow {
+  transform: translateX(3px);
+  color: #c9a227;
+}
+
+/* ===================================
+   CARDS DE PRODUTO (GRID)
+   =================================== */
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .produtos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .produtos-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.produto-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1.5px solid #ede4d9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.produto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  color: inherit;
+}
+
+.produto-card:hover.hover-red    { border-color: #8b0000; }
+.produto-card:hover.hover-gold   { border-color: #c9a227; }
+.produto-card:hover.hover-brown  { border-color: #5d4037; }
+.produto-card:hover.hover-green  { border-color: #1a472a; }
+
+.produto-card-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.produto-card-nome {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3a3a3a;
+  margin-bottom: 0.25rem;
+}
+
+.produto-card-sub {
+  font-size: 0.8rem;
+  color: #999;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+  flex: 1;
+}
+
+.produto-card-preco {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.produto-card-ver {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #c9a227;
+}
+
+/* ===================================
+   BADGE / ETIQUETA DE PEDIDO MÍNIMO
+   =================================== */
+
+.badge-min {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #fff8e1;
+  color: #a07800;
+  border: 1px solid #f0d860;
+}
+
+/* ===================================
+   TABELA DE TAMANHOS / PREÇOS
+   =================================== */
+
+.tabela-tamanhos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.tabela-tamanhos thead tr {
+  background-color: #f5ede3;
+}
+
+.tabela-tamanhos th {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6d4c41;
+}
+
+.tabela-tamanhos th:last-child {
+  text-align: right;
+}
+
+.tabela-tamanhos tbody tr {
+  border-bottom: 1px solid #f0e8de;
+  transition: background-color 0.15s;
+}
+
+.tabela-tamanhos tbody tr:hover {
+  background-color: #fffbf5;
+}
+
+.tabela-tamanhos td {
+  padding: 0.7rem 0.75rem;
+  color: #555;
+}
+
+.tabela-tamanhos td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: #5d4037;
+}
+
+/* ===================================
+   CHIPS / TAGS DE SABOR
+   =================================== */
+
+.tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+}
+
+.tag-red   { background-color: #fef2f2; color: #8b0000; border-color: rgba(139,0,0,0.2); }
+.tag-gold  { background-color: #fffbf0; color: #a07800; border-color: rgba(201,162,39,0.3); }
+.tag-brown { background-color: #f9f5f2; color: #5d4037; border-color: rgba(93,64,55,0.2); }
+.tag-green { background-color: #f0f7f2; color: #1a472a; border-color: rgba(26,71,42,0.2); }
+
+/* ===================================
+   PRICE TAG (GRANDE)
+   =================================== */
+
+.price-tag-box {
+  background-color: #fcf8f2;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.price-tag-prefix {
+  font-size: 0.78rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.price-tag-value {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.price-tag-value-red   { color: #8b0000; }
+.price-tag-value-gold  { color: #c9a227; }
+.price-tag-value-brown { color: #5d4037; }
+.price-tag-value-green { color: #1a472a; }
+
+.price-tag-suffix {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+/* ===================================
+   LOADING STATE
+   =================================== */
+
+.menu-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+  color: #bbb;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e6dccf;
+  border-top-color: #c9a227;
+  border-radius: 50%;
+  animation: spin-anim 0.8s linear infinite;
+}
+
+@keyframes spin-anim {
+  to { transform: rotate(360deg); }
+}
+
+/* ===================================
+   RODAPÉ DAS PÁGINAS DE CARDÁPIO
+   =================================== */
+
+.cardapio-footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-size: 0.875rem;
+  border-top: 4px solid #c9a227;
+}
+
+.cardapio-footer p {
+  margin-bottom: 0.4rem;
+  opacity: 0.85;
+}
+
+.cardapio-footer .footer-brand {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  opacity: 1;
+}
+
+.cardapio-footer .footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.cardapio-footer .footer-icons a {
+  font-size: 1.5rem;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+  color: inherit;
+}
+
+.cardapio-footer .footer-icons a:hover {
+  opacity: 1;
+  color: inherit;
+}
+
+/* ===================================
+   CTA WHATSAPP
+   =================================== */
+
+.cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.75rem;
+  background: linear-gradient(135deg, #1ebf5d 0%, #128c7e 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.975rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 6px 14px rgba(18, 140, 126, 0.25);
+  transition: transform 0.2s ease, filter 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-whatsapp:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  color: #fff;
+}
+
+/* ===================================
+   INTRO / QUOTE
+   =================================== */
+
+.cardapio-intro {
+  text-align: center;
+  max-width: 38rem;
+  margin: 0 auto 2.5rem;
+}
+
+.cardapio-intro p {
+  color: #777;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ===================================
+   UTILITÁRIOS
+   =================================== */
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-sm { margin-top: 0.5rem; }
+.mt-md { margin-top: 1rem; }
+.mt-lg { margin-top: 1.5rem; }
+.mt-xl { margin-top: 2rem; }
+.mb-sm { margin-bottom: 0.5rem; }
+.mb-md { margin-bottom: 1rem; }
+.mb-lg { margin-bottom: 1.5rem; }
+.mb-xl { margin-bottom: 2rem; }
+.mb-2xl { margin-bottom: 3rem; }

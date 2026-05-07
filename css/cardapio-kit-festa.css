@@ -1,0 +1,17 @@
+/* ===================================
+   CARDAPIO-KIT-FESTA.CSS — Tema Kit Festa (Ouro/Festivo)
+   Little Candy Dream
+   =================================== */
+
+/* Variável de cor primária para esta página */
+:root {
+  --page-primary: #c9a227;
+  --page-primary-light: #fffbf0;
+  --page-border: #e6dccf;
+}
+
+/* Padrão de fundo festivo */
+.page-bg-pattern {
+  background-image: radial-gradient(#c9a227 1.5px, transparent 1.5px);
+  background-size: 25px 25px;
+}

@@ -1,0 +1,17 @@
+/* ===================================
+   CARDAPIO-CLASSICO.CSS — Tema Clássico (Vermelho/Borgonha)
+   Little Candy Dream
+   =================================== */
+
+/* Variável de cor primária para esta página */
+:root {
+  --page-primary: #8b0000;
+  --page-primary-light: #fef2f2;
+  --page-border: #fecaca;
+}
+
+/* Padrão de fundo */
+.page-bg-pattern {
+  background-image: radial-gradient(#c9a227 1.5px, transparent 1.5px);
+  background-size: 25px 25px;
+}

@@ -279,6 +279,10 @@
             </a>
             ${temTamanhos ? tamanhosToggleHTML : toggleModoHTML}
             ${btnAdicionar}
+            ${produto.obs ? `<div class="produto-item-obs" role="note">
+              <i class="fas fa-info-circle" aria-hidden="true"></i>
+              <span>${escaparHTML(produto.obs)}</span>
+            </div>` : ''}
           </li>
         `;
       })

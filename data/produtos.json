@@ -463,6 +463,12 @@
         { "nome": "G — Grande", "fatias": "45 a 52 fatias", "precoLabel": "a partir de R$ 230,00" },
         { "nome": "GG — Extra Grande", "fatias": "Produção especial", "precoLabel": "a partir de R$ 330,00" }
       ],
+      "grupos": [
+        {
+          "titulo": "Recheio",
+          "opcoes": ["Brigadeiro", "Prestígio", "Floresta Negra", "Floresta Branca", "Morango", "Abacaxi", "Limão", "Ninho com Morango", "Maracujá", "Coco", "Outro"]
+        }
+      ],
       "imagem": null,
       "disponivel": true,
       "destaque": true,

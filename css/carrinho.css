@@ -499,6 +499,22 @@ body.carrinho-open {
   flex-shrink: 0;
 }
 
+/* ── Aviso por produto no menu (obs) ── */
+.produto-item-obs {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: #7a5f1a;
+  background: #fdf6e3;
+  border: 1px solid #e8d98a;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin: 0.45rem 0 0.1rem;
+  line-height: 1.45;
+}
+.produto-item-obs .fa-info-circle { color: #c9a227; flex-shrink: 0; margin-top: 0.1rem; }
+
 /* ── Botão "+" nos itens do menu (menu-renderer) ── */
 .btn-adicionar-item {
   flex-shrink: 0;
@@ -722,10 +738,9 @@ body.carrinho-open {
 /* Toggle UN / CENTO — página de produto */
 .produto-modo-preco-wrap {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.55rem 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
   background-color: #fffdf9;
   border: 1.5px solid #f0e8de;
   border-radius: 0.65rem;
@@ -737,18 +752,18 @@ body.carrinho-open {
   color: #999;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  white-space: nowrap;
 }
 .produto-modo-preco-opcoes {
   display: flex;
+  flex-direction: column;
   gap: 0.35rem;
 }
 .produto-modo-preco-btn {
-  padding: 0.25rem 0.65rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 999px;
   border: 1.5px solid #e6dccf;
   background: white;
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #999;
   cursor: pointer;
@@ -757,8 +772,8 @@ body.carrinho-open {
 }
 .produto-modo-preco-btn small {
   font-weight: 400;
-  font-size: 0.65rem;
-  display: block;
+  font-size: 0.72rem;
+  display: inline;
   opacity: 0.85;
 }
 .produto-modo-preco-btn.ativo {
@@ -1027,6 +1042,28 @@ body.carrinho-open {
   border-color: #c9a227;
   color: #8b6914;
 }
+.dist-grupo-btn-outro { border-style: dashed; }
+
+/* Campo de texto "Outro" */
+.dist-grupo-custom-wrap {
+  margin-top: 0.6rem;
+}
+.dist-grupo-custom-input {
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  border: 1.5px solid #c9a227;
+  border-radius: 0.6rem;
+  font-size: 0.9rem;
+  color: #3d2c1e;
+  background: #fffdf7;
+  outline: none;
+  transition: box-shadow 0.15s;
+  box-sizing: border-box;
+}
+.dist-grupo-custom-input:focus {
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.2);
+}
+.dist-grupo-custom-input::placeholder { color: #bbb; }
 
 .dist-qty-val {
   min-width: 2.2rem;

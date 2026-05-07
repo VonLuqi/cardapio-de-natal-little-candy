@@ -410,6 +410,40 @@
   gap: 0.35rem;
 }
 
+/* Quando sabores-lista contém grupos (produto com grupos) */
+.sabores-lista .grupo-item {
+  grid-column: 1 / -1;
+  display: block;
+  padding: 0;
+}
+.sabores-lista .grupo-item strong {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cat-cor, #c9a227);
+  margin-bottom: 0.35rem;
+  margin-top: 0.5rem;
+}
+.sabores-lista .grupo-item:first-child strong { margin-top: 0; }
+.sabores-lista .grupo-item > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.sabores-lista .grupo-item > ul > li {
+  font-size: 0.82rem;
+  color: #555;
+  background: #f7f2e8;
+  border: 1px solid #e8dfc8;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+}
+.sabores-lista .grupo-item > ul > li::before { display: none; }
+
 .sabores-lista li {
   display: flex;
   align-items: center;

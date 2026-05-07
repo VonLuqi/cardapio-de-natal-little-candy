@@ -374,12 +374,19 @@
               <ul class="dist-grupo-opcoes">
                 ${g.opcoes.map((op, oi) => `
                   <li>
-                    <button class="dist-grupo-btn" data-gi="${gi}" data-oi="${oi}" aria-pressed="false" type="button">
+                    <button class="dist-grupo-btn${op === 'Outro' ? ' dist-grupo-btn-outro' : ''}"
+                      data-gi="${gi}" data-oi="${oi}" data-custom="${op === 'Outro'}"
+                      aria-pressed="false" type="button">
                       ${esc(op)}
                     </button>
                   </li>
                 `).join('')}
               </ul>
+              <div class="dist-grupo-custom-wrap" data-gi="${gi}" hidden>
+                <input class="dist-grupo-custom-input" type="text"
+                  placeholder="Descreva o recheio desejado..."
+                  aria-label="Recheio personalizado" data-gi="${gi}" maxlength="80">
+              </div>
             </div>
           `).join('')}
         </div>
@@ -391,8 +398,21 @@
     document.body.appendChild(root);
     requestAnimationFrame(() => root.querySelector('.dist-panel').classList.add('visivel'));
 
+    function getCustomInput(gi) {
+      return root.querySelector(`.dist-grupo-custom-input[data-gi="${gi}"]`);
+    }
     function todosSelecionados() {
-      return selecionados.every((v) => v !== -1);
+      return selecionados.every((v, gi) => {
+        if (v === -1) return false;
+        if (grupos[gi].opcoes[v] === 'Outro') {
+          const inp = getCustomInput(gi);
+          return inp && inp.value.trim().length > 0;
+        }
+        return true;
+      });
+    }
+    function atualizarConfirmar() {
+      root.querySelector('#dist-confirmar').disabled = !todosSelecionados();
     }
     function fechar() {
       const panel = root.querySelector('.dist-panel');
@@ -400,12 +420,24 @@
       setTimeout(() => { if (root.parentNode) root.remove(); }, 250);
     }
 
+    /* Input de texto "Outro" */
+    root.querySelectorAll('.dist-grupo-custom-input').forEach((inp) => {
+      inp.addEventListener('input', atualizarConfirmar);
+    });
+
     root.addEventListener('click', (e) => {
       if (e.target.id === 'dist-overlay' || e.target.closest('#dist-fechar')) { fechar(); return; }
 
       if (e.target.closest('#dist-confirmar')) {
         if (!todosSelecionados()) return;
-        const escolhas = grupos.map((g, gi) => `${g.titulo}: ${g.opcoes[selecionados[gi]]}`);
+        const escolhas = grupos.map((g, gi) => {
+          const op = g.opcoes[selecionados[gi]];
+          if (op === 'Outro') {
+            const texto = (getCustomInput(gi).value || '').trim();
+            return `${g.titulo}: ${texto}`;
+          }
+          return `${g.titulo}: ${op}`;
+        });
         fechar();
         Store.adicionar({ ...item, saboresSelecionados: escolhas });
         showToast(item.nome);
@@ -418,6 +450,8 @@
       if (!btn) return;
       const gi = +btn.dataset.gi;
       const oi = +btn.dataset.oi;
+      const isCustom = btn.dataset.custom === 'true';
+
       /* Radio: desseleciona os outros do mesmo grupo */
       root.querySelectorAll(`.dist-grupo-btn[data-gi="${gi}"]`).forEach((b) => {
         b.classList.remove('ativo');
@@ -426,7 +460,21 @@
       selecionados[gi] = oi;
       btn.classList.add('ativo');
       btn.setAttribute('aria-pressed', 'true');
-      root.querySelector('#dist-confirmar').disabled = !todosSelecionados();
+
+      /* Mostrar/esconder campo "Outro" */
+      const wrap = root.querySelector(`.dist-grupo-custom-wrap[data-gi="${gi}"]`);
+      if (wrap) {
+        if (isCustom) {
+          wrap.hidden = false;
+          setTimeout(() => getCustomInput(gi).focus(), 50);
+        } else {
+          wrap.hidden = true;
+          const inp = getCustomInput(gi);
+          if (inp) inp.value = '';
+        }
+      }
+
+      atualizarConfirmar();
     });
   }
 

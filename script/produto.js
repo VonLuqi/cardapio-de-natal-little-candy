@@ -176,6 +176,18 @@
         .map((s) => `<li>${s}</li>`)
         .join('');
       $id('bloco-sabores').classList.remove('hidden');
+    } else if (produto.grupos && produto.grupos.length > 0) {
+      $id('titulo-sabores').textContent = 'Personalize seu pedido';
+      $id('lista-sabores').innerHTML = produto.grupos
+        .map(
+          (g) =>
+            `<li class="grupo-item">
+               <strong>${g.titulo}</strong>
+               <ul>${g.opcoes.map((op) => `<li>${op}</li>`).join('')}</ul>
+             </li>`
+        )
+        .join('');
+      $id('bloco-sabores').classList.remove('hidden');
     }
 
     /* Tamanhos */

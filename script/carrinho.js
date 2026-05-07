@@ -72,6 +72,10 @@
     },
 
     adicionar(item) {
+      // Itens com distribuição de sabores são sempre entradas separadas
+      if (item.distribuicao) {
+        item = { ...item, variante: '__dist_' + _uid() };
+      }
       const chave = this._chave(item.id, item.variante, item.unidade);
       const existente = this._itens.find(
         (i) => this._chave(i.id, i.variante, i.unidade) === chave
@@ -129,16 +133,30 @@
      WHATSAPP — Geração de mensagem e redirecionamento
   ══════════════════════════════════════════════════════════════════════ */
 
+  function _uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   function gerarMensagem(obs) {
     const itens = Store.getItens();
     if (!itens.length) return null;
 
     const linhas = itens.map((i) => {
-      const sub = formatBRL(i.preco * i.quantidade);
-      const variante = i.variante ? ` (${i.variante})` : '';
-      const unLabel =
-        i.unidade && i.unidade !== 'unidade' ? ` [${i.unidade}]` : '';
-      return `• ${i.nome}${variante}${unLabel} — ${i.quantidade}x — ${sub}`;
+      const sub      = formatBRL(i.preco * i.quantidade);
+      const variante = (i.variante && !i.variante.startsWith('__dist_')) ? ` (${i.variante})` : '';
+      const unLabel  = i.unidade && i.unidade !== 'unidade' ? ` [${i.unidade}]` : '';
+      let distStr = '';
+      if (i.distribuicao) {
+        distStr = '\n  _' +
+          Object.entries(i.distribuicao)
+            .filter(([, q]) => q > 0)
+            .map(([s, q]) => `${s}: ${q}`)
+            .join(' · ') +
+          '_';
+      }
+      return `• ${i.nome}${variante}${unLabel} — ${i.quantidade}x — ${sub}${distStr}`;
     });
 
     const total = formatBRL(Store.getTotal());
@@ -201,7 +219,8 @@
     }
   }
 
-  function _abrirQtyPicker(btnOrigem, minimoPadrao) {
+  function _abrirQtyPicker(btnOrigem, minimoPadrao, passo) {
+    passo = passo || 1;
     const existente = document.getElementById('qty-picker-ativo');
     if (existente && existente._btnOrigem === btnOrigem) {
       _fecharQtyPicker();
@@ -238,15 +257,15 @@
     btnDim.addEventListener('click', (e) => {
       e.stopPropagation();
       if (qtd > minimo) {
-        qtd--;
-        valEl.textContent    = qtd;
-        btnDim.disabled      = qtd <= minimo;
+        qtd = Math.max(minimo, qtd - passo);
+        valEl.textContent = qtd;
+        btnDim.disabled   = qtd <= minimo;
       }
     });
 
     btnAum.addEventListener('click', (e) => {
       e.stopPropagation();
-      qtd++;
+      qtd += passo;
       valEl.textContent = qtd;
       btnDim.disabled   = false;
     });
@@ -263,6 +282,16 @@
         pedidoMinimo: minimo,
         quantidade:   qtd,
       };
+      _fecharQtyPicker();
+      const saboresRaw = btnOrigem.dataset.sabores;
+      if (saboresRaw) {
+        try {
+          const sabores = JSON.parse(saboresRaw);
+          const totalUn = item.unidade === 'cento' ? qtd * 100 : qtd;
+          _abrirDistribuicao(item, sabores, totalUn);
+          return;
+        } catch (_) {}
+      }
       Store.adicionar(item);
       const label = qtd > 1 ? `${qtd}x ${item.nome}` : item.nome;
       showToast(label);
@@ -273,7 +302,6 @@
         floatBtn.classList.add('pulse');
         setTimeout(() => floatBtn.classList.remove('pulse'), 600);
       }
-      _fecharQtyPicker();
     });
 
     picker._btnOrigem           = btnOrigem;
@@ -300,6 +328,96 @@
   /* ══════════════════════════════════════════════════════════════════════
      UI — Sidebar, botão flutuante, badge
   ══════════════════════════════════════════════════════════════════════ */
+
+  /* ══════════════════════════════════════════════════════════════════════
+     DISTRIBUIÇÃO DE SABORES — Modal para alocar quantidades por sabor
+  ══════════════════════════════════════════════════════════════════════ */
+
+  function _abrirDistribuicao(item, sabores, totalUnidades) {
+    const PASSO = 20;
+    const qtds  = sabores.map(() => 0);
+
+    const existente = document.getElementById('dist-root');
+    if (existente) existente.remove();
+
+    const root = document.createElement('div');
+    root.id = 'dist-root';
+    const unStr = item.unidade === 'cento'
+      ? `${item.quantidade} cento${item.quantidade > 1 ? 's' : ''} · ${totalUnidades} un`
+      : `${totalUnidades} unidade${totalUnidades > 1 ? 's' : ''}`;
+
+    root.innerHTML = `
+      <div class="dist-overlay" id="dist-overlay"></div>
+      <div class="dist-panel" role="dialog" aria-modal="true" aria-label="Distribuir sabores">
+        <header class="dist-header">
+          <div class="dist-header-info">
+            <h3 class="dist-titulo">${esc(item.nome)}</h3>
+            <p class="dist-subtitulo">${unStr} — de ${PASSO} em ${PASSO}</p>
+          </div>
+          <button class="dist-fechar" id="dist-fechar" aria-label="Fechar">&times;</button>
+        </header>
+        <div class="dist-barra-restam" id="dist-barra">
+          Restam: <strong id="dist-restam-val">${totalUnidades}</strong>
+        </div>
+        <ul class="dist-lista">
+          ${sabores.map((s, i) => `
+            <li class="dist-item">
+              <span class="dist-sabor-nome">${esc(s)}</span>
+              <div class="dist-controles">
+                <button class="dist-btn dist-btn-dim" data-idx="${i}" disabled aria-label="Diminuir ${esc(s)}">
+                  <i class="fas fa-minus" aria-hidden="true"></i>
+                </button>
+                <span class="dist-qty-val" data-idx="${i}">0</span>
+                <button class="dist-btn dist-btn-aum" data-idx="${i}" aria-label="Aumentar ${esc(s)}">
+                  <i class="fas fa-plus" aria-hidden="true"></i>
+                </button>
+              </div>
+            </li>
+          `).join('')}
+        </ul>
+        <button class="dist-btn-confirmar" id="dist-confirmar" disabled>
+          <i class="fas fa-check" aria-hidden="true"></i> Adicionar ao Pedido
+        </button>
+      </div>
+    `;
+    document.body.appendChild(root);
+    requestAnimationFrame(() => root.querySelector('.dist-panel').classList.add('visivel'));
+
+    function getRestam() { return totalUnidades - qtds.reduce((a, b) => a + b, 0); }
+    function sync() {
+      const restam = getRestam();
+      document.getElementById('dist-restam-val').textContent = restam;
+      document.getElementById('dist-confirmar').disabled = restam !== 0;
+      document.getElementById('dist-barra').classList.toggle('dist-barra-ok', restam === 0);
+      root.querySelectorAll('.dist-btn-dim').forEach((b) => { b.disabled = qtds[+b.dataset.idx] <= 0; });
+      root.querySelectorAll('.dist-btn-aum').forEach((b) => { b.disabled = getRestam() < PASSO; });
+      root.querySelectorAll('.dist-qty-val').forEach((el) => { el.textContent = qtds[+el.dataset.idx]; });
+    }
+    function fechar() {
+      const panel = root.querySelector('.dist-panel');
+      panel.classList.remove('visivel');
+      setTimeout(() => { if (root.parentNode) root.remove(); }, 250);
+    }
+    root.addEventListener('click', (e) => {
+      if (e.target.id === 'dist-overlay' || e.target.closest('#dist-fechar')) { fechar(); return; }
+      if (e.target.closest('#dist-confirmar')) {
+        if (getRestam() !== 0) return;
+        const distribuicao = {};
+        sabores.forEach((s, i) => { if (qtds[i] > 0) distribuicao[s] = qtds[i]; });
+        fechar();
+        Store.adicionar({ ...item, distribuicao });
+        showToast(item.nome);
+        const floatBtn = document.getElementById('btn-carrinho-toggle');
+        if (floatBtn) { floatBtn.classList.add('pulse'); setTimeout(() => floatBtn.classList.remove('pulse'), 600); }
+        return;
+      }
+      const btnDim = e.target.closest('.dist-btn-dim');
+      if (btnDim) { const i = +btnDim.dataset.idx; if (qtds[i] >= PASSO) { qtds[i] -= PASSO; sync(); } return; }
+      const btnAum = e.target.closest('.dist-btn-aum');
+      if (btnAum) { const i = +btnAum.dataset.idx; if (getRestam() >= PASSO) { qtds[i] += PASSO; sync(); } }
+    });
+    sync();
+  }
 
   const UI = {
     sidebar: null,
@@ -456,7 +574,11 @@
           }
           if (!minimo) minimo = parseInt(btn.dataset.pedidoMinimo, 10) || 1;
 
-          _abrirQtyPicker(btn, minimo);
+          /* Passo=20 para unidade com sabores (mínimo 20 por sabor) */
+          const temSabores = !!btn.dataset.sabores;
+          const modoFinal  = btn.dataset.unidade || 'unidade';
+          const passo      = (temSabores && modoFinal !== 'cento') ? 20 : 1;
+          _abrirQtyPicker(btn, minimo, passo);
           return;
         }
         if (!e.target.closest('#qty-picker-ativo')) {
@@ -512,7 +634,8 @@
       container.innerHTML = itens
         .map((item) => {
           const sub          = formatBRL(item.preco * item.quantidade);
-          const varianteStr  = item.variante
+          const isDist       = !!item.distribuicao;
+          const varianteStr  = (!isDist && item.variante && !item.variante.startsWith('__dist_'))
             ? `<small class="item-variante">${item.variante}</small>`
             : '';
           const unStr        =
@@ -522,21 +645,23 @@
           const vEscapado    = (item.variante || '').replace(/"/g, '&quot;');
           const minimo       = item.pedidoMinimo || 1;
           const noMinimo     = item.quantidade <= minimo;
-          const avisoMin     = minimo > 1
+          const avisoMin     = (!isDist && minimo > 1)
             ? `<span class="item-aviso-min">Minimo: ${minimo} un</span>`
             : '';
-          // Botao - quando no mínimo: remove o item (comportamento do Store)
           const labelDecr    = noMinimo ? 'Remover item' : 'Diminuir quantidade';
 
-          return `
-            <div class="carrinho-item" role="listitem">
-              <div class="item-linha-topo">
-                <div class="item-info-left">
-                  <span class="item-nome">${item.nome}${varianteStr}</span>
-                  ${unStr}
-                </div>
-                <div class="item-controles">
-                  <button class="item-btn-qtd${noMinimo ? ' item-btn-remover-min' : ''}"
+          const distHTML = isDist
+            ? `<div class="item-distribuicao">` +
+              Object.entries(item.distribuicao)
+                .filter(([, q]) => q > 0)
+                .map(([s, q]) => `<span>${s}: ${q}</span>`)
+                .join('') +
+              `</div>`
+            : '';
+
+          const controlesHTML = isDist
+            ? `<span class="item-qtd item-qtd-fixed">${item.quantidade}x</span>`
+            : `<button class="item-btn-qtd${noMinimo ? ' item-btn-remover-min' : ''}"
                     data-acao="decrementar"
                     data-id="${item.id}"
                     data-variante="${vEscapado}"
@@ -551,9 +676,20 @@
                     data-variante="${vEscapado}"
                     data-unidade="${item.unidade || 'unidade'}"
                     aria-label="Aumentar quantidade"
-                  ><i class="fas fa-plus" aria-hidden="true"></i></button>
+                  ><i class="fas fa-plus" aria-hidden="true"></i></button>`;
+
+          return `
+            <div class="carrinho-item" role="listitem">
+              <div class="item-linha-topo">
+                <div class="item-info-left">
+                  <span class="item-nome">${item.nome}${varianteStr}</span>
+                  ${unStr}
+                </div>
+                <div class="item-controles">
+                  ${controlesHTML}
                 </div>
               </div>
+              ${distHTML}
               <div class="item-linha-sub">
                 <span class="item-preco-unit">${item.precoLabel} / un${avisoMin}</span>
                 <div class="item-sub-direita">
@@ -618,6 +754,7 @@
         setTimeout(() => btn.classList.remove('pulse'), 600);
       }
     },
+    abrirDistribuicao: _abrirDistribuicao,
     abrir:         () => UI.abrir(),
     fechar:        () => UI.fechar(),
     parsePrecoBRL,

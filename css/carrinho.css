@@ -854,3 +854,171 @@ body.carrinho-open {
     max-width: none;
   }
 }
+
+/* ══════════════════════════════════════════════════════
+   Modal de Distribuição de Sabores
+══════════════════════════════════════════════════════ */
+
+.dist-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1060;
+}
+.dist-panel {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: min(480px, 100vw);
+  max-height: 88vh;
+  background: white;
+  border-radius: 1.25rem 1.25rem 0 0;
+  z-index: 1061;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dist-panel.visivel {
+  transform: translateX(-50%) translateY(0);
+}
+.dist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid #f0ebe3;
+  flex-shrink: 0;
+}
+.dist-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3d2c1e;
+  margin: 0 0 0.15rem;
+}
+.dist-subtitulo {
+  font-size: 0.78rem;
+  color: #aaa;
+  margin: 0;
+}
+.dist-fechar {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #bbb;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem 0.4rem;
+  flex-shrink: 0;
+}
+.dist-fechar:hover { color: #555; }
+
+.dist-barra-restam {
+  padding: 0.55rem 1.25rem;
+  background: #fffbf0;
+  border-bottom: 1px solid #f0ebe3;
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+.dist-barra-restam strong { color: #c9a227; }
+.dist-barra-ok { background: #edf7ed; }
+.dist-barra-ok strong { color: #2e7d32; }
+
+.dist-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.dist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid #f7f4ef;
+}
+.dist-item:last-child { border-bottom: none; }
+.dist-sabor-nome {
+  font-size: 0.9rem;
+  color: #3d2c1e;
+  font-weight: 500;
+}
+.dist-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.dist-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid #e6dccf;
+  background: white;
+  color: #888;
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+  flex-shrink: 0;
+}
+.dist-btn:disabled { opacity: 0.3; cursor: default; }
+.dist-btn-aum:not(:disabled) { border-color: #c9a227; color: #c9a227; }
+.dist-btn:not(:disabled):hover { background: #c9a227; border-color: #c9a227; color: white; }
+.dist-qty-val {
+  min-width: 2.2rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #3d2c1e;
+}
+.dist-btn-confirmar {
+  margin: 0.75rem 1.25rem 1rem;
+  padding: 0.85rem;
+  background: #c9a227;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s, opacity 0.2s;
+  flex-shrink: 0;
+}
+.dist-btn-confirmar:disabled { opacity: 0.4; cursor: default; }
+.dist-btn-confirmar:not(:disabled):hover { background: #b8921e; }
+
+/* Distribuição exibida no sidebar */
+.item-distribuicao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.35rem;
+  padding: 0.25rem 0 0.1rem;
+}
+.item-distribuicao span {
+  font-size: 0.71rem;
+  background: #f7f4ef;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  color: #777;
+  white-space: nowrap;
+}
+.item-qtd-fixed {
+  font-weight: 700;
+  color: #3d2c1e;
+  min-width: 2rem;
+  text-align: center;
+  font-size: 0.95rem;
+  padding: 0 0.25rem;
+}

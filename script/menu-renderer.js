@@ -185,6 +185,9 @@
             ` data-pedido-minimo-un="${produto.pedidoMinimo || 1}"`
           : '';
 
+        const saboresAttr = produto.sabores && produto.sabores.length
+          ? ` data-sabores='${JSON.stringify(produto.sabores)}'`
+          : '';
         const btnAdicionar =
           !temTamanhos && produto.precoLabel
             ? `<button
@@ -196,7 +199,7 @@
                 data-unidade="${escaparHTML(cartUnidade)}"
                 data-variante=""
                 data-pedido-minimo="${produto.pedidoMinimo || 1}"
-                ${extraCentoAttrs}
+                ${extraCentoAttrs}${saboresAttr}
                 aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                 title="Adicionar ao pedido"
               ><i class="fas fa-plus" aria-hidden="true"></i></button>`
@@ -243,7 +246,7 @@
     /* Pedido mínimo (da primeira ocorrência) */
     const pedidoMin = produtos[0]?.pedidoMinimo;
     const pedidoMinHTML = pedidoMin
-      ? `<div class="info-box info-box-gold mt-md" role="note">
+      ? `<div class="info-box info-box-gold mt-md aviso-pedido-un" role="note">
            <i class="fas fa-info-circle info-box-icon" aria-hidden="true"></i>
            <div>
              <p class="info-box-texto">Pedido mínimo de <strong>${pedidoMin} unidades</strong> de cada sabor.</p>

@@ -251,8 +251,9 @@
     const minimo = produto.pedidoMinimo || 1;
 
     /* Helper: cria stepper de quantidade */
-    function criarStepper(minimoEfetivo) {
+    function criarStepper(minimoEfetivo, passoEfetivo) {
       if (minimoEfetivo === undefined) minimoEfetivo = minimo;
+      if (!passoEfetivo) passoEfetivo = 1;
       let qtd = minimoEfetivo;
 
       const wrap = document.createElement('div');
@@ -278,13 +279,13 @@
 
       btnDim.addEventListener('click', () => {
         if (qtd > minimoEfetivo) {
-          qtd--;
+          qtd = Math.max(minimoEfetivo, qtd - passoEfetivo);
           valEl.textContent = qtd;
           btnDim.disabled   = qtd <= minimoEfetivo;
         }
       });
       btnAum.addEventListener('click', () => {
-        qtd++;
+        qtd += passoEfetivo;
         valEl.textContent = qtd;
         btnDim.disabled   = false;
       });
@@ -333,21 +334,23 @@
     } else {
       /* Produto simples: stepper + botão (+ toggle UN/CENTO quando aplicável) */
       const temModoCento = produto.precoPor === 'cento' && !!produto.precoUnidade;
+      const temSabores   = !!(produto.sabores && produto.sabores.length);
 
       /* Estado mutável do modo — lido no click do botão */
       let modoPreco    = 'un';
       let minimoAtivo  = minimo;
+      let passoAtivo   = temSabores ? 20 : 1;
 
       /* Valores por modo */
       const precos = temModoCento
         ? {
-            un:    { preco: window.Carrinho.parsePrecoBRL(produto.precoUnidade), precoLabel: produto.precoUnidade, unidade: 'unidade', minimo },
-            cento: { preco: window.Carrinho.parsePrecoBRL(produto.precoLabel),   precoLabel: produto.precoLabel,   unidade: 'cento',   minimo: 1 },
+            un:    { preco: window.Carrinho.parsePrecoBRL(produto.precoUnidade), precoLabel: produto.precoUnidade, unidade: 'unidade', minimo, passo: temSabores ? 20 : 1 },
+            cento: { preco: window.Carrinho.parsePrecoBRL(produto.precoLabel),   precoLabel: produto.precoLabel,   unidade: 'cento',   minimo: 1, passo: 1 },
           }
         : null;
 
       /* Stepper inicial */
-      let stepper = criarStepper(minimoAtivo);
+      let stepper = criarStepper(minimoAtivo, passoAtivo);
 
       /* Botão Adicionar */
       const btn = document.createElement('button');
@@ -364,7 +367,7 @@
           unidade:    produto.precoUnidade ? 'unidade' : (produto.precoPor || 'unidade'),
           minimo,
         };
-        window.Carrinho.adicionar({
+        const item = {
           id:           produto.id,
           variante:     '',
           nome:         produto.nome,
@@ -373,7 +376,13 @@
           unidade:      cfg.unidade,
           pedidoMinimo: minimoAtivo,
           quantidade:   stepper.getQtd(),
-        });
+        };
+        if (temSabores) {
+          const totalUn = item.unidade === 'cento' ? item.quantidade * 100 : item.quantidade;
+          window.Carrinho.abrirDistribuicao(item, produto.sabores, totalUn);
+        } else {
+          window.Carrinho.adicionar(item);
+        }
       });
 
       ctaWrap.insertBefore(btn, ctaWrap.firstChild);
@@ -401,9 +410,10 @@
             b.classList.add('ativo');
             modoPreco   = b.dataset.modo;
             minimoAtivo = precos[modoPreco].minimo;
+            passoAtivo  = precos[modoPreco].passo;
 
-            /* Substitui o stepper pelo novo mínimo */
-            const novoStepper = criarStepper(minimoAtivo);
+            /* Substitui o stepper pelo novo mínimo/passo */
+            const novoStepper = criarStepper(minimoAtivo, passoAtivo);
             stepper.replaceWith(novoStepper);
             stepper = novoStepper;
           });

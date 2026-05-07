@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Produto — Little Candy Dream</title>
+    <meta name="description" id="page-desc" content="Little Candy Dream — Doçura Todo Dia">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/produto.css" />
+    <link rel="stylesheet" href="css/carrinho.css" />
+  </head>
+  <body>
+
+    <!-- ===== NAV ===== -->
+    <nav class="produto-nav">
+      <a id="btn-voltar" href="index.html" class="produto-nav-back">
+        <i class="fas fa-arrow-left"></i>
+        <span id="label-voltar">Voltar ao Cardápio</span>
+      </a>
+      <a href="index.html" class="produto-nav-logo">Little Candy Dream</a>
+    </nav>
+
+    <!-- ===== LOADING ===== -->
+    <div id="estado-loading" class="produto-loading" role="status" aria-label="Carregando produto">
+      <div class="produto-loading-spinner"></div>
+      <span>Carregando…</span>
+    </div>
+
+    <!-- ===== ERRO ===== -->
+    <div id="estado-erro" class="produto-error hidden" role="alert">
+      <i class="fas fa-cookie" aria-hidden="true"></i>
+      <h2>Produto não encontrado</h2>
+      <p>Este produto não existe ou está indisponível no momento.</p>
+      <a href="index.html">← Voltar ao início</a>
+    </div>
+
+    <!-- ===== CONTEÚDO DO PRODUTO ===== -->
+    <main id="produto-conteudo" class="hidden">
+
+      <!-- HERO (split-column) -->
+      <section class="produto-hero" id="hero-section">
+
+        <!-- Coluna da imagem -->
+        <div class="produto-hero-imagem" id="hero-imagem">
+          <img id="produto-img" src="" alt="" loading="eager" class="hidden" />
+          <div id="produto-placeholder" class="produto-hero-placeholder">
+            <i id="placeholder-icone" class="fas fa-cookie-bite" aria-hidden="true"></i>
+            <span>Imagem em breve</span>
+          </div>
+          <span id="badge-destaque" class="produto-badge-destaque hidden">⭐ Destaque</span>
+        </div>
+
+        <!-- Coluna de informações -->
+        <div class="produto-hero-info" id="hero-info">
+          <span id="produto-categoria-badge" class="produto-categoria-badge"></span>
+          <h1 id="produto-nome" class="produto-nome"></h1>
+          <p id="produto-descricao-curta" class="produto-descricao-curta"></p>
+
+          <!-- Preço -->
+          <div class="produto-preco-bloco" id="preco-bloco">
+            <span id="preco-prefixo" class="produto-preco-prefixo hidden">a partir de</span>
+            <span>
+              <span id="preco-valor" class="produto-preco-valor"></span>
+              <span id="preco-por" class="produto-preco-por"></span>
+            </span>
+            <div id="pedido-min-wrap" class="produto-pedido-min hidden">
+              <i class="fas fa-info-circle" aria-hidden="true"></i>
+              <span id="pedido-min-texto"></span>
+            </div>
+          </div>
+
+          <!-- Botões CTA -->
+          <div class="produto-cta-wrap">
+            <a
+              id="btn-whatsapp"
+              href="https://wa.link/nc5ren"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-pedir-whatsapp"
+            >
+              <i class="fab fa-whatsapp" aria-hidden="true"></i>
+              Fazer Pedido pelo WhatsApp
+            </a>
+            <a
+              href="https://www.instagram.com/nessaconfeitariaartistica/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-ver-instagram"
+            >
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+              Ver no Instagram
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- DETALHES DO PRODUTO -->
+      <section class="produto-detalhes" id="secao-detalhes">
+        <div class="produto-detalhes-grid">
+
+          <!-- Descrição longa -->
+          <div id="bloco-descricao" class="detalhe-bloco hidden">
+            <h3>Sobre o Produto</h3>
+            <p id="texto-descricao" style="font-size:0.9rem; color:#555; line-height:1.65; margin:0;"></p>
+          </div>
+
+          <!-- Sabores / Recheios -->
+          <div id="bloco-sabores" class="detalhe-bloco hidden">
+            <h3 id="titulo-sabores">Sabores Disponíveis</h3>
+            <ul id="lista-sabores" class="sabores-lista"></ul>
+          </div>
+
+          <!-- Tamanhos e preços -->
+          <div id="bloco-tamanhos" class="detalhe-bloco hidden">
+            <h3>Tamanhos e Preços</h3>
+            <div id="lista-tamanhos" class="tamanhos-lista"></div>
+          </div>
+
+          <!-- Features / detalhes -->
+          <div id="bloco-features" class="detalhe-bloco hidden">
+            <h3 id="titulo-features">Detalhes</h3>
+            <ul id="lista-features" class="features-lista"></ul>
+          </div>
+
+          <!-- Observação -->
+          <div id="bloco-obs" class="obs-bloco hidden">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            <p id="texto-obs"></p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PRODUTOS RELACIONADOS -->
+      <section id="secao-relacionados" class="relacionados-section hidden">
+        <h2>Outros Produtos da Categoria</h2>
+        <div id="grid-relacionados" class="relacionados-grid"></div>
+      </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="produto-footer">
+      <p class="footer-brand">Little Candy Dream</p>
+      <p class="footer-info">Feito com carinho para adoçar o seu dia.</p>
+      <div class="footer-social">
+        <a href="https://wa.link/nc5ren" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp" aria-hidden="true"></i>
+        </a>
+        <a href="https://www.instagram.com/nessaconfeitariaartistica/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i class="fab fa-instagram" aria-hidden="true"></i>
+        </a>
+      </div>
+    </footer>
+
+    <script src="script/carrinho.js"></script>
+    <script src="script/produto.js"></script>
+  </body>
+</html>

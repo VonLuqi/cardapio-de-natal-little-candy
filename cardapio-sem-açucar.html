@@ -3,270 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cardápio Zero Açúcar - Little Candy Dream</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
+    <title>Linha Zero Açúcar — Little Candy Dream</title>
+    <meta name="description" content="Doces sem açúcar artesanais: Pavê Zero, Morango do Amor Zero, Torta Recheada Zero. Little Candy Dream." />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/cardapio-sem-açucar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  </head>
-  <body class="antialiased min-h-screen relative">
-    
-    <!-- Botão Voltar -->
-    <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#1a472a] px-4 py-2 rounded-full shadow-lg hover:bg-[#1a472a] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-green-100">
-        <i class="fas fa-arrow-left"></i> Voltar
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/cardapio-sem-açucar.css" />    <link rel="stylesheet" href="css/carrinho.css" />  </head>
+  <body data-categoria="zero-acucar">
+    <div class="page-bg-pattern" aria-hidden="true"></div>
+    <a href="index.html" class="btn-voltar btn-voltar-green" aria-label="Voltar para o início">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      <span>Início</span>
     </a>
-
-    <!-- Background Pattern -->
-    <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
-
-    <div class="relative z-10 max-w-4xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden border-t-8 border-[#1a472a]">
-      
-      <!-- Header -->
-      <header class="bg-[#1a472a] text-[#f3e5d8] p-10 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-          <i class="fas fa-leaf absolute top-4 left-4 text-4xl"></i>
-          <i class="fas fa-snowflake absolute bottom-4 right-8 text-5xl"></i>
-        </div>
-
-        <div class="relative z-10">
-          <div class="text-[#c9a227] text-2xl mb-2">
-            <i class="fas fa-heart"></i>
-          </div>
-          <h1 class="text-4xl md:text-6xl font-bold mb-2 tracking-wide text-white drop-shadow-md">
-            Linha Zero Açúcar
-          </h1>
-          <p class="text-lg md:text-xl font-light italic text-[#a3b18a]">
-            O sabor dos nossos doces, sem culpa e com muito amor.
-          </p>
-        </div>
-      </header>
-
-      <main class="p-6 md:p-12">
-        
-        <!-- Mensagem Introdutória -->
-        <div class="text-center mb-12 max-w-2xl mx-auto">
-          <p class="text-gray-600 leading-relaxed italic text-lg">
-            "O sabor dos nossos doces, sem culpa e com muito amor. Utilizamos adoçantes de alta qualidade em todos os nossos produtos."
-          </p>
-        </div>
-
-        <!-- Aviso Importante -->
-        <div class="bg-green-50 border-l-4 border-[#1a472a] p-5 mb-12 rounded-r-lg shadow-sm">
-            <div class="flex items-start gap-3">
-                <i class="fas fa-leaf text-[#1a472a] mt-1 text-lg"></i>
-                <div>
-                    <h4 class="font-bold text-[#1a472a] text-sm uppercase tracking-wide mb-1">Informação Importante</h4>
-                    <p class="text-sm text-gray-600">
-                        Utilizamos adoçantes de alta qualidade. Produtos podem conter traços de glúten e lactose.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- === SECTION 1: PAVÊS === -->
-        <div class="mb-12">
-          <div class="section-divider">
-            <span class="serif-font"><i class="fas fa-spoon mr-2 text-sm text-[#c9a227]"></i> Pavês Artesanais</span>
-          </div>
-
-          <!-- Destaque Preço e Detalhe -->
-          <div class="text-center mb-8">
-             <p class="text-gray-500 italic mb-2">Feitos delicadamente com massa de <strong class="text-[#1a472a]">Pão de Ló</strong></p>
-             <div class="inline-block bg-[#fcf8f2] border border-[#e6dccf] px-6 py-2 rounded-lg">
-                <span class="font-bold text-2xl text-[#1a472a]">R$ 110,00 <span class="text-sm font-normal text-gray-500">/kg</span></span>
-             </div>
-          </div>
-
-          <!-- Sabores Pavê -->
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
-             <div class="p-4 bg-[#f0f4f0] rounded-xl border-l-4 border-[#1a472a] hover:shadow-md transition-shadow"><strong class="text-[#1a472a]">Coco</strong></div>
-             <div class="p-4 bg-[#f0f4f0] rounded-xl border-l-4 border-[#1a472a] hover:shadow-md transition-shadow"><strong class="text-[#1a472a]">Chocolate</strong></div>
-             <div class="p-4 bg-[#f0f4f0] rounded-xl border-l-4 border-[#1a472a] hover:shadow-md transition-shadow"><strong class="text-[#1a472a]">Morango</strong></div>
-             <div class="p-4 bg-[#f0f4f0] rounded-xl border-l-4 border-[#1a472a] hover:shadow-md transition-shadow"><strong class="text-[#1a472a]">Abacaxi</strong></div>
-             <div class="p-4 bg-[#f0f4f0] rounded-xl border-l-4 border-[#1a472a] hover:shadow-md transition-shadow"><strong class="text-[#1a472a]">Doce de Leite</strong></div>
-             <div class="p-4 bg-[#f0f4f0] rounded-xl border-l-4 border-[#1a472a] hover:shadow-md transition-shadow"><strong class="text-[#1a472a]">Limão</strong></div>
-          </div>
-        </div>
-
-        <!-- === SECTION 2: SURPRESAS DE FRUTAS === -->
-        <div class="mb-12">
-            <div class="section-divider">
-              <span class="serif-font"><i class="fas fa-lemon mr-2 text-sm text-[#c9a227]"></i> Surpresas de Frutas</span>
-            </div>
-  
-            <div class="bg-white border-l-4 border-[#1a472a] rounded-xl p-8 shadow-sm">
-                <p class="text-center text-gray-600 italic mb-6 leading-relaxed">Cremosa e deliciosa mistura de gelatina com creme e frutas frescas.</p>
-                
-                <div class="flex justify-center gap-8 mb-8 border-b border-dashed border-gray-200 pb-8">
-                    <div class="text-center">
-                        <span class="block text-[#1a472a] text-xs font-bold uppercase tracking-wider mb-1">Tamanho P</span>
-                        <span class="text-3xl font-bold text-[#1a472a]">R$ 45,00</span>
-                    </div>
-                    <div class="w-px bg-gray-200"></div>
-                    <div class="text-center">
-                        <span class="block text-[#1a472a] text-xs font-bold uppercase tracking-wider mb-1">Tamanho G</span>
-                        <span class="text-3xl font-bold text-[#1a472a]">R$ 85,00</span>
-                    </div>
-                </div>
-  
-                <h4 class="text-center font-bold text-[#1a472a] mb-4 text-sm uppercase tracking-wide">🍓 Sabores Disponíveis</h4>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="px-4 py-2 bg-[#f0f4f0] text-[#1a472a] rounded-lg text-sm font-medium border border-[#1a472a]">Morango</span>
-                    <span class="px-4 py-2 bg-[#f0f4f0] text-[#1a472a] rounded-lg text-sm font-medium border border-[#1a472a]">Maracujá</span>
-                    <span class="px-4 py-2 bg-[#f0f4f0] text-[#1a472a] rounded-lg text-sm font-medium border border-[#1a472a]">Abacaxi</span>
-                    <span class="px-4 py-2 bg-[#f0f4f0] text-[#1a472a] rounded-lg text-sm font-medium border border-[#1a472a]">Limão</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- === SECTION 3: TORTAS RECHEADAS === -->
-        <div class="mb-12">
-            <div class="section-divider">
-                <span class="serif-font"><i class="fas fa-birthday-cake mr-2 text-sm text-[#c9a227]"></i> Tortas Recheadas</span>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8 items-start">
-                <!-- Detalhes Tortas -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-xl text-[#1a472a] mb-2">Sabores Clássicos</h4>
-                    <ul class="space-y-2 text-gray-600">
-                        <li><i class="fas fa-check text-[#c9a227] mr-2"></i> Chocolate</li>
-                        <li><i class="fas fa-check text-[#c9a227] mr-2"></i> Coco</li>
-                        <li><i class="fas fa-check text-[#c9a227] mr-2"></i> Ninho</li>
-                        <li><i class="fas fa-check text-[#c9a227] mr-2"></i> Doce de Leite</li>
-                    </ul>
-                    
-                    <h4 class="font-bold text-xl text-[#1a472a] mt-6 mb-2">Creme Patissière com Frutas</h4>
-                    <ul class="space-y-2 text-gray-600">
-                        <li><i class="fas fa-leaf text-green-600 mr-2"></i> Ameixa, Morango ou Abacaxi</li>
-                    </ul>
-                </div>
-
-                <!-- Preço e Cobertura -->
-                <div class="bg-[#fcf8f2] p-6 rounded-xl border border-[#e6dccf] h-full flex flex-col justify-center text-center">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide mb-2">Opções de Cobertura</p>
-                    <p class="font-bold text-lg text-gray-800 mb-6">Creme ou Merengue</p>
-                    
-                    <div class="border-t border-[#d4b08c] pt-4 mt-auto">
-                        <p class="text-sm text-gray-500 mb-1">Valor</p>
-                        <p class="text-3xl font-bold text-[#1a472a]">
-                            <span class="text-sm font-normal text-gray-500 mr-1">a partir de</span>R$ 95,00
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- === SECTION 4: MORANGO DO AMOR SEM AÇÚCAR === -->
-        <div class="mb-12">
-          <div class="section-divider">
-            <span class="serif-font"><i class="fas fa-heart mr-2 text-sm text-[#c9a227]"></i> Morango do Amor Sem Açúcar</span>
-          </div>
-
-          <div class="bg-white p-6 rounded-xl border-l-4 border-[#1a472a] shadow-sm">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-              <div class="mb-4 md:mb-0 flex-1">
-                <h4 class="font-bold text-[#1a472a] text-xl mb-2">Morango do Amor Sem Açúcar</h4>
-                <p class="text-sm text-gray-600 mb-3">Versão zero açúcar da releitura gourmet da maçã do amor! Morango fresco recheado com brigadeiro branco diet (sabor Ninho) e coberto com calda zero açúcar vermelha crocante.</p>
-                <div class="bg-green-50 border border-green-200 rounded p-3 mb-3">
-                  <p class="text-xs text-gray-700 mb-1"><strong>✨ Mesmo Sabor, Zero Açúcar:</strong></p>
-                  <ul class="text-xs text-gray-600 space-y-1 ml-4">
-                    <li>• Crocância da calda diet</li>
-                    <li>• Cremosidade do brigadeiro zero açúcar</li>
-                    <li>• Suculência natural do morango fresco</li>
-                  </ul>
-                </div>
-                <div class="bg-yellow-50 border border-yellow-200 rounded p-2 inline-block">
-                  <p class="text-xs text-[#1a472a] font-semibold">
-                    <i class="fas fa-info-circle mr-1"></i> Pedido mínimo: <strong>5 unidades</strong>
-                  </p>
-                </div>
-              </div>
-              <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center md:min-w-[180px]">
-                <span class="text-3xl font-bold text-[#1a472a]">R$ 15,00</span>
-                <p class="text-xs text-gray-500 mt-1">por unidade</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- === SECTION 5: MOUSSES E MANJAR === -->
-        <div class="grid md:grid-cols-2 gap-6 mb-12">
-            
-            <!-- Card Mousses -->
-            <div class="bg-white p-6 rounded-xl border-l-4 border-[#1a472a] shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start mb-4">
-                    <h3 class="serif-font font-bold text-xl text-[#1a472a]">🌀 Mousses</h3>
-                </div>
-                <p class="text-sm text-gray-600 mb-4">Maracujá, Limão, Chocolate ou Baunilha.</p>
-                
-                <div class="space-y-2 mt-4 pt-4 border-t border-dashed border-gray-200">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm font-medium text-gray-700">Pequeno</span>
-                        <span class="font-bold text-lg text-[#1a472a]">R$ 60,00</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm font-medium text-gray-700">Grande</span>
-                        <span class="font-bold text-lg text-[#1a472a]">R$ 115,00</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card Manjar -->
-            <div class="bg-white p-6 rounded-xl border-l-4 border-[#1a472a] shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start mb-4">
-                    <h3 class="serif-font font-bold text-xl text-[#1a472a]">🥥 Manjar de Coco</h3>
-                </div>
-                <p class="text-sm text-gray-600 mb-4">Delicioso creme branco de coco com calda de ameixa preta.</p>
-                
-                <div class="space-y-2 mt-4 pt-4 border-t border-dashed border-gray-200">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm font-medium text-gray-700">P (Pote 1,5L)</span>
-                        <span class="font-bold text-lg text-[#1a472a]">R$ 95,00</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm font-medium text-gray-700">Médio</span>
-                        <span class="font-bold text-lg text-[#1a472a]">R$ 140,00</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm font-medium text-gray-700">Grande</span>
-                        <span class="font-bold text-lg text-[#1a472a]">R$ 190,00</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- === SECTION 6: RABANADA === -->
-        <div class="mb-12 text-center">
-            <div class="inline-block bg-white px-8 py-5 rounded-xl shadow-md border-l-4 border-[#1a472a]">
-                <h4 class="font-bold text-[#1a472a] text-lg mb-1">🍞 Rabanada Zero</h4>
-                <p class="text-xs text-gray-500 mb-3">Tradicional de Natal</p>
-                <div class="text-[#1a472a] font-bold text-2xl">
-                    R$ 5,00 <span class="text-xs font-normal text-gray-400">/unidade</span>
-                </div>
-            </div>
-        </div>
-
-      </main>
-
-      <!-- Footer -->
-      <footer class="bg-[#1a472a] text-[#e6dccf] py-8 text-center text-sm border-t-4 border-[#c9a227]">
-        <p class="font-playfair text-xl mb-2 font-bold italic">Boas Festas com Saúde!</p>
-        <div class="flex justify-center gap-6 mt-4">
-          <a href="https://wa.link/nc5ren" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors"><i class="fab fa-whatsapp text-3xl"></i></a>
-          <a href="https://www.instagram.com/nessaconfeitariaartistica/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors"><i class="fab fa-instagram text-3xl"></i></a>
-        </div>
-      </footer>
+    <div class="page-wrapper" id="menu-wrapper">
+      <div class="menu-loading" id="menu-loading" role="status" aria-label="Carregando cardápio">
+        <div class="spinner" aria-hidden="true"></div>
+        <span>Carregando cardápio…</span>
+      </div>
     </div>
+    <script src="script/carrinho.js"></script>
+    <script src="script/menu-renderer.js"></script>
   </body>
 </html>

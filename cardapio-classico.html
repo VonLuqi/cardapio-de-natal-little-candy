@@ -3,195 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cardápio Clássico - Little Candy Dream</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
+    <title>Cardápio Clássico — Little Candy Dream</title>
+    <meta name="description" content="Doces clássicos artesanais: Morango do Amor, Popcake, Cone Trufado e mais. Little Candy Dream." />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/global.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/cardapio-classico.css" />
+    <link rel="stylesheet" href="css/carrinho.css" />
   </head>
-  <body class="antialiased min-h-screen relative">
-    
-    <!-- Botão Voltar -->
-    <a href="index.html" class="fixed top-4 left-4 z-50 bg-white/90 backdrop-blur text-[#8b0000] px-4 py-2 rounded-full shadow-lg hover:bg-[#8b0000] hover:text-white transition-all text-sm font-bold flex items-center gap-2 border border-red-100">
-        <i class="fas fa-arrow-left"></i> Voltar
+  <body data-categoria="classico">
+    <div class="page-bg-pattern" aria-hidden="true"></div>
+    <a href="index.html" class="btn-voltar btn-voltar-red" aria-label="Voltar para o início">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      <span>Início</span>
     </a>
-
-    <!-- Background Pattern -->
-    <div class="fixed inset-0 bg-pattern pointer-events-none z-0"></div>
-
-    <div class="relative z-10 max-w-4xl mx-auto bg-white min-h-screen shadow-2xl overflow-hidden border-t-8 border-[#8b0000]">
-      
-      <!-- Header -->
-      <header class="bg-[#8b0000] text-[#f3e5d8] p-10 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-          <i class="fas fa-candy-cane absolute top-4 left-4 text-4xl"></i>
-          <i class="fas fa-heart absolute bottom-4 right-8 text-5xl"></i>
-        </div>
-
-        <div class="relative z-10">
-          <div class="text-[#c9a227] text-2xl mb-2">
-            <i class="fas fa-star"></i>
-          </div>
-          <h1 class="text-4xl md:text-6xl font-bold mb-2 tracking-wide text-white drop-shadow-md">
-            Cardápio Clássico
-          </h1>
-          <p class="text-lg md:text-xl font-light italic text-[#e6cfa3]">
-            Delícias especiais para momentos únicos
-          </p>
-        </div>
-      </header>
-
-      <main class="p-6 md:p-12">
-        
-        <!-- INTRODUÇÃO -->
-        <div class="text-center mb-10 max-w-2xl mx-auto">
-          <p class="text-gray-600 leading-relaxed italic">
-            "Doces especiais que transformam qualquer ocasião em uma celebração memorável. Feitos com amor e dedicação."
-          </p>
-        </div>
-
-        <!-- SEÇÃO 1: MORANGO DO AMOR -->
-        <div class="mb-12">
-          <h3 class="serif-font text-2xl font-bold text-[#8b0000] mb-6 flex items-center border-b border-red-100 pb-2">
-            <i class="fas fa-heart mr-3 text-red-400"></i> Morango do Amor
-          </h3>
-
-          <div class="bg-white p-6 rounded-xl border-l-4 border-[#8b0000] shadow-sm">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-              <div class="mb-4 md:mb-0 flex-1">
-                <h4 class="font-bold text-[#8b0000] text-xl mb-2">Morango do Amor</h4>
-                <p class="text-sm text-gray-600 mb-3">Uma releitura gourmet da clássica maçã do amor! Morango fresco recheado com brigadeiro branco cremoso (sabor Ninho) e coberto com calda de açúcar vermelha crocante.</p>
-                <div class="bg-red-50 border border-red-200 rounded p-3 mb-3">
-                  <p class="text-xs text-gray-700 mb-1"><strong>✨ Contraste Perfeito:</strong></p>
-                  <ul class="text-xs text-gray-600 space-y-1 ml-4">
-                    <li>• Crocância da calda de açúcar</li>
-                    <li>• Cremosidade do brigadeiro</li>
-                    <li>• Suculência do morango fresco</li>
-                  </ul>
-                </div>
-                <div class="bg-yellow-50 border border-yellow-200 rounded p-2 inline-block">
-                  <p class="text-xs text-[#8b0000] font-semibold">
-                    <i class="fas fa-info-circle mr-1"></i> Pedido mínimo: <strong>5 unidades</strong>
-                  </p>
-                </div>
-              </div>
-              <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center md:min-w-[180px]">
-                <span class="text-3xl font-bold text-[#8b0000]">R$ 10,00</span>
-                <p class="text-xs text-gray-500 mt-1">por unidade</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SEÇÃO 2: POPCAKES -->
-        <div class="mb-12">
-          <h3 class="serif-font text-2xl font-bold text-[#8b0000] mb-6 flex items-center border-b border-red-100 pb-2">
-            <i class="fas fa-lollipop mr-3 text-red-400"></i> Popcakes
-          </h3>
-
-          <div class="grid md:grid-cols-2 gap-6">
-            <!-- Popcake P -->
-            <div class="bg-white p-6 rounded-xl border-l-4 border-[#c9a227] shadow-sm">
-              <h4 class="font-bold text-[#8b0000] text-lg mb-2 flex items-center">
-                <i class="fas fa-circle text-[#c9a227] text-xs mr-2"></i> Tamanho P
-              </h4>
-              <p class="text-sm text-gray-600 mb-4">Porção menor, ideal para experimentar e para festas infantis</p>
-              <div class="bg-yellow-50 border border-[#e6dccf] rounded p-3 text-center">
-                <span class="text-2xl font-bold text-[#8b0000]">R$ 4,00</span>
-                <p class="text-xs text-gray-500 mt-1">por unidade</p>
-              </div>
-            </div>
-
-            <!-- Popcake M -->
-            <div class="bg-white p-6 rounded-xl border-l-4 border-[#c9a227] shadow-sm">
-              <h4 class="font-bold text-[#8b0000] text-lg mb-2 flex items-center">
-                <i class="fas fa-circle text-[#c9a227] text-sm mr-2"></i> Tamanho M
-              </h4>
-              <p class="text-sm text-gray-600 mb-4">Tamanho médio, mais recheio e sabor</p>
-              <div class="bg-yellow-50 border border-[#e6dccf] rounded p-3 text-center">
-                <span class="text-2xl font-bold text-[#8b0000]">R$ 7,00</span>
-                <p class="text-xs text-gray-500 mt-1">por unidade</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SEÇÃO 3: CONE TRUFADO -->
-        <div class="mb-12">
-          <h3 class="serif-font text-2xl font-bold text-[#8b0000] mb-6 flex items-center border-b border-red-100 pb-2">
-            <i class="fas fa-ice-cream mr-3 text-red-400"></i> Cone Trufado
-          </h3>
-
-          <div class="bg-white p-6 rounded-xl border-l-4 border-[#8b0000] shadow-sm">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-6">
-              <div class="flex-1">
-                <h4 class="font-bold text-[#8b0000] text-xl mb-4">Cone Recheado e Trufado</h4>
-                
-                <!-- Recheios -->
-                <div class="mb-4">
-                  <h5 class="font-semibold text-[#8b0000] text-sm mb-2 flex items-center">
-                    🍯 RECHEIOS DISPONÍVEIS
-                  </h5>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-[#fff8e1] text-gray-800 border border-[#ffd54f] rounded text-sm">Brigadeiro</span>
-                    <span class="px-3 py-1 bg-[#fff8e1] text-gray-800 border border-[#ffd54f] rounded text-sm">Beijinho</span>
-                    <span class="px-3 py-1 bg-[#fff8e1] text-gray-800 border border-[#ffd54f] rounded text-sm">Doce de Leite</span>
-                    <span class="px-3 py-1 bg-[#fff8e1] text-gray-800 border border-[#ffd54f] rounded text-sm">Ninho</span>
-                  </div>
-                </div>
-
-                <!-- Cobertura -->
-                <div>
-                  <h5 class="font-semibold text-[#8b0000] text-sm mb-2 flex items-center">
-                    ✏️ COBERTURA
-                  </h5>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-[#fff8e1] text-gray-800 border border-[#ffd54f] rounded text-sm">Chocolate Branco</span>
-                    <span class="px-3 py-1 bg-[#fff8e1] text-gray-800 border border-[#ffd54f] rounded text-sm">Chocolate ao Leite</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center md:min-w-[180px]">
-                <span class="text-3xl font-bold text-[#8b0000]">R$ 12,00</span>
-                <p class="text-xs text-gray-500 mt-1">por unidade</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- MENSAGEM FINAL -->
-        <div class="bg-[#fcf8f2] rounded-lg p-6 text-center mt-10 border border-[#e6dccf]">
-             <h4 class="font-bold text-[#8b0000] mb-2">Quer outros sabores ou personalizações?</h4>
-             <p class="text-sm text-gray-600 mb-4">Trabalhamos com encomendas personalizadas. Entre em contato!</p>
-            <a href="https://wa.link/nc5ren" target="_blank" rel="noopener noreferrer" class="inline-block bg-[#25D366] text-white font-bold py-2 px-6 rounded-full hover:bg-[#128C7E] transition-colors shadow-sm">
-                <i class="fab fa-whatsapp mr-2"></i> Solicitar Orçamento
-             </a>
-        </div>
-
-      </main>
-
-      <!-- Footer -->
-      <footer class="bg-[#8b0000] text-[#e6dccf] py-8 text-center text-sm border-t-4 border-[#c9a227]">
-        <p class="font-playfair text-xl mb-2 font-bold italic">Little Candy Dream</p>
-        <p class="opacity-80 mb-4">
-          Transformando sonhos em doces momentos. <br />Os produtos podem conter
-          glúten, lactose e oleaginosas.
-        </p>
-        <div class="flex justify-center gap-6">
-          <a href="https://wa.link/nc5ren" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors"><i class="fab fa-whatsapp text-3xl"></i></a>
-          <a href="https://www.instagram.com/nessaconfeitariaartistica/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors"><i class="fab fa-instagram text-3xl"></i></a>
-        </div>
-      </footer>
+    <div class="page-wrapper" id="menu-wrapper">
+      <div class="menu-loading" id="menu-loading" role="status" aria-label="Carregando cardápio">
+        <div class="spinner" aria-hidden="true"></div>
+        <span>Carregando cardápio…</span>
+      </div>
     </div>
-
+    <script src="script/carrinho.js"></script>
+    <script src="script/menu-renderer.js"></script>
   </body>
 </html>

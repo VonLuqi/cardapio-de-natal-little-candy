@@ -245,6 +245,9 @@
   function adicionarBotaoCarrinho(produto) {
     if (typeof window.Carrinho === 'undefined') return;
 
+    /* Itens do Kit Festa não podem ser adicionados individualmente */
+    if (produto.categoria === 'kit-festa') return;
+
     const ctaWrap = document.querySelector('.produto-cta-wrap');
     if (!ctaWrap) return;
 

@@ -15,3 +15,155 @@
   background-image: radial-gradient(#c9a227 1.5px, transparent 1.5px);
   background-size: 25px 25px;
 }
+
+/* ── Kit Builder ── */
+
+.kit-itens-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+}
+
+.kit-item-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid #f7f4ef;
+  gap: 0.75rem;
+}
+.kit-item-toggle-row:last-child { border-bottom: none; }
+
+.kit-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+.kit-item-nome {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #3d2c1e;
+}
+.kit-item-preco {
+  font-size: 0.8rem;
+  color: #c9a227;
+  font-weight: 600;
+}
+.kit-item-preco small {
+  font-weight: 400;
+  color: #aaa;
+}
+
+.kit-item-toggle-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid #e0d8d0;
+  background: white;
+  color: #ccc;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.kit-item-toggle-btn.ativo {
+  background: #c9a227;
+  border-color: #c9a227;
+  color: white;
+}
+.kit-item-toggle-btn:hover:not(.ativo) {
+  border-color: #c9a227;
+  color: #c9a227;
+}
+
+.kit-builder-footer {
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid #f0ebe3;
+  margin-top: 0.25rem;
+}
+
+.kit-qty-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.kit-qty-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+.kit-qty-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.kit-qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #e6dccf;
+  background: white;
+  color: #888;
+  font-size: 0.65rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+}
+.kit-qty-btn:disabled { opacity: 0.3; cursor: default; }
+.kit-qty-btn:not(:disabled):hover { background: #c9a227; border-color: #c9a227; color: white; }
+.kit-qty-val {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #3d2c1e;
+}
+
+.kit-total-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fffbf0;
+  border: 1px solid #e6dccf;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.85rem;
+}
+.kit-total-label {
+  font-size: 0.8rem;
+  color: #888;
+}
+.kit-total-val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #c9a227;
+}
+
+.kit-btn-adicionar {
+  width: 100%;
+  padding: 0.9rem;
+  background: #c9a227;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+.kit-btn-adicionar:disabled { opacity: 0.4; cursor: default; }
+.kit-btn-adicionar:not(:disabled):hover { background: #b8921e; }

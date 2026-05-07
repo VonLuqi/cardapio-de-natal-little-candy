@@ -58,6 +58,7 @@
       sufixoCor: 'gold',
       headerClass: 'cardapio-header-light',
       headerBg: null,
+      isKit: true,
       descricao: '"Kits festa totalmente personalizados. Cada item escolhido por você, com muito carinho."',
     },
   };
@@ -206,8 +207,9 @@
              </div>`
           : '';
 
-        const btnAdicionar =
-          !temTamanhos && produto.precoLabel
+        const btnAdicionar = config.isKit
+          ? ''
+          : !temTamanhos && produto.precoLabel
             ? `<button
                 class="btn-adicionar-item"
                 data-id="${produto.id}"
@@ -299,6 +301,158 @@
     `;
 
     return secao;
+  }
+
+  /* ── Kit Festa: montador de kit ── */
+
+  function renderKitBuilder(produtos, config) {
+    const section = document.createElement('section');
+    section.className = 'secao-cardapio kit-builder';
+    section.setAttribute('aria-label', 'Monte seu kit');
+
+    function _fmtBRL(val) {
+      return 'R$\u00a0' + val.toFixed(2).replace('.', ',');
+    }
+
+    const selecionados = new Set();
+    let qty = 1;
+
+    /* Header */
+    const headerEl = document.createElement('div');
+    headerEl.innerHTML = `
+      <div class="secao-preco-header">
+        <div><h2 class="secao-titulo secao-titulo-${config.sufixoCor}">Monte seu Kit</h2></div>
+      </div>
+      <hr class="secao-divider secao-divider-${config.sufixoCor}" />
+    `;
+    section.appendChild(headerEl);
+
+    /* Toggle list */
+    const ul = document.createElement('ul');
+    ul.className = 'kit-itens-lista';
+    produtos.forEach((p) => {
+      const li = document.createElement('li');
+      li.className = 'kit-item-toggle-row';
+      li.innerHTML = `
+        <div class="kit-item-info">
+          <span class="kit-item-nome">${escaparHTML(p.nome)}</span>
+          <span class="kit-item-preco">${escaparHTML(p.precoLabel)}<small>\u00a0/\u00a0${escaparHTML(p.precoPor || 'un')}</small></span>
+        </div>
+        <button
+          class="kit-item-toggle-btn"
+          data-id="${p.id}"
+          data-nome="${escaparHTML(p.nome)}"
+          data-preco="${parsePrecoBRL(p.precoLabel)}"
+          aria-pressed="false"
+          type="button"
+        ><i class="fas fa-check" aria-hidden="true"></i></button>
+      `;
+      ul.appendChild(li);
+    });
+    section.appendChild(ul);
+
+    /* Footer: stepper + total + botão */
+    const footer = document.createElement('div');
+    footer.className = 'kit-builder-footer';
+    footer.innerHTML = `
+      <div class="kit-qty-wrap">
+        <span class="kit-qty-label">Quantidade de kits</span>
+        <div class="kit-qty-controles">
+          <button class="kit-qty-btn" id="kit-btn-dim" type="button" aria-label="Diminuir" disabled>
+            <i class="fas fa-minus" aria-hidden="true"></i>
+          </button>
+          <span class="kit-qty-val" id="kit-qty-val">1</span>
+          <button class="kit-qty-btn" id="kit-btn-aum" type="button" aria-label="Aumentar">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="kit-total-wrap" id="kit-total-wrap" hidden>
+        <span class="kit-total-label">Total estimado</span>
+        <strong class="kit-total-val" id="kit-total-val">R$\u00a00,00</strong>
+      </div>
+      <button class="kit-btn-adicionar" id="kit-btn-adicionar" type="button" disabled>
+        <i class="fas fa-shopping-bag" aria-hidden="true"></i> Adicionar Kit ao Pedido
+      </button>
+    `;
+    section.appendChild(footer);
+
+    /* Sincroniza estado visual */
+    function sincronizar() {
+      const preco     = [...selecionados].reduce((t, id) => {
+        const btn = ul.querySelector(`.kit-item-toggle-btn[data-id="${id}"]`);
+        return t + (parseFloat(btn && btn.dataset.preco) || 0);
+      }, 0);
+      const totalEl   = footer.querySelector('#kit-total-val');
+      const totalWrap = footer.querySelector('#kit-total-wrap');
+      const addBtn    = footer.querySelector('#kit-btn-adicionar');
+      const dimBtn    = footer.querySelector('#kit-btn-dim');
+      if (totalEl) {
+        totalEl.textContent = `${_fmtBRL(preco * qty)}` +
+          (qty > 1 ? ` (${qty}x ${_fmtBRL(preco)})` : '');
+      }
+      if (totalWrap) totalWrap.hidden  = selecionados.size === 0;
+      if (addBtn)    addBtn.disabled   = selecionados.size === 0;
+      if (dimBtn)    dimBtn.disabled   = qty <= 1;
+    }
+
+    /* Eventos dos toggles */
+    ul.addEventListener('click', (e) => {
+      const btn = e.target.closest('.kit-item-toggle-btn');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      if (selecionados.has(id)) {
+        selecionados.delete(id);
+        btn.classList.remove('ativo');
+        btn.setAttribute('aria-pressed', 'false');
+      } else {
+        selecionados.add(id);
+        btn.classList.add('ativo');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+      sincronizar();
+    });
+
+    footer.querySelector('#kit-btn-dim').addEventListener('click', () => {
+      if (qty > 1) { qty--; footer.querySelector('#kit-qty-val').textContent = qty; sincronizar(); }
+    });
+    footer.querySelector('#kit-btn-aum').addEventListener('click', () => {
+      qty++; footer.querySelector('#kit-qty-val').textContent = qty; sincronizar();
+    });
+
+    footer.querySelector('#kit-btn-adicionar').addEventListener('click', () => {
+      if (selecionados.size === 0) return;
+      const itens = [...selecionados].map((id) => {
+        const btn = ul.querySelector(`.kit-item-toggle-btn[data-id="${id}"]`);
+        return btn ? btn.dataset.nome : id;
+      });
+      const preco = [...selecionados].reduce((t, id) => {
+        const btn = ul.querySelector(`.kit-item-toggle-btn[data-id="${id}"]`);
+        return t + (parseFloat(btn && btn.dataset.preco) || 0);
+      }, 0);
+      window.Carrinho.adicionar({
+        id:                  'kit-festa',
+        variante:            '',
+        nome:                'Kit Festa',
+        preco,
+        precoLabel:          _fmtBRL(preco) + ' / kit',
+        unidade:             'kit',
+        pedidoMinimo:        1,
+        quantidade:          qty,
+        saboresSelecionados: itens,
+      });
+      /* Reset */
+      selecionados.clear();
+      ul.querySelectorAll('.kit-item-toggle-btn.ativo').forEach((b) => {
+        b.classList.remove('ativo');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      qty = 1;
+      footer.querySelector('#kit-qty-val').textContent = 1;
+      sincronizar();
+    });
+
+    return section;
   }
 
   /* ── Renderização do botão de encomenda ── */
@@ -420,6 +574,11 @@
     Object.entries(grupos).forEach(([sub, prods]) => {
       main.appendChild(renderSecao(sub, prods, config));
     });
+
+    /* Kit builder — aparece após a lista de itens */
+    if (config.isKit) {
+      main.appendChild(renderKitBuilder(produtos, config));
+    }
 
     /* Delegação: toggle UN / CENTO nas linhas de produto */
     main.addEventListener('click', (e) => {

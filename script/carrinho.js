@@ -156,7 +156,8 @@
             .join(' · ') +
           '_';
       } else if (i.saboresSelecionados && i.saboresSelecionados.length) {
-        distStr = '\n  _Sabores: ' + i.saboresSelecionados.join(', ') + '_';
+        const rotulo = i.unidade === 'kit' ? 'Itens' : 'Sabores';
+        distStr = '\n  _' + rotulo + ': ' + i.saboresSelecionados.join(', ') + '_';
       }
       return `• ${i.nome}${variante}${unLabel} — ${i.quantidade}x — ${sub}${distStr}`;
     });

@@ -40,7 +40,9 @@
     carregar() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        this._itens = raw ? JSON.parse(raw) : [];
+        const parsed = raw ? JSON.parse(raw) : [];
+        // Garante campo unidade em itens salvos antes da migração da chave
+        this._itens = parsed.map((i) => ({ unidade: 'unidade', ...i }));
       } catch {
         this._itens = [];
       }
@@ -65,14 +67,14 @@
       return this._itens.reduce((s, i) => s + i.quantidade, 0);
     },
 
-    _chave(id, variante) {
-      return `${id}::${variante || ''}`;
+    _chave(id, variante, unidade) {
+      return `${id}::${variante || ''}::${unidade || 'unidade'}`;
     },
 
     adicionar(item) {
-      const chave = this._chave(item.id, item.variante);
+      const chave = this._chave(item.id, item.variante, item.unidade);
       const existente = this._itens.find(
-        (i) => this._chave(i.id, i.variante) === chave
+        (i) => this._chave(i.id, i.variante, i.unidade) === chave
       );
       if (existente) {
         existente.quantidade += item.quantidade || 1;
@@ -89,15 +91,15 @@
       this.salvar();
     },
 
-    incrementar(id, variante) {
-      const chave = this._chave(id, variante);
-      const item = this._itens.find((i) => this._chave(i.id, i.variante) === chave);
+    incrementar(id, variante, unidade) {
+      const chave = this._chave(id, variante, unidade);
+      const item = this._itens.find((i) => this._chave(i.id, i.variante, i.unidade) === chave);
       if (item) { item.quantidade++; this.salvar(); }
     },
 
-    decrementar(id, variante) {
-      const chave = this._chave(id, variante);
-      const idx = this._itens.findIndex((i) => this._chave(i.id, i.variante) === chave);
+    decrementar(id, variante, unidade) {
+      const chave = this._chave(id, variante, unidade);
+      const idx = this._itens.findIndex((i) => this._chave(i.id, i.variante, i.unidade) === chave);
       if (idx === -1) return;
       const minimo = this._itens[idx].pedidoMinimo || 1;
       if (this._itens[idx].quantidade <= minimo) {
@@ -109,10 +111,10 @@
       this.salvar();
     },
 
-    remover(id, variante) {
-      const chave = this._chave(id, variante);
+    remover(id, variante, unidade) {
+      const chave = this._chave(id, variante, unidade);
       this._itens = this._itens.filter(
-        (i) => this._chave(i.id, i.variante) !== chave
+        (i) => this._chave(i.id, i.variante, i.unidade) !== chave
       );
       this.salvar();
     },
@@ -422,10 +424,10 @@
       document.getElementById('carrinho-itens').addEventListener('click', (e) => {
         const btn = e.target.closest('[data-acao]');
         if (!btn) return;
-        const { id, variante = '', acao } = btn.dataset;
-        if (acao === 'incrementar') Store.incrementar(id, variante);
-        if (acao === 'decrementar') Store.decrementar(id, variante);
-        if (acao === 'remover')     Store.remover(id, variante);
+        const { id, variante = '', unidade = 'unidade', acao } = btn.dataset;
+        if (acao === 'incrementar') Store.incrementar(id, variante, unidade);
+        if (acao === 'decrementar') Store.decrementar(id, variante, unidade);
+        if (acao === 'remover')     Store.remover(id, variante, unidade);
       });
 
       // Delegação global — abre qty picker para .btn-adicionar-item; fecha ao clicar fora
@@ -537,6 +539,7 @@
                     data-acao="decrementar"
                     data-id="${item.id}"
                     data-variante="${vEscapado}"
+                    data-unidade="${item.unidade || 'unidade'}"
                     aria-label="${labelDecr}"
                     title="${labelDecr}"
                   ><i class="fas fa-${noMinimo ? 'trash-alt' : 'minus'}" aria-hidden="true"></i></button>
@@ -545,6 +548,7 @@
                     data-acao="incrementar"
                     data-id="${item.id}"
                     data-variante="${vEscapado}"
+                    data-unidade="${item.unidade || 'unidade'}"
                     aria-label="Aumentar quantidade"
                   ><i class="fas fa-plus" aria-hidden="true"></i></button>
                 </div>
@@ -557,6 +561,7 @@
                     data-acao="remover"
                     data-id="${item.id}"
                     data-variante="${vEscapado}"
+                    data-unidade="${item.unidade || 'unidade'}"
                     aria-label="Remover ${item.nome}"
                     title="Remover item"
                   ><i class="fas fa-trash-alt" aria-hidden="true"></i></button>

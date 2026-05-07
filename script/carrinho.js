@@ -73,7 +73,7 @@
 
     adicionar(item) {
       // Itens com distribuição de sabores são sempre entradas separadas
-      if (item.distribuicao) {
+      if (item.distribuicao || item.saboresSelecionados) {
         item = { ...item, variante: '__dist_' + _uid() };
       }
       const chave = this._chave(item.id, item.variante, item.unidade);
@@ -155,6 +155,8 @@
             .map(([s, q]) => `${s}: ${q}`)
             .join(' · ') +
           '_';
+      } else if (i.saboresSelecionados && i.saboresSelecionados.length) {
+        distStr = '\n  _Sabores: ' + i.saboresSelecionados.join(', ') + '_';
       }
       return `• ${i.nome}${variante}${unLabel} — ${i.quantidade}x — ${sub}${distStr}`;
     });
@@ -335,13 +337,80 @@
 
   function _abrirDistribuicao(item, sabores, totalUnidades) {
     const PASSO = (item.pedidoMinimo || 1) >= 20 ? 20 : 1;
-    const qtds  = sabores.map(() => 0);
 
     const existente = document.getElementById('dist-root');
     if (existente) existente.remove();
 
     const root = document.createElement('div');
     root.id = 'dist-root';
+
+    /* ── Modo seleção (toggle) — sem quantidade, só escolhe sabores ── */
+    if (PASSO === 1) {
+      const selecionados = new Set();
+      root.innerHTML = `
+        <div class="dist-overlay" id="dist-overlay"></div>
+        <div class="dist-panel" role="dialog" aria-modal="true" aria-label="Escolher sabores">
+          <header class="dist-header">
+            <div class="dist-header-info">
+              <h3 class="dist-titulo">${esc(item.nome)}</h3>
+              <p class="dist-subtitulo">Escolha os sabores desejados</p>
+            </div>
+            <button class="dist-fechar" id="dist-fechar" aria-label="Fechar">&times;</button>
+          </header>
+          <ul class="dist-lista">
+            ${sabores.map((s) => `
+              <li class="dist-item dist-item-toggle">
+                <span class="dist-sabor-nome">${esc(s)}</span>
+                <button class="dist-btn dist-btn-toggle" data-sabor="${esc(s)}" aria-pressed="false" type="button">
+                  <i class="fas fa-check" aria-hidden="true"></i>
+                </button>
+              </li>
+            `).join('')}
+          </ul>
+          <button class="dist-btn-confirmar" id="dist-confirmar" disabled>
+            <i class="fas fa-check" aria-hidden="true"></i> Adicionar ao Pedido
+          </button>
+        </div>
+      `;
+      document.body.appendChild(root);
+      requestAnimationFrame(() => root.querySelector('.dist-panel').classList.add('visivel'));
+
+      function fecharToggle() {
+        const panel = root.querySelector('.dist-panel');
+        panel.classList.remove('visivel');
+        setTimeout(() => { if (root.parentNode) root.remove(); }, 250);
+      }
+      root.addEventListener('click', (e) => {
+        if (e.target.id === 'dist-overlay' || e.target.closest('#dist-fechar')) { fecharToggle(); return; }
+        if (e.target.closest('#dist-confirmar')) {
+          if (selecionados.size === 0) return;
+          fecharToggle();
+          Store.adicionar({ ...item, saboresSelecionados: [...selecionados] });
+          showToast(item.nome);
+          const floatBtn = document.getElementById('btn-carrinho-toggle');
+          if (floatBtn) { floatBtn.classList.add('pulse'); setTimeout(() => floatBtn.classList.remove('pulse'), 600); }
+          return;
+        }
+        const btnToggle = e.target.closest('.dist-btn-toggle');
+        if (btnToggle) {
+          const sabor = btnToggle.dataset.sabor;
+          if (selecionados.has(sabor)) {
+            selecionados.delete(sabor);
+            btnToggle.classList.remove('ativo');
+            btnToggle.setAttribute('aria-pressed', 'false');
+          } else {
+            selecionados.add(sabor);
+            btnToggle.classList.add('ativo');
+            btnToggle.setAttribute('aria-pressed', 'true');
+          }
+          document.getElementById('dist-confirmar').disabled = selecionados.size === 0;
+        }
+      });
+      return;
+    }
+
+    /* ── Modo distribuição (quantidade por sabor — ex: docinhos mín 20) ── */
+    const qtds  = sabores.map(() => 0);
     const unStr = item.unidade === 'cento'
       ? `${item.quantidade} cento${item.quantidade > 1 ? 's' : ''} · ${totalUnidades} un`
       : `${totalUnidades} unidade${totalUnidades > 1 ? 's' : ''}`;
@@ -634,7 +703,7 @@
       container.innerHTML = itens
         .map((item) => {
           const sub          = formatBRL(item.preco * item.quantidade);
-          const isDist       = !!item.distribuicao;
+          const isDist       = !!(item.distribuicao || item.saboresSelecionados);
           const varianteStr  = (!isDist && item.variante && !item.variante.startsWith('__dist_'))
             ? `<small class="item-variante">${item.variante}</small>`
             : '';
@@ -650,14 +719,18 @@
             : '';
           const labelDecr    = noMinimo ? 'Remover item' : 'Diminuir quantidade';
 
-          const distHTML = isDist
+          const distHTML = item.distribuicao
             ? `<div class="item-distribuicao">` +
               Object.entries(item.distribuicao)
                 .filter(([, q]) => q > 0)
                 .map(([s, q]) => `<span>${s}: ${q}</span>`)
                 .join('') +
               `</div>`
-            : '';
+            : item.saboresSelecionados && item.saboresSelecionados.length
+              ? `<div class="item-distribuicao">` +
+                item.saboresSelecionados.map((s) => `<span>${s}</span>`).join('') +
+                `</div>`
+              : '';
 
           const controlesHTML = isDist
             ? `<span class="item-qtd item-qtd-fixed">${item.quantidade}x</span>`

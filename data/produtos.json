@@ -1,0 +1,638 @@
+{
+  "meta": {
+    "confeitaria": "Little Candy Dream",
+    "instagram": "https://www.instagram.com/nessaconfeitariaartistica/",
+    "whatsapp": "https://wa.link/nc5ren",
+    "observacaoGeral": "Produtos podem conter traços de glúten, lactose e oleaginosas."
+  },
+  "categorias": [
+    {
+      "id": "classico",
+      "nome": "Cardápio Clássico",
+      "descricao": "Delícias especiais para momentos únicos",
+      "cor": "#8b0000",
+      "corSecundaria": "#c9a227",
+      "icone": "fas fa-star",
+      "pagina": "cardapio-classico.html"
+    },
+    {
+      "id": "docinhos",
+      "nome": "Docinhos Clássicos",
+      "descricao": "Para todas as ocasiões",
+      "cor": "#c9a227",
+      "corSecundaria": "#8c7b50",
+      "icone": "fas fa-cookie-bite",
+      "pagina": "cardapio-docinhos-classicos.html"
+    },
+    {
+      "id": "bolos",
+      "nome": "Bolos Artesanais",
+      "descricao": "Feitos com carinho, para celebrar a vida",
+      "cor": "#5d4037",
+      "corSecundaria": "#8d6e63",
+      "icone": "fas fa-cake-candles",
+      "pagina": "cardapio-bolos.html"
+    },
+    {
+      "id": "zero-acucar",
+      "nome": "Linha Zero Açúcar",
+      "descricao": "O sabor dos nossos doces, sem culpa e com muito amor",
+      "cor": "#1a472a",
+      "corSecundaria": "#a3b18a",
+      "icone": "fas fa-leaf",
+      "pagina": "cardapio-sem-açucar.html"
+    },
+    {
+      "id": "kit-festa",
+      "nome": "Kit Festa",
+      "descricao": "Personalizado para suas comemorações especiais",
+      "cor": "#c9a227",
+      "corSecundaria": "#8c7b50",
+      "icone": "fas fa-gift",
+      "pagina": "cardapio-kit-festa.html"
+    }
+  ],
+  "produtos": [
+
+    {
+      "id": "morango-do-amor",
+      "categoria": "classico",
+      "subcategoria": "Especiais",
+      "ordem": 1,
+      "nome": "Morango do Amor",
+      "descricaoCurta": "Releitura gourmet da clássica maçã do amor",
+      "descricao": "Uma releitura gourmet da clássica maçã do amor! Morango fresco recheado com brigadeiro branco cremoso (sabor Ninho) e coberto com calda de açúcar vermelha crocante. A combinação perfeita de texturas e sabores.",
+      "precoLabel": "R$ 10,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "pedidoMinimo": 5,
+      "detalhes": [
+        "Crocância irresistível da calda de açúcar",
+        "Cremosidade do brigadeiro branco (sabor Ninho)",
+        "Suculência do morango fresco"
+      ],
+      "detalhesTitulo": "A Combinação Perfeita",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true,
+      "obs": "Pedido mínimo de 5 unidades."
+    },
+
+    {
+      "id": "popcake",
+      "categoria": "classico",
+      "subcategoria": "Popcakes",
+      "ordem": 2,
+      "nome": "Popcake",
+      "descricaoCurta": "Bolo no palito, recheado e coberto com chocolate",
+      "descricao": "Popcake é um doce irresistível: bolinho úmido no palito, coberto com chocolate ou candy melts coloridos. Perfeito para festas infantis e eventos.",
+      "precoLabel": "R$ 4,00",
+      "precoPor": "unidade (Tamanho P)",
+      "precoMinimo": false,
+      "tamanhos": [
+        { "nome": "Tamanho P", "fatias": "Porção menor, ideal para festas", "precoLabel": "R$ 4,00" },
+        { "nome": "Tamanho M", "fatias": "Mais recheio e sabor", "precoLabel": "R$ 7,00" }
+      ],
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "cone-trufado",
+      "categoria": "classico",
+      "subcategoria": "Especiais",
+      "ordem": 3,
+      "nome": "Cone Trufado",
+      "descricaoCurta": "Cone crocante recheado e coberto com chocolate",
+      "descricao": "Cone crocante recheado generosamente com seu sabor favorito e coberto com chocolate. Uma combinação irresistível de textura e sabor.",
+      "precoLabel": "R$ 12,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "sabores": ["Brigadeiro", "Beijinho", "Doce de Leite", "Ninho"],
+      "saboresTitulo": "Recheios Disponíveis",
+      "detalhes": [
+        "Chocolate Branco",
+        "Chocolate ao Leite"
+      ],
+      "detalhesTitulo": "Opções de Cobertura",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "docinhos-tradicionais",
+      "categoria": "docinhos",
+      "subcategoria": "Tradicionais",
+      "ordem": 1,
+      "nome": "Docinhos Tradicionais",
+      "descricaoCurta": "Clássicos que nunca saem de moda",
+      "descricao": "Os tradicionais docinhos de festa, feitos com carinho e qualidade. Disponíveis no formato clássico ou repaginados em formato de flores. Cada unidade é produzida artesanalmente com ingredientes selecionados.",
+      "precoLabel": "R$ 180,00",
+      "precoUnidade": "R$ 1,90",
+      "precoPor": "cento",
+      "precoMinimo": false,
+      "pedidoMinimo": 20,
+      "sabores": [
+        "Brigadeiro", "Beijinho", "Casadinho", "Ninho",
+        "Paçoca", "Cajuzinho", "Bicho de Pé"
+      ],
+      "saboresTitulo": "Sabores Disponíveis",
+      "detalhes": [
+        "Formato clássico ou em flores",
+        "Feitos artesanalmente com ingredientes selecionados"
+      ],
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true,
+      "obs": "Pedido mínimo de 20 unidades de cada sabor."
+    },
+
+    {
+      "id": "docinhos-base-ninho",
+      "categoria": "docinhos",
+      "subcategoria": "Base de Ninho",
+      "ordem": 2,
+      "nome": "Docinhos Base de Ninho",
+      "descricaoCurta": "Sabores especiais com a cremosidade do Ninho",
+      "descricao": "Docinhos com base de Leite Ninho, uma opção mais cremosa e sofisticada para seu evento. A base especial de Ninho dá uma textura irresistível a cada sabor.",
+      "precoLabel": "R$ 180,00",
+      "precoUnidade": "R$ 1,90",
+      "precoPor": "cento",
+      "precoMinimo": false,
+      "pedidoMinimo": 20,
+      "sabores": [
+        "Chocolate", "Paçoca", "Ninho", "Casadinho",
+        "Coco", "Morango", "Coloridos (qualquer cor)"
+      ],
+      "saboresTitulo": "Sabores Disponíveis",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false,
+      "obs": "Pedido mínimo de 20 unidades de cada sabor."
+    },
+
+    {
+      "id": "brigadeiro-gourmet",
+      "categoria": "docinhos",
+      "subcategoria": "Brigadeiros Gourmet",
+      "ordem": 3,
+      "nome": "Brigadeiros Gourmet",
+      "descricaoCurta": "Cobertos com granulado especial ou castanhas trituradas",
+      "descricao": "Brigadeiros gourmet com sabores sofisticados, cobertos com granulado belga especial ou castanhas trituradas. Uma experiência gastronômica diferenciada em cada mordida.",
+      "precoLabel": "R$ 250,00",
+      "precoUnidade": "R$ 2,60",
+      "precoPor": "cento",
+      "precoMinimo": false,
+      "pedidoMinimo": 20,
+      "sabores": [
+        "Meio Amargo", "Limão", "Maracujá", "Morango",
+        "Abacaxi", "Chocolate Branco", "Churros",
+        "Ninho com Nutella", "Olho de Sogra"
+      ],
+      "saboresTitulo": "Sabores Gourmet",
+      "detalhes": [
+        "Granulado belga especial",
+        "Castanhas trituradas"
+      ],
+      "detalhesTitulo": "Cobertura",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true,
+      "obs": "Pedido mínimo de 20 unidades de cada sabor."
+    },
+
+    {
+      "id": "surpresa-de-uva",
+      "categoria": "docinhos",
+      "subcategoria": "Doces Finos",
+      "ordem": 4,
+      "nome": "Surpresa de Uva",
+      "descricaoCurta": "Uva coberta com brigadeiro branco cremoso",
+      "descricao": "Uva fresca coberta com uma camada generosa de brigadeiro branco cremoso. Um doce refinado que impressiona pela apresentação e sabor.",
+      "precoLabel": "R$ 3,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "surpresa-de-morango",
+      "categoria": "docinhos",
+      "subcategoria": "Doces Finos",
+      "ordem": 5,
+      "nome": "Surpresa de Morango",
+      "descricaoCurta": "Morango coberto com brigadeiro branco",
+      "descricao": "Morango fresco coberto com brigadeiro branco cremoso. A combinação da acidez do morango com a doçura do brigadeiro cria uma experiência única.",
+      "precoLabel": "R$ 3,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "bombom-de-uva",
+      "categoria": "docinhos",
+      "subcategoria": "Doces Finos",
+      "ordem": 6,
+      "nome": "Bombom de Uva",
+      "descricaoCurta": "Uva branca ou colorida coberta com chocolate",
+      "descricao": "Uva (branca ou colorida) envolta em chocolate e brigadeiro. Uma opção elegante e deliciosa para qualquer ocasião.",
+      "precoLabel": "R$ 3,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "copinho-de-chocolate",
+      "categoria": "docinhos",
+      "subcategoria": "Doces Finos",
+      "ordem": 7,
+      "nome": "Copinho de Chocolate",
+      "descricaoCurta": "Copinho de chocolate com creme especial",
+      "descricao": "Copinho artesanal de chocolate recheado com creme especial. Uma opção sofisticada e deliciosa para eventos e festas.",
+      "precoLabel": "R$ 3,50",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "bombom-de-cereja",
+      "categoria": "docinhos",
+      "subcategoria": "Doces Finos",
+      "ordem": 8,
+      "nome": "Bombom de Cereja",
+      "descricaoCurta": "Clássico bombom com cereja no interior",
+      "descricao": "Bombom com cereja no interior, coberto com chocolate ao leite. Um clássico sofisticado que encanta pelo sabor e apresentação.",
+      "precoLabel": "R$ 4,50",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "camafeu-de-nozes",
+      "categoria": "docinhos",
+      "subcategoria": "Doces Finos",
+      "ordem": 9,
+      "nome": "Camafeu de Nozes",
+      "descricaoCurta": "Doce fino clássico com nozes",
+      "descricao": "Clássico doce fino com massa de nozes e cobertura de fondant branco. Um doce elegante que remete às melhores confeitarias tradicionais.",
+      "precoLabel": "R$ 4,50",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "brigadeiro-de-colher",
+      "categoria": "docinhos",
+      "subcategoria": "Outras Opções",
+      "ordem": 10,
+      "nome": "Brigadeiro de Colher",
+      "descricaoCurta": "Brigadeiro cremoso servido em potinho individual",
+      "descricao": "Brigadeiro cremoso preparado no ponto perfeito, servido em potinhos individuais. Uma experiência diferente de comer o brigadeiro favorito de todo brasileiro.",
+      "precoLabel": "R$ 4,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "bombons",
+      "categoria": "docinhos",
+      "subcategoria": "Outras Opções",
+      "ordem": 11,
+      "nome": "Bombons",
+      "descricaoCurta": "Bombons artesanais com sabores diversos",
+      "descricao": "Bombons artesanais com recheios variados e coberturas especiais. Opção perfeita para presentear ou servir em eventos.",
+      "precoLabel": "R$ 3,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "cake-pop",
+      "categoria": "docinhos",
+      "subcategoria": "Outras Opções",
+      "ordem": 12,
+      "nome": "Cake Pop",
+      "descricaoCurta": "Bolinho no palito coberto com chocolate",
+      "descricao": "Bolinhos de bolo no palito, cobertos com chocolate branco ou ao leite. Uma opção encantadora e deliciosa para festas de qualquer tema.",
+      "precoLabel": "R$ 6,00 - 7,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "sabores": ["Chocolate ao Leite", "Chocolate Branco"],
+      "saboresTitulo": "Cobertura",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "bolo-de-pote",
+      "categoria": "bolos",
+      "subcategoria": "Para Adoçar o Dia",
+      "ordem": 1,
+      "nome": "Bolo de Pote",
+      "descricaoCurta": "Camadas de bolo úmido e recheio cremoso",
+      "descricao": "Camadas generosas de bolo úmido e recheio cremoso, servidas em pote individual. Sabores variados disponíveis a cada dia. Uma experiência completa em uma só embalagem.",
+      "precoLabel": "R$ 12,00",
+      "precoPor": "unidade (Médio)",
+      "precoMinimo": false,
+      "tamanhos": [
+        { "nome": "Médio", "fatias": "", "precoLabel": "R$ 12,00" },
+        { "nome": "Grande", "fatias": "", "precoLabel": "R$ 15,00" }
+      ],
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true
+    },
+
+    {
+      "id": "cenoura-com-chocolate",
+      "categoria": "bolos",
+      "subcategoria": "Caseirinhos",
+      "ordem": 2,
+      "nome": "Bolo de Cenoura com Chocolate",
+      "descricaoCurta": "O clássico que todo mundo ama",
+      "descricao": "O eterno clássico! Bolo de cenoura com massa fofinha e úmida, coberto com uma camada generosa de brigadeiro de chocolate. Perfeito para qualquer hora.",
+      "precoLabel": "R$ 35,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "bolo-laranja-limao",
+      "categoria": "bolos",
+      "subcategoria": "Caseirinhos",
+      "ordem": 3,
+      "nome": "Bolo de Laranja ou Limão",
+      "descricaoCurta": "Com glacê cítrico irresistível",
+      "descricao": "Bolo caseiro fofo e úmido com glacê cítrico. A acidez da fruta equilibra perfeitamente com a doçura da massa. Ideal para o café da tarde.",
+      "precoLabel": "R$ 30,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "sabores": ["Laranja com Glacê", "Limão com Glacê"],
+      "saboresTitulo": "Sabores",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "chocolate-vulcao",
+      "categoria": "bolos",
+      "subcategoria": "Caseirinhos",
+      "ordem": 4,
+      "nome": "Chocolate Vulcão",
+      "descricaoCurta": "Explosão de brigadeiro que desce pelas laterais",
+      "descricao": "Bolo de chocolate com uma cobertura espetacular de brigadeiro que escorre pelas laterais como lava. Uma experiência visual e gustativa inesquecível para os amantes de chocolate.",
+      "precoLabel": "R$ 45,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true
+    },
+
+    {
+      "id": "bolo-ninho-nutella",
+      "categoria": "bolos",
+      "subcategoria": "Caseirinhos",
+      "ordem": 5,
+      "nome": "Bolo de Ninho com Nutella",
+      "descricaoCurta": "Massa fofinha com cobertura dupla especial",
+      "descricao": "Bolo de Leite Ninho com recheio e cobertura de Nutella. A combinação irresistível de Ninho e avelã cria um sabor único e memorável.",
+      "precoLabel": "R$ 55,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "bolo-aniversario",
+      "categoria": "bolos",
+      "subcategoria": "Bolos de Aniversário",
+      "ordem": 6,
+      "nome": "Bolo de Aniversário",
+      "descricaoCurta": "Personalizado para sua celebração especial",
+      "descricao": "Bolos de aniversário artesanais, completamente personalizados para sua festa. Recheios, coberturas e decorações a combinar com você. Cada bolo é uma obra-prima exclusiva.",
+      "precoLabel": "R$ 85,00",
+      "precoPor": "unidade",
+      "precoMinimo": true,
+      "tamanhos": [
+        { "nome": "PP", "fatias": "Pequeno porte", "precoLabel": "a partir de R$ 85,00" },
+        { "nome": "P — Pequeno", "fatias": "12 a 15 fatias", "precoLabel": "a partir de R$ 120,00" },
+        { "nome": "M — Médio", "fatias": "25 a 28 fatias", "precoLabel": "a partir de R$ 180,00" },
+        { "nome": "G — Grande", "fatias": "45 a 52 fatias", "precoLabel": "a partir de R$ 230,00" },
+        { "nome": "GG — Extra Grande", "fatias": "Produção especial", "precoLabel": "a partir de R$ 330,00" }
+      ],
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true,
+      "obs": "Valor varia conforme recheio, decoração e complexidade. Consulte-nos para orçamento personalizado."
+    },
+
+    {
+      "id": "cupcakes",
+      "categoria": "bolos",
+      "subcategoria": "Cupcakes",
+      "ordem": 7,
+      "nome": "Cupcakes Recheados e Confeitados",
+      "descricaoCurta": "Recheados e decorados com muito capricho",
+      "descricao": "Cupcakes artesanais, recheados e confeitados individualmente. Disponíveis em dois tamanhos. Recheios e decorações personalizáveis para seu evento.",
+      "precoLabel": "R$ 5,00",
+      "precoPor": "unidade",
+      "precoMinimo": true,
+      "tamanhos": [
+        { "nome": "Mini Cupcake", "fatias": "Recheado e confeitado", "precoLabel": "a partir de R$ 5,00" },
+        { "nome": "Cupcake Grande", "fatias": "Recheado e confeitado", "precoLabel": "a partir de R$ 12,00" }
+      ],
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false,
+      "obs": "Valor varia de acordo com o recheio e decoração escolhida."
+    },
+
+    {
+      "id": "pave-artesanal-zero",
+      "categoria": "zero-acucar",
+      "subcategoria": "Pavês Artesanais",
+      "ordem": 1,
+      "nome": "Pavê Artesanal Zero Açúcar",
+      "descricaoCurta": "Feito com Pão de Ló e adoçantes premium",
+      "descricao": "Pavê artesanal elaborado com massa de Pão de Ló delicada e adoçantes de alta qualidade. Um clássico reinventado para quem cuida da saúde sem abrir mão do sabor.",
+      "precoLabel": "R$ 110,00",
+      "precoPor": "kg",
+      "precoMinimo": false,
+      "sabores": ["Coco", "Chocolate", "Morango", "Abacaxi", "Doce de Leite", "Limão"],
+      "saboresTitulo": "Sabores Disponíveis",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true,
+      "obs": "Produto pode conter traços de glúten e lactose."
+    },
+
+    {
+      "id": "surpresa-de-frutas-zero",
+      "categoria": "zero-acucar",
+      "subcategoria": "Surpresas de Frutas",
+      "ordem": 2,
+      "nome": "Surpresa de Frutas Zero Açúcar",
+      "descricaoCurta": "Gelatina com creme e frutas frescas",
+      "descricao": "Cremosa e refrescante mistura de gelatina zero açúcar com creme especial e frutas frescas. Uma opção leve e deliciosa para qualquer momento.",
+      "precoLabel": "R$ 45,00",
+      "precoPor": "unidade (Tam. P)",
+      "precoMinimo": false,
+      "tamanhos": [
+        { "nome": "Tamanho P", "fatias": "", "precoLabel": "R$ 45,00" },
+        { "nome": "Tamanho G", "fatias": "", "precoLabel": "R$ 85,00" }
+      ],
+      "sabores": ["Morango", "Maracujá", "Abacaxi", "Limão"],
+      "saboresTitulo": "Sabores Disponíveis",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "torta-recheada-zero",
+      "categoria": "zero-acucar",
+      "subcategoria": "Tortas Recheadas",
+      "ordem": 3,
+      "nome": "Torta Recheada Zero Açúcar",
+      "descricaoCurta": "Sabores clássicos sem abrir mão do prazer",
+      "descricao": "Tortas recheadas feitas sem açúcar, usando adoçantes premium. Disponíveis nos sabores clássicos e em versão especial com Creme Patissière e frutas frescas.",
+      "precoLabel": "R$ 95,00",
+      "precoPor": "unidade",
+      "precoMinimo": true,
+      "sabores": [
+        "Chocolate", "Coco", "Ninho", "Doce de Leite",
+        "Ameixa com Creme Patissière",
+        "Morango com Creme Patissière",
+        "Abacaxi com Creme Patissière"
+      ],
+      "saboresTitulo": "Sabores",
+      "detalhes": ["Cobertura de Creme", "Cobertura de Merengue"],
+      "detalhesTitulo": "Opções de Cobertura",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "morango-do-amor-zero",
+      "categoria": "zero-acucar",
+      "subcategoria": "Especiais",
+      "ordem": 4,
+      "nome": "Morango do Amor Zero Açúcar",
+      "descricaoCurta": "Toda a magia do Morango do Amor, sem açúcar",
+      "descricao": "Versão zero açúcar do nosso Morango do Amor! Morango fresco recheado com brigadeiro branco diet (sabor Ninho) e coberto com calda zero açúcar vermelha crocante. O mesmo sabor incrível, sem culpa.",
+      "precoLabel": "R$ 15,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "pedidoMinimo": 5,
+      "detalhes": [
+        "Crocância da calda zero açúcar",
+        "Cremosidade do brigadeiro branco diet",
+        "Suculência natural do morango fresco"
+      ],
+      "detalhesTitulo": "O Mesmo Sabor, Zero Açúcar",
+      "imagem": null,
+      "disponivel": true,
+      "destaque": true,
+      "obs": "Pedido mínimo de 5 unidades. Produto pode conter traços de glúten e lactose."
+    },
+
+    {
+      "id": "kit-mini-cupcake",
+      "categoria": "kit-festa",
+      "subcategoria": "Itens do Kit",
+      "ordem": 1,
+      "nome": "Mini Cupcake",
+      "descricaoCurta": "Recheado e confeitado com chantininho",
+      "descricao": "Mini cupcake recheado e confeitado com chantininho. Uma opção charmosa e deliciosa para compor o kit festa.",
+      "precoLabel": "R$ 6,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "kit-salada-frutas",
+      "categoria": "kit-festa",
+      "subcategoria": "Itens do Kit",
+      "ordem": 2,
+      "nome": "Salada de Frutas",
+      "descricaoCurta": "Frutas frescas e selecionadas",
+      "descricao": "Salada de frutas frescas e selecionadas, servida em porção individual. Uma opção refrescante e saudável para equilibrar o kit.",
+      "precoLabel": "R$ 7,00",
+      "precoPor": "porção",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "kit-sanduiche-natural",
+      "categoria": "kit-festa",
+      "subcategoria": "Itens do Kit",
+      "ordem": 3,
+      "nome": "Sanduíche Natural ou Salgadinho",
+      "descricaoCurta": "Sanduíche natural ou salgadinhos assados",
+      "descricao": "Sanduíche natural ou salgadinhos assados artesanais. Uma opção salgada para equilibrar a doçura do kit festa.",
+      "precoLabel": "R$ 6,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    },
+
+    {
+      "id": "kit-suco-caixinha",
+      "categoria": "kit-festa",
+      "subcategoria": "Itens do Kit",
+      "ordem": 4,
+      "nome": "Suco de Caixinha",
+      "descricaoCurta": "Diversos sabores disponíveis",
+      "descricao": "Suco de caixinha com diversos sabores disponíveis. Prático e delicioso para compor o kit festa individual.",
+      "precoLabel": "R$ 4,00",
+      "precoPor": "unidade",
+      "precoMinimo": false,
+      "imagem": null,
+      "disponivel": true,
+      "destaque": false
+    }
+
+  ]
+}

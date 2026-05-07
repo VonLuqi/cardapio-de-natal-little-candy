@@ -1,0 +1,763 @@
+/* ===================================
+   CARRINHO.CSS — Carrinho de Pedidos
+   Little Candy Dream
+   =================================== */
+
+/* ── Overlay ── */
+.carrinho-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 20, 10, 0.55);
+  z-index: 900;
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.carrinho-overlay.visivel {
+  display: block;
+  opacity: 1;
+}
+
+/* ── Sidebar ── */
+.carrinho-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(390px, 100vw);
+  background-color: #fff;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+.carrinho-sidebar.aberto {
+  transform: translateX(0);
+}
+
+body.carrinho-open {
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.carrinho-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 2px solid #f3e8d5;
+  background: linear-gradient(135deg, #fffbf0 0%, #fff 100%);
+  flex-shrink: 0;
+}
+
+.carrinho-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #5d4037;
+  margin: 0;
+}
+.carrinho-titulo i { color: #c9a227; }
+
+.carrinho-fechar-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid #e6dccf;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 0.9rem;
+  transition: background-color 0.15s, color 0.15s;
+}
+.carrinho-fechar-btn:hover {
+  background-color: #fef2f2;
+  color: #8b0000;
+  border-color: #fecaca;
+}
+
+/* ── Lista de itens ── */
+.carrinho-itens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.25rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: #e6dccf transparent;
+}
+.carrinho-itens::-webkit-scrollbar { width: 5px; }
+.carrinho-itens::-webkit-scrollbar-thumb {
+  background-color: #e6dccf;
+  border-radius: 9999px;
+}
+
+/* ── Item do carrinho ── */
+.carrinho-item {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #f5ede3;
+  transition: background-color 0.15s;
+}
+.carrinho-item:hover { background-color: #fffbf5; }
+.carrinho-item:last-child { border-bottom: none; }
+
+.item-linha-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.item-info-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.item-nome {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #3a3a3a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-variante {
+  font-size: 0.74rem;
+  color: #aaa;
+  font-style: italic;
+  margin-left: 0.2rem;
+}
+
+.item-unidade-tag {
+  font-size: 0.68rem;
+  background-color: #fffbf0;
+  color: #c9a227;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  border-radius: 999px;
+  padding: 0.1rem 0.4rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Controles de quantidade */
+.item-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.item-btn-qtd {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid #e6dccf;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #5d4037;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.item-btn-qtd:hover {
+  background-color: #c9a227;
+  border-color: #c9a227;
+  color: white;
+}
+
+.item-qtd {
+  min-width: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #5d4037;
+}
+
+/* Linha inferior do item */
+.item-linha-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-preco-unit {
+  font-size: 0.75rem;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* Aviso de pedido mínimo no item */
+.item-aviso-min {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #e67e22;
+  background-color: #fff8f0;
+  border: 1px solid rgba(230, 126, 34, 0.35);
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  white-space: nowrap;
+}
+
+/* Botão - quando no mínimo vira ícone de lixeira (tom mais suave) */
+.item-btn-remover-min {
+  color: #e67e22 !important;
+  border-color: rgba(230, 126, 34, 0.4) !important;
+}
+.item-btn-remover-min:hover {
+  background-color: #fff8f0 !important;
+  border-color: #e67e22 !important;
+  color: #c0392b !important;
+}
+
+.item-sub-direita {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-subtotal {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #c9a227;
+}
+
+.item-btn-remover {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #ddd;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background-color 0.15s;
+}
+.item-btn-remover:hover {
+  color: #c0392b;
+  background-color: #fef2f2;
+}
+
+/* ── Estado vazio ── */
+.carrinho-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 220px;
+  padding: 2rem;
+  gap: 0.5rem;
+}
+.carrinho-vazio i {
+  font-size: 2.75rem;
+  color: #e6dccf;
+  margin-bottom: 0.5rem;
+}
+.carrinho-vazio p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #bbb;
+  margin: 0;
+}
+.carrinho-vazio span {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+/* ── Rodapé ── */
+.carrinho-rodape {
+  border-top: 2px solid #f3e8d5;
+  padding: 1rem 1.25rem 1.25rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: #fffdf9;
+}
+
+.carrinho-total-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  border: 1.5px solid #f3e8d5;
+}
+
+.carrinho-total-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.carrinho-total-valor {
+  font-family: var(--font-serif, 'Playfair Display', serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #5d4037;
+}
+
+/* Campo de observações */
+.carrinho-obs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.carrinho-obs-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.carrinho-obs-label i { color: #c9a227; }
+
+.carrinho-obs-textarea {
+  width: 100%;
+  border: 1.5px solid #e6dccf;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.82rem;
+  font-family: var(--font-sans, 'Lato', sans-serif);
+  color: #4a4a4a;
+  resize: vertical;
+  min-height: 56px;
+  background-color: white;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.carrinho-obs-textarea:focus {
+  outline: none;
+  border-color: #c9a227;
+}
+
+/* Botão finalizar WhatsApp */
+.btn-finalizar-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1.25rem;
+  background: linear-gradient(135deg, #1ebf5d 0%, #128c7e 100%);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(18, 140, 126, 0.25);
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+.btn-finalizar-whatsapp:hover:not(.disabled):not(:disabled) {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+.btn-finalizar-whatsapp.disabled,
+.btn-finalizar-whatsapp:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Limpar pedido */
+.carrinho-limpar-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-content: center;
+  padding: 0.2rem;
+  transition: color 0.15s;
+}
+.carrinho-limpar-btn:hover { color: #c0392b; }
+
+/* ── Botão flutuante ── */
+.btn-carrinho-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 800;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4a017 0%, #c9a227 60%, #a07800 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  box-shadow: 0 6px 20px rgba(201, 162, 39, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-carrinho-toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 28px rgba(201, 162, 39, 0.55);
+}
+.btn-carrinho-toggle.pulse {
+  animation: cart-pulse 0.5s ease;
+}
+@keyframes cart-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.22); }
+  70%  { transform: scale(0.94); }
+  100% { transform: scale(1); }
+}
+
+/* Badge contador */
+.carrinho-badge {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background-color: #e53e3e;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid white;
+  line-height: 1;
+  animation: badge-pop 0.3s ease;
+}
+.carrinho-badge.hidden { display: none !important; }
+
+@keyframes badge-pop {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* ── Toast de confirmação ── */
+.carrinho-toast {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  z-index: 1100;
+  background-color: #3e2723;
+  color: white;
+  padding: 0.75rem 1.1rem;
+  border-radius: 0.6rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  max-width: 280px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.carrinho-toast.visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+.carrinho-toast.saindo {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.carrinho-toast i {
+  color: #c9a227;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── Botão "+" nos itens do menu (menu-renderer) ── */
+.btn-adicionar-item {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  border: 1.5px solid #e6dccf;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: #c9a227;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+  margin-left: 0.4rem;
+}
+.btn-adicionar-item:hover {
+  background-color: #c9a227;
+  border-color: #c9a227;
+  color: white;
+}
+.btn-adicionar-item.adicionado {
+  background-color: #27ae60;
+  border-color: #27ae60;
+  color: white;
+  animation: btn-added 0.5s ease;
+}
+@keyframes btn-added {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* ── Botão "Adicionar ao Pedido" na página de produto ── */
+.btn-adicionar-carrinho {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #d4a017 0%, #c9a227 60%, #a07800 100%);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(201, 162, 39, 0.35);
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+.btn-adicionar-carrinho:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  color: white;
+}
+
+/* Seletor de tamanho na página de produto */
+.tamanho-select-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.25rem;
+}
+.tamanho-select-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tamanho-select {
+  border: 1.5px solid #e6dccf;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  font-family: var(--font-sans, 'Lato', sans-serif);
+  color: #4a4a4a;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+.tamanho-select:focus {
+  outline: none;
+  border-color: var(--cat-cor, #c9a227);
+}
+
+/* ── Stepper de quantidade — página de produto ── */
+.produto-qty-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background-color: #fffdf9;
+  border: 1.5px solid #f0e8de;
+  border-radius: 0.65rem;
+  margin-bottom: 0.25rem;
+}
+
+.produto-qty-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.produto-qty-min {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #e67e22;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.produto-qty-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.produto-qty-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #e6dccf;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: #5d4037;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.produto-qty-btn:hover:not(:disabled) {
+  background-color: #c9a227;
+  border-color: #c9a227;
+  color: white;
+}
+.produto-qty-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.produto-qty-valor {
+  min-width: 2rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #5d4037;
+}
+
+/* ── QtyPicker flutuante — listas de menu ── */
+.qty-picker {
+  position: fixed;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: white;
+  border: 1.5px solid #e6dccf;
+  border-radius: 999px;
+  padding: 0.3rem 0.45rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+  opacity: 0;
+  transform: translateY(6px) scale(0.95);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+.qty-picker.visivel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.qty-picker-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid #e6dccf;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #5d4037;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.qty-picker-btn:hover:not(:disabled) {
+  background-color: #c9a227;
+  border-color: #c9a227;
+  color: white;
+}
+.qty-picker-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.qty-picker-valor {
+  min-width: 1.6rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #5d4037;
+}
+
+.qty-picker-confirmar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #27ae60, #1e8449);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  transition: filter 0.15s, transform 0.15s;
+  margin-left: 0.1rem;
+}
+.qty-picker-confirmar:hover {
+  filter: brightness(1.1);
+  transform: scale(1.08);
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .carrinho-sidebar {
+    width: 100vw;
+    border-radius: 1.25rem 1.25rem 0 0;
+    top: auto;
+    bottom: 0;
+    height: 92dvh;
+    transform: translateY(100%);
+  }
+  .carrinho-sidebar.aberto {
+    transform: translateY(0);
+  }
+  .btn-carrinho-toggle {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 54px;
+    height: 54px;
+  }
+  .carrinho-toast {
+    bottom: 5rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+  }
+}

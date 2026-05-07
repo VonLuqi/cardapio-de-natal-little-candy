@@ -295,42 +295,62 @@
     }
 
     if (produto.tamanhos && produto.tamanhos.length > 0) {
-      /* Produto com tamanhos: select + stepper + botão */
-      const selectWrap = document.createElement('div');
-      selectWrap.className = 'tamanho-select-wrap';
-      selectWrap.innerHTML = `
-        <label for="select-tamanho" class="tamanho-select-label">Escolha o tamanho</label>
-        <select id="select-tamanho" class="tamanho-select">
-          ${produto.tamanhos
-            .map((t) => `<option value="${t.nome}" data-preco-label="${t.precoLabel}">${t.nome}${t.fatias ? ' — ' + t.fatias : ''} — ${t.precoLabel}</option>`)
-            .join('')}
-        </select>
-      `;
-
-      const stepper = criarStepper();
+      /* Produto com tamanhos: pills + stepper + botão */
+      const temSaboresTam = !!(produto.sabores && produto.sabores.length);
+      const passoProduto  = (temSaboresTam && minimo >= 20) ? 20 : 1;
+      let tamanhoAtivo    = produto.tamanhos[0];
+      let stepper         = criarStepper(minimo, passoProduto);
 
       const btn = document.createElement('button');
       btn.className = 'btn-adicionar-carrinho';
       btn.type      = 'button';
       btn.innerHTML = '<i class="fas fa-shopping-bag" aria-hidden="true"></i> Adicionar ao Pedido';
       btn.addEventListener('click', () => {
-        const sel = document.getElementById('select-tamanho');
-        const opt = sel.options[sel.selectedIndex];
-        window.Carrinho.adicionar({
+        const item = {
           id:           produto.id,
-          variante:     opt.value,
+          variante:     tamanhoAtivo.nome,
           nome:         produto.nome,
-          preco:        window.Carrinho.parsePrecoBRL(opt.dataset.precoLabel),
-          precoLabel:   opt.dataset.precoLabel,
+          preco:        window.Carrinho.parsePrecoBRL(tamanhoAtivo.precoLabel),
+          precoLabel:   tamanhoAtivo.precoLabel,
           unidade:      'unidade',
           pedidoMinimo: minimo,
           quantidade:   stepper.getQtd(),
+        };
+        if (temSaboresTam) {
+          window.Carrinho.abrirDistribuicao(item, produto.sabores, item.quantidade);
+        } else {
+          window.Carrinho.adicionar(item);
+        }
+      });
+
+      const toggleWrap = document.createElement('div');
+      toggleWrap.className = 'produto-modo-preco-wrap';
+      toggleWrap.innerHTML = `
+        <span class="produto-modo-preco-label">Tamanho</span>
+        <div class="produto-modo-preco-opcoes">
+          ${produto.tamanhos.map((t, i) => `
+            <button class="produto-modo-preco-btn${i === 0 ? ' ativo' : ''}" data-idx="${i}" type="button">
+              ${t.nome.split(' \u2014 ')[0].replace(/^Tamanho /, '')}
+              <small>${t.fatias ? t.fatias + ' · ' : ''}${t.precoLabel}</small>
+            </button>
+          `).join('')}
+        </div>
+      `;
+
+      toggleWrap.querySelectorAll('.produto-modo-preco-btn').forEach((b) => {
+        b.addEventListener('click', () => {
+          toggleWrap.querySelectorAll('.produto-modo-preco-btn').forEach((x) => x.classList.remove('ativo'));
+          b.classList.add('ativo');
+          tamanhoAtivo = produto.tamanhos[+b.dataset.idx];
+          const novoStepper = criarStepper(minimo, passoProduto);
+          stepper.replaceWith(novoStepper);
+          stepper = novoStepper;
         });
       });
 
       ctaWrap.insertBefore(btn, ctaWrap.firstChild);
       ctaWrap.insertBefore(stepper, btn);
-      ctaWrap.insertBefore(selectWrap, stepper);
+      ctaWrap.insertBefore(toggleWrap, stepper);
     } else {
       /* Produto simples: stepper + botão (+ toggle UN/CENTO quando aplicável) */
       const temModoCento = produto.precoPor === 'cento' && !!produto.precoUnidade;
@@ -339,12 +359,12 @@
       /* Estado mutável do modo — lido no click do botão */
       let modoPreco    = 'un';
       let minimoAtivo  = minimo;
-      let passoAtivo   = temSabores ? 20 : 1;
+      let passoAtivo   = (temSabores && minimo >= 20) ? 20 : 1;
 
       /* Valores por modo */
       const precos = temModoCento
         ? {
-            un:    { preco: window.Carrinho.parsePrecoBRL(produto.precoUnidade), precoLabel: produto.precoUnidade, unidade: 'unidade', minimo, passo: temSabores ? 20 : 1 },
+            un:    { preco: window.Carrinho.parsePrecoBRL(produto.precoUnidade), precoLabel: produto.precoUnidade, unidade: 'unidade', minimo, passo: (temSabores && minimo >= 20) ? 20 : 1 },
             cento: { preco: window.Carrinho.parsePrecoBRL(produto.precoLabel),   precoLabel: produto.precoLabel,   unidade: 'cento',   minimo: 1, passo: 1 },
           }
         : null;

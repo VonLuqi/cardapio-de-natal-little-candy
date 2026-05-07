@@ -334,7 +334,7 @@
   ══════════════════════════════════════════════════════════════════════ */
 
   function _abrirDistribuicao(item, sabores, totalUnidades) {
-    const PASSO = 20;
+    const PASSO = (item.pedidoMinimo || 1) >= 20 ? 20 : 1;
     const qtds  = sabores.map(() => 0);
 
     const existente = document.getElementById('dist-root');
@@ -574,10 +574,10 @@
           }
           if (!minimo) minimo = parseInt(btn.dataset.pedidoMinimo, 10) || 1;
 
-          /* Passo=20 para unidade com sabores (mínimo 20 por sabor) */
+          /* Passo=20 apenas para produtos com pedidoMinimo >= 20 (ex: docinhos) */
           const temSabores = !!btn.dataset.sabores;
           const modoFinal  = btn.dataset.unidade || 'unidade';
-          const passo      = (temSabores && modoFinal !== 'cento') ? 20 : 1;
+          const passo      = (temSabores && modoFinal !== 'cento' && minimo >= 20) ? 20 : 1;
           _abrirQtyPicker(btn, minimo, passo);
           return;
         }

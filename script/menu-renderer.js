@@ -188,6 +188,24 @@
         const saboresAttr = produto.sabores && produto.sabores.length
           ? ` data-sabores='${JSON.stringify(produto.sabores)}'`
           : '';
+
+        /* Tamanhos: toggle de pills */
+        const tamanhoPadrao = temTamanhos ? produto.tamanhos[0] : null;
+        const tamanhosToggleHTML = temTamanhos
+          ? `<div class="produto-modo-toggle" role="group" aria-label="Tamanho">
+               ${produto.tamanhos.map((t, i) => {
+                 const label = t.nome.split(' \u2014 ')[0].replace(/^Tamanho /, '');
+                 return `<button
+                   class="produto-modo-toggle-btn${i === 0 ? ' ativo' : ''}"
+                   data-tamanho-idx="${i}"
+                   data-preco="${parsePrecoBRL(t.precoLabel)}"
+                   data-preco-label="${escaparHTML(t.precoLabel)}"
+                   data-variante="${escaparHTML(t.nome)}"
+                   type="button">${escaparHTML(label)}</button>`;
+               }).join('')}
+             </div>`
+          : '';
+
         const btnAdicionar =
           !temTamanhos && produto.precoLabel
             ? `<button
@@ -203,7 +221,21 @@
                 aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                 title="Adicionar ao pedido"
               ><i class="fas fa-plus" aria-hidden="true"></i></button>`
-            : '';
+            : temTamanhos
+              ? `<button
+                  class="btn-adicionar-item"
+                  data-id="${produto.id}"
+                  data-nome="${escaparHTML(produto.nome)}"
+                  data-preco="${parsePrecoBRL(tamanhoPadrao.precoLabel)}"
+                  data-preco-label="${escaparHTML(tamanhoPadrao.precoLabel)}"
+                  data-unidade="unidade"
+                  data-variante="${escaparHTML(tamanhoPadrao.nome)}"
+                  data-pedido-minimo="${produto.pedidoMinimo || 1}"
+                  ${saboresAttr}
+                  aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
+                  title="Adicionar ao pedido"
+                ><i class="fas fa-plus" aria-hidden="true"></i></button>`
+              : '';
 
         /* Para produtos cento, o precoItem mostra o preço do modo ativo (inicia em unidade).
            O toggle fica fora do <a> para evitar navegação acidental. */
@@ -211,7 +243,11 @@
           ? `<span class="produto-item-preco produto-item-preco-${config.sufixoCor} produto-item-preco-dinamico">
                ${escaparHTML(produto.precoUnidade)} <small style="font-weight:400;color:#aaa">/ un</small>
              </span>`
-          : precoItem;
+          : temTamanhos
+            ? `<span class="produto-item-preco produto-item-preco-${config.sufixoCor} produto-item-preco-dinamico">
+                 ${escaparHTML(tamanhoPadrao.precoLabel)} <small style="font-weight:400;color:#aaa">/ un</small>
+               </span>`
+            : precoItem;
 
         const toggleModoHTML = temModoCento
           ? `<div class="produto-modo-toggle" role="group" aria-label="Modo de preço">
@@ -221,7 +257,7 @@
           : '';
 
         return `
-          <li class="produto-item${temModoCento ? ' produto-item-com-modo' : ''}">
+          <li class="produto-item${(temModoCento || temTamanhos) ? ' produto-item-com-modo' : ''}">
             <a
               href="produto.html?id=${encodeURIComponent(produto.id)}"
               class="produto-item-link"
@@ -236,7 +272,7 @@
                 ${temDetalhes ? `<i class="fas fa-chevron-right produto-item-arrow" aria-hidden="true"></i>` : ''}
               </div>
             </a>
-            ${toggleModoHTML}
+            ${temTamanhos ? tamanhosToggleHTML : toggleModoHTML}
             ${btnAdicionar}
           </li>
         `;
@@ -391,14 +427,28 @@
       if (!btn) return;
       e.preventDefault();
 
-      const li    = btn.closest('.produto-item');
-      const modo  = btn.dataset.modo;
+      const li     = btn.closest('.produto-item');
       const addBtn = li && li.querySelector('.btn-adicionar-item');
       if (!li || !addBtn) return;
 
       /* Atualiza estado ativo */
       li.querySelectorAll('.produto-modo-toggle-btn').forEach((b) => b.classList.remove('ativo'));
       btn.classList.add('ativo');
+
+      /* Toggle de tamanho */
+      if ('tamanhoIdx' in btn.dataset) {
+        addBtn.dataset.preco      = btn.dataset.preco;
+        addBtn.dataset.precoLabel = btn.dataset.precoLabel;
+        addBtn.dataset.variante   = btn.dataset.variante;
+        const precoElTam = li.querySelector('.produto-item-preco-dinamico');
+        if (precoElTam) {
+          precoElTam.innerHTML = `${escaparHTML(btn.dataset.precoLabel)} <small style="font-weight:400;color:#aaa">/ un</small>`;
+        }
+        return;
+      }
+
+      /* Toggle UN / CENTO */
+      const modo = btn.dataset.modo;
 
       /* Atualiza data do botão "+" */
       if (modo === 'un') {

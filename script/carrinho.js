@@ -438,23 +438,24 @@
 
           /* Sync do modo UN / CENTO: lê qual pill está ativa no DOM agora */
           const li = btn.closest('.produto-item');
+          let minimo;
           if (li) {
             const modoAtivo = li.querySelector('.produto-modo-toggle-btn.ativo')?.dataset.modo;
             if (modoAtivo === 'cento' && btn.dataset.precoCento) {
               btn.dataset.preco        = btn.dataset.precoCento;
               btn.dataset.precoLabel   = btn.dataset.precoCentoLabel;
               btn.dataset.unidade      = 'cento';
-              btn.dataset.pedidoMinimo = btn.dataset.minCento || '1';
+              minimo = parseInt(btn.dataset.minCento, 10) || 1;
             } else if (btn.dataset.precoUn) {
-              /* modo 'un' ou pill sem estado — garante atributos de unidade */
+              /* modo 'un' — usa precoUn e pedidoMinimoUn (atributo imutável) */
               btn.dataset.preco        = btn.dataset.precoUn;
               btn.dataset.precoLabel   = btn.dataset.precoUnLabel;
               btn.dataset.unidade      = 'unidade';
-              btn.dataset.pedidoMinimo = btn.dataset.pedidoMinimoUn || btn.dataset.pedidoMinimo;
+              minimo = parseInt(btn.dataset.pedidoMinimoUn, 10) || parseInt(btn.dataset.pedidoMinimo, 10) || 1;
             }
           }
+          if (!minimo) minimo = parseInt(btn.dataset.pedidoMinimo, 10) || 1;
 
-          const minimo = parseInt(btn.dataset.pedidoMinimo, 10) || 1;
           _abrirQtyPicker(btn, minimo);
           return;
         }

@@ -156,8 +156,12 @@
             .join(' · ') +
           '_';
       } else if (i.saboresSelecionados && i.saboresSelecionados.length) {
-        const rotulo = i.unidade === 'kit' ? 'Itens' : 'Sabores';
-        distStr = '\n  _' + rotulo + ': ' + i.saboresSelecionados.join(', ') + '_';
+        if (i.unidade === 'kit') {
+          distStr = '\n  _Itens: ' + i.saboresSelecionados.join(', ') + '_';
+        } else {
+          /* grupos usam "Titulo: valor" já embutido em cada string */
+          distStr = '\n  _' + i.saboresSelecionados.join(' · ') + '_';
+        }
       }
       return `• ${i.nome}${variante}${unLabel} — ${i.quantidade}x — ${sub}${distStr}`;
     });
@@ -286,6 +290,14 @@
         quantidade:   qtd,
       };
       _fecharQtyPicker();
+      const gruposRaw = btnOrigem.dataset.grupos;
+      if (gruposRaw) {
+        try {
+          const grupos = JSON.parse(gruposRaw);
+          _abrirSelecaoGrupos(item, grupos);
+          return;
+        } catch (_) {}
+      }
       const saboresRaw = btnOrigem.dataset.sabores;
       if (saboresRaw) {
         try {
@@ -331,6 +343,92 @@
   /* ══════════════════════════════════════════════════════════════════════
      UI — Sidebar, botão flutuante, badge
   ══════════════════════════════════════════════════════════════════════ */
+
+  /* ══════════════════════════════════════════════════════════════════════
+     SELEÇÃO POR GRUPOS — Modal com opção única por grupo (radio visual)
+  ══════════════════════════════════════════════════════════════════════ */
+
+  function _abrirSelecaoGrupos(item, grupos) {
+    const existente = document.getElementById('dist-root');
+    if (existente) existente.remove();
+
+    /* selecionados[i] = índice da opção escolhida no grupo i, ou -1 */
+    const selecionados = grupos.map(() => -1);
+
+    const root = document.createElement('div');
+    root.id = 'dist-root';
+    root.innerHTML = `
+      <div class="dist-overlay" id="dist-overlay"></div>
+      <div class="dist-panel" role="dialog" aria-modal="true" aria-label="Personalizar ${esc(item.nome)}">
+        <header class="dist-header">
+          <div class="dist-header-info">
+            <h3 class="dist-titulo">${esc(item.nome)}</h3>
+            <p class="dist-subtitulo">${item.variante ? esc(item.variante) + ' · ' : ''}Personalize sua escolha</p>
+          </div>
+          <button class="dist-fechar" id="dist-fechar" aria-label="Fechar">&times;</button>
+        </header>
+        <div class="dist-grupos-lista">
+          ${grupos.map((g, gi) => `
+            <div class="dist-grupo" data-gi="${gi}">
+              <p class="dist-grupo-titulo">${esc(g.titulo)}</p>
+              <ul class="dist-grupo-opcoes">
+                ${g.opcoes.map((op, oi) => `
+                  <li>
+                    <button class="dist-grupo-btn" data-gi="${gi}" data-oi="${oi}" aria-pressed="false" type="button">
+                      ${esc(op)}
+                    </button>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+        <button class="dist-btn-confirmar" id="dist-confirmar" disabled>
+          <i class="fas fa-check" aria-hidden="true"></i> Adicionar ao Pedido
+        </button>
+      </div>
+    `;
+    document.body.appendChild(root);
+    requestAnimationFrame(() => root.querySelector('.dist-panel').classList.add('visivel'));
+
+    function todosSelecionados() {
+      return selecionados.every((v) => v !== -1);
+    }
+    function fechar() {
+      const panel = root.querySelector('.dist-panel');
+      panel.classList.remove('visivel');
+      setTimeout(() => { if (root.parentNode) root.remove(); }, 250);
+    }
+
+    root.addEventListener('click', (e) => {
+      if (e.target.id === 'dist-overlay' || e.target.closest('#dist-fechar')) { fechar(); return; }
+
+      if (e.target.closest('#dist-confirmar')) {
+        if (!todosSelecionados()) return;
+        const escolhas = grupos.map((g, gi) => `${g.titulo}: ${g.opcoes[selecionados[gi]]}`);
+        fechar();
+        Store.adicionar({ ...item, saboresSelecionados: escolhas });
+        showToast(item.nome);
+        const floatBtn = document.getElementById('btn-carrinho-toggle');
+        if (floatBtn) { floatBtn.classList.add('pulse'); setTimeout(() => floatBtn.classList.remove('pulse'), 600); }
+        return;
+      }
+
+      const btn = e.target.closest('.dist-grupo-btn');
+      if (!btn) return;
+      const gi = +btn.dataset.gi;
+      const oi = +btn.dataset.oi;
+      /* Radio: desseleciona os outros do mesmo grupo */
+      root.querySelectorAll(`.dist-grupo-btn[data-gi="${gi}"]`).forEach((b) => {
+        b.classList.remove('ativo');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      selecionados[gi] = oi;
+      btn.classList.add('ativo');
+      btn.setAttribute('aria-pressed', 'true');
+      root.querySelector('#dist-confirmar').disabled = !todosSelecionados();
+    });
+  }
 
   /* ══════════════════════════════════════════════════════════════════════
      DISTRIBUIÇÃO DE SABORES — Modal para alocar quantidades por sabor
@@ -828,7 +926,8 @@
         setTimeout(() => btn.classList.remove('pulse'), 600);
       }
     },
-    abrirDistribuicao: _abrirDistribuicao,
+    abrirDistribuicao:   _abrirDistribuicao,
+    abrirSelecaoGrupos:  _abrirSelecaoGrupos,
     abrir:         () => UI.abrir(),
     fechar:        () => UI.fechar(),
     parsePrecoBRL,

@@ -319,7 +319,9 @@
           pedidoMinimo: minimo,
           quantidade:   stepper.getQtd(),
         };
-        if (temSaboresTam) {
+        if (produto.grupos && produto.grupos.length) {
+          window.Carrinho.abrirSelecaoGrupos(item, produto.grupos);
+        } else if (temSaboresTam) {
           window.Carrinho.abrirDistribuicao(item, produto.sabores, item.quantidade);
         } else {
           window.Carrinho.adicionar(item);
@@ -400,7 +402,9 @@
           pedidoMinimo: minimoAtivo,
           quantidade:   stepper.getQtd(),
         };
-        if (temSabores) {
+        if (produto.grupos && produto.grupos.length) {
+          window.Carrinho.abrirSelecaoGrupos(item, produto.grupos);
+        } else if (temSabores) {
           const totalUn = item.unidade === 'cento' ? item.quantidade * 100 : item.quantidade;
           window.Carrinho.abrirDistribuicao(item, produto.sabores, totalUn);
         } else {

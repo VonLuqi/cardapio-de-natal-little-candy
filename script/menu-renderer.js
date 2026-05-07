@@ -189,6 +189,9 @@
         const saboresAttr = produto.sabores && produto.sabores.length
           ? ` data-sabores='${JSON.stringify(produto.sabores)}'`
           : '';
+        const gruposAttr = produto.grupos && produto.grupos.length
+          ? ` data-grupos='${JSON.stringify(produto.grupos)}'`
+          : '';
 
         /* Tamanhos: toggle de pills */
         const tamanhoPadrao = temTamanhos ? produto.tamanhos[0] : null;
@@ -219,7 +222,7 @@
                 data-unidade="${escaparHTML(cartUnidade)}"
                 data-variante=""
                 data-pedido-minimo="${produto.pedidoMinimo || 1}"
-                ${extraCentoAttrs}${saboresAttr}
+                ${extraCentoAttrs}${saboresAttr}${gruposAttr}
                 aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                 title="Adicionar ao pedido"
               ><i class="fas fa-plus" aria-hidden="true"></i></button>`
@@ -233,7 +236,7 @@
                   data-unidade="unidade"
                   data-variante="${escaparHTML(tamanhoPadrao.nome)}"
                   data-pedido-minimo="${produto.pedidoMinimo || 1}"
-                  ${saboresAttr}
+                  ${saboresAttr}${gruposAttr}
                   aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                   title="Adicionar ao pedido"
                 ><i class="fas fa-plus" aria-hidden="true"></i></button>`

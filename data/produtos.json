@@ -356,13 +356,23 @@
       "ordem": 1,
       "nome": "Bolo de Pote",
       "descricaoCurta": "Camadas de bolo úmido e recheio cremoso",
-      "descricao": "Camadas generosas de bolo úmido e recheio cremoso, servidas em pote individual. Sabores variados disponíveis a cada dia. Uma experiência completa em uma só embalagem.",
+      "descricao": "Camadas generosas de bolo úmido e recheio cremoso, servidas em pote individual. Escolha o tipo de bolo e o recheio da sua preferência. Uma experiência completa em uma só embalagem.",
       "precoLabel": "R$ 12,00",
       "precoPor": "unidade (Médio)",
       "precoMinimo": false,
       "tamanhos": [
         { "nome": "Médio", "fatias": "", "precoLabel": "R$ 12,00" },
         { "nome": "Grande", "fatias": "", "precoLabel": "R$ 15,00" }
+      ],
+      "grupos": [
+        {
+          "titulo": "Tipo de Bolo",
+          "opcoes": ["Bolo Branco", "Bolo de Chocolate"]
+        },
+        {
+          "titulo": "Recheio",
+          "opcoes": ["Limão", "Limão com Chocolate", "Chocolate", "Chocolate Preto e Branco", "Chocolate Branco", "Beijinho", "Maracujá"]
+        }
       ],
       "imagem": null,
       "disponivel": true,

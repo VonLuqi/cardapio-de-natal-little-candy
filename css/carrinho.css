@@ -978,6 +978,56 @@ body.carrinho-open {
 .dist-btn-toggle { color: #ccc; border-color: #e0d8d0; }
 .dist-btn-toggle.ativo { background: #c9a227; border-color: #c9a227; color: white; }
 .dist-btn-toggle:hover:not(.ativo) { background: #f7f2e8; border-color: #c9a227; color: #c9a227; }
+
+/* Modal de seleção por grupos (radio visual) */
+.dist-grupos-lista {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0 1.25rem;
+}
+.dist-grupo {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #f0ebe2;
+}
+.dist-grupo:last-child { border-bottom: none; }
+.dist-grupo-titulo {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8b6914;
+  margin-bottom: 0.55rem;
+}
+.dist-grupo-opcoes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.dist-grupo-btn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1.5px solid #e0d8d0;
+  background: #fff;
+  color: #5d4037;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.dist-grupo-btn.ativo {
+  background: #c9a227;
+  border-color: #c9a227;
+  color: white;
+  font-weight: 700;
+}
+.dist-grupo-btn:hover:not(.ativo) {
+  background: #f7f2e8;
+  border-color: #c9a227;
+  color: #8b6914;
+}
+
 .dist-qty-val {
   min-width: 2.2rem;
   text-align: center;

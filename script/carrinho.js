@@ -288,6 +288,7 @@
         unidade:      btnOrigem.dataset.unidade || 'unidade',
         pedidoMinimo: minimo,
         quantidade:   qtd,
+        saborUnico:   btnOrigem.dataset.saborUnico === 'true',
       };
       _fecharQtyPicker();
       const gruposRaw = btnOrigem.dataset.grupos;
@@ -303,7 +304,9 @@
         try {
           const sabores = JSON.parse(saboresRaw);
           const totalUn = item.unidade === 'cento' ? qtd * 100 : qtd;
-          _abrirDistribuicao(item, sabores, totalUn);
+          // Passa o pedidoMinimo original do produto para determinar o passo da distribuição
+          const distribPasso = parseInt(btnOrigem.dataset.pedidoMinimoUn, 10) || undefined;
+          _abrirDistribuicao(item, sabores, totalUn, distribPasso);
           return;
         } catch (_) {}
       }
@@ -482,8 +485,8 @@
      DISTRIBUIÇÃO DE SABORES — Modal para alocar quantidades por sabor
   ══════════════════════════════════════════════════════════════════════ */
 
-  function _abrirDistribuicao(item, sabores, totalUnidades) {
-    const PASSO = (item.pedidoMinimo || 1) >= 20 ? 20 : 1;
+  function _abrirDistribuicao(item, sabores, totalUnidades, distribPasso) {
+    const PASSO = distribPasso || ((item.pedidoMinimo || 1) >= 20 ? 20 : 1);
 
     const existente = document.getElementById('dist-root');
     if (existente) existente.remove();
@@ -500,7 +503,7 @@
           <header class="dist-header">
             <div class="dist-header-info">
               <h3 class="dist-titulo">${esc(item.nome)}</h3>
-              <p class="dist-subtitulo">Escolha os sabores desejados</p>
+              <p class="dist-subtitulo">${item.saborUnico ? 'Escolha 1 sabor' : 'Escolha os sabores desejados'}</p>
             </div>
             <button class="dist-fechar" id="dist-fechar" aria-label="Fechar">&times;</button>
           </header>
@@ -541,14 +544,29 @@
         const btnToggle = e.target.closest('.dist-btn-toggle');
         if (btnToggle) {
           const sabor = btnToggle.dataset.sabor;
-          if (selecionados.has(sabor)) {
-            selecionados.delete(sabor);
-            btnToggle.classList.remove('ativo');
-            btnToggle.setAttribute('aria-pressed', 'false');
+          if (item.saborUnico) {
+            // Radio: limpa seleção anterior e seleciona o novo
+            const estaAtivo = selecionados.has(sabor);
+            selecionados.clear();
+            root.querySelectorAll('.dist-btn-toggle').forEach((b) => {
+              b.classList.remove('ativo');
+              b.setAttribute('aria-pressed', 'false');
+            });
+            if (!estaAtivo) {
+              selecionados.add(sabor);
+              btnToggle.classList.add('ativo');
+              btnToggle.setAttribute('aria-pressed', 'true');
+            }
           } else {
-            selecionados.add(sabor);
-            btnToggle.classList.add('ativo');
-            btnToggle.setAttribute('aria-pressed', 'true');
+            if (selecionados.has(sabor)) {
+              selecionados.delete(sabor);
+              btnToggle.classList.remove('ativo');
+              btnToggle.setAttribute('aria-pressed', 'false');
+            } else {
+              selecionados.add(sabor);
+              btnToggle.classList.add('ativo');
+              btnToggle.setAttribute('aria-pressed', 'true');
+            }
           }
           document.getElementById('dist-confirmar').disabled = selecionados.size === 0;
         }
@@ -696,7 +714,7 @@
             </button>
             <button id="carrinho-limpar" class="carrinho-limpar-btn" type="button">
               <i class="fas fa-trash-alt" aria-hidden="true"></i>
-              Limpar pedido
+              Esvaziar Carrinho
             </button>
           </footer>
         </aside>
@@ -850,7 +868,8 @@
       container.innerHTML = itens
         .map((item) => {
           const sub          = formatBRL(item.preco * item.quantidade);
-          const isDist       = !!(item.distribuicao || item.saboresSelecionados);
+          // Itens com distribuição (docinhos em cento) ficam fixos; itens com apenas saboresSelecionados permitem ajuste de qty
+          const isDist       = !!item.distribuicao;
           const varianteStr  = (!isDist && item.variante && !item.variante.startsWith('__dist_'))
             ? `<small class="item-variante">${item.variante}</small>`
             : '';

@@ -433,6 +433,25 @@
         const btn = e.target.closest('.btn-adicionar-item');
         if (btn) {
           e.preventDefault();
+
+          /* Sync do modo UN / CENTO: lê qual pill está ativa no DOM agora */
+          const li = btn.closest('.produto-item');
+          if (li) {
+            const modoAtivo = li.querySelector('.produto-modo-toggle-btn.ativo')?.dataset.modo;
+            if (modoAtivo === 'cento' && btn.dataset.precoCento) {
+              btn.dataset.preco        = btn.dataset.precoCento;
+              btn.dataset.precoLabel   = btn.dataset.precoCentoLabel;
+              btn.dataset.unidade      = 'cento';
+              btn.dataset.pedidoMinimo = btn.dataset.minCento || '1';
+            } else if (btn.dataset.precoUn) {
+              /* modo 'un' ou pill sem estado — garante atributos de unidade */
+              btn.dataset.preco        = btn.dataset.precoUn;
+              btn.dataset.precoLabel   = btn.dataset.precoUnLabel;
+              btn.dataset.unidade      = 'unidade';
+              btn.dataset.pedidoMinimo = btn.dataset.pedidoMinimoUn || btn.dataset.pedidoMinimo;
+            }
+          }
+
           const minimo = parseInt(btn.dataset.pedidoMinimo, 10) || 1;
           _abrirQtyPicker(btn, minimo);
           return;

@@ -181,7 +181,8 @@
             ` data-preco-un-label="${escaparHTML(produto.precoUnidade)}"` +
             ` data-preco-cento="${parsePrecoBRL(produto.precoLabel)}"` +
             ` data-preco-cento-label="${escaparHTML(produto.precoLabel)}"` +
-            ` data-min-cento="1"`
+            ` data-min-cento="1"` +
+            ` data-pedido-minimo-un="${produto.pedidoMinimo || 1}"`
           : '';
 
         const btnAdicionar =
@@ -201,8 +202,23 @@
               ><i class="fas fa-plus" aria-hidden="true"></i></button>`
             : '';
 
+        /* Para produtos cento, o precoItem mostra o preço do modo ativo (inicia em unidade).
+           O toggle fica fora do <a> para evitar navegação acidental. */
+        const precoItemHTML = temModoCento
+          ? `<span class="produto-item-preco produto-item-preco-${config.sufixoCor} produto-item-preco-dinamico">
+               ${escaparHTML(produto.precoUnidade)} <small style="font-weight:400;color:#aaa">/ un</small>
+             </span>`
+          : precoItem;
+
+        const toggleModoHTML = temModoCento
+          ? `<div class="produto-modo-toggle" role="group" aria-label="Modo de preço">
+               <button class="produto-modo-toggle-btn ativo" data-modo="un" type="button">Unidade</button>
+               <button class="produto-modo-toggle-btn" data-modo="cento" type="button">Cento</button>
+             </div>`
+          : '';
+
         return `
-          <li class="produto-item">
+          <li class="produto-item${temModoCento ? ' produto-item-com-modo' : ''}">
             <a
               href="produto.html?id=${encodeURIComponent(produto.id)}"
               class="produto-item-link"
@@ -213,10 +229,11 @@
                 <span class="produto-item-nome">${escaparHTML(produto.nome)}</span>
               </div>
               <div class="produto-item-right">
-                ${precoItem}
+                ${precoItemHTML}
                 ${temDetalhes ? `<i class="fas fa-chevron-right produto-item-arrow" aria-hidden="true"></i>` : ''}
               </div>
             </a>
+            ${toggleModoHTML}
             ${btnAdicionar}
           </li>
         `;
@@ -363,6 +380,44 @@
     /* Seções por subcategoria */
     Object.entries(grupos).forEach(([sub, prods]) => {
       main.appendChild(renderSecao(sub, prods, config));
+    });
+
+    /* Delegação: toggle UN / CENTO nas linhas de produto */
+    main.addEventListener('click', (e) => {
+      const btn = e.target.closest('.produto-modo-toggle-btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const li    = btn.closest('.produto-item');
+      const modo  = btn.dataset.modo;
+      const addBtn = li && li.querySelector('.btn-adicionar-item');
+      if (!li || !addBtn) return;
+
+      /* Atualiza estado ativo */
+      li.querySelectorAll('.produto-modo-toggle-btn').forEach((b) => b.classList.remove('ativo'));
+      btn.classList.add('ativo');
+
+      /* Atualiza data do botão "+" */
+      if (modo === 'un') {
+        addBtn.dataset.preco       = addBtn.dataset.precoUn;
+        addBtn.dataset.precoLabel  = addBtn.dataset.precoUnLabel;
+        addBtn.dataset.unidade     = 'unidade';
+        addBtn.dataset.pedidoMinimo = addBtn.dataset.pedidoMinimoUn || addBtn.dataset.pedidoMinimo;
+      } else {
+        addBtn.dataset.preco       = addBtn.dataset.precoCento;
+        addBtn.dataset.precoLabel  = addBtn.dataset.precoCentoLabel;
+        addBtn.dataset.unidade     = 'cento';
+        addBtn.dataset.pedidoMinimo = addBtn.dataset.minCento || '1';
+      }
+
+      /* Atualiza exibição do preço na linha */
+      const precoEl = li.querySelector('.produto-item-preco-dinamico');
+      if (precoEl) {
+        precoEl.innerHTML = modo === 'un'
+          ? `${escaparHTML(addBtn.dataset.precoUnLabel)} <small style="font-weight:400;color:#aaa">/ un</small>`
+          : `${escaparHTML(addBtn.dataset.precoCentoLabel)} <small style="font-weight:400;color:#aaa">/ cento</small>`;
+      }
     });
 
     /* CTA */

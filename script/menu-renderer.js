@@ -387,7 +387,6 @@
       const btn = e.target.closest('.produto-modo-toggle-btn');
       if (!btn) return;
       e.preventDefault();
-      e.stopPropagation();
 
       const li    = btn.closest('.produto-item');
       const modo  = btn.dataset.modo;

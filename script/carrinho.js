@@ -199,7 +199,7 @@
     }
   }
 
-  function _abrirQtyPicker(btnOrigem, minimo) {
+  function _abrirQtyPicker(btnOrigem, minimoPadrao) {
     const existente = document.getElementById('qty-picker-ativo');
     if (existente && existente._btnOrigem === btnOrigem) {
       _fecharQtyPicker();
@@ -207,30 +207,58 @@
     }
     _fecharQtyPicker();
 
-    let qtd = minimo;
+    /* Suporte ao modo UN / CENTO */
+    const temModoCento = !!btnOrigem.dataset.precoCento;
+    let modo   = 'un';
+    let minimo = minimoPadrao;
+    let qtd    = minimo;
 
     const picker = document.createElement('div');
     picker.id        = 'qty-picker-ativo';
-    picker.className = 'qty-picker';
+    picker.className = 'qty-picker' + (temModoCento ? ' qty-picker-com-modo' : '');
     picker.setAttribute('role', 'dialog');
     picker.setAttribute('aria-label', 'Selecionar quantidade');
     picker.innerHTML = `
-      <button class="qty-picker-btn" data-acao="diminuir" aria-label="Diminuir" ${qtd <= minimo ? 'disabled' : ''}>
-        <i class="fas fa-minus" aria-hidden="true"></i>
-      </button>
-      <span class="qty-picker-valor">${qtd}</span>
-      <button class="qty-picker-btn" data-acao="aumentar" aria-label="Aumentar">
-        <i class="fas fa-plus" aria-hidden="true"></i>
-      </button>
-      <button class="qty-picker-confirmar" aria-label="Adicionar ao pedido" title="Adicionar ao pedido">
-        <i class="fas fa-check" aria-hidden="true"></i>
-      </button>
+      ${temModoCento ? `
+      <div class="qty-picker-modo" role="group" aria-label="Calcular por">
+        <button class="qty-picker-modo-btn ativo" data-modo="un" type="button">Unidade</button>
+        <button class="qty-picker-modo-btn" data-modo="cento" type="button">Cento</button>
+      </div>` : ''}
+      <div class="qty-picker-row">
+        <button class="qty-picker-btn" data-acao="diminuir" aria-label="Diminuir" ${qtd <= minimo ? 'disabled' : ''}>
+          <i class="fas fa-minus" aria-hidden="true"></i>
+        </button>
+        <span class="qty-picker-valor">${qtd}</span>
+        <button class="qty-picker-btn" data-acao="aumentar" aria-label="Aumentar">
+          <i class="fas fa-plus" aria-hidden="true"></i>
+        </button>
+        <button class="qty-picker-confirmar" aria-label="Adicionar ao pedido" title="Adicionar ao pedido">
+          <i class="fas fa-check" aria-hidden="true"></i>
+        </button>
+      </div>
     `;
 
     const btnDim  = picker.querySelector('[data-acao="diminuir"]');
     const btnAum  = picker.querySelector('[data-acao="aumentar"]');
     const valEl   = picker.querySelector('.qty-picker-valor');
     const btnConf = picker.querySelector('.qty-picker-confirmar');
+
+    if (temModoCento) {
+      picker.querySelectorAll('.qty-picker-modo-btn').forEach((b) => {
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          picker.querySelectorAll('.qty-picker-modo-btn').forEach((x) => x.classList.remove('ativo'));
+          b.classList.add('ativo');
+          modo   = b.dataset.modo;
+          minimo = modo === 'cento'
+            ? (parseInt(btnOrigem.dataset.minCento, 10) || 1)
+            : (parseInt(btnOrigem.dataset.pedidoMinimo, 10) || 1);
+          qtd = minimo;
+          valEl.textContent = qtd;
+          btnDim.disabled   = qtd <= minimo;
+        });
+      });
+    }
 
     btnDim.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -250,13 +278,23 @@
 
     btnConf.addEventListener('click', (e) => {
       e.stopPropagation();
+      let preco, precoLabel, unidade;
+      if (temModoCento && modo === 'cento') {
+        preco      = parseFloat(btnOrigem.dataset.precoCento) || 0;
+        precoLabel = btnOrigem.dataset.precoCentoLabel;
+        unidade    = 'cento';
+      } else {
+        preco      = parseFloat(btnOrigem.dataset.precoUn || btnOrigem.dataset.preco) || 0;
+        precoLabel = btnOrigem.dataset.precoUnLabel || btnOrigem.dataset.precoLabel;
+        unidade    = btnOrigem.dataset.unidade || 'unidade';
+      }
       const item = {
         id:           btnOrigem.dataset.id,
         variante:     btnOrigem.dataset.variante || '',
         nome:         btnOrigem.dataset.nome,
-        preco:        parseFloat(btnOrigem.dataset.preco) || 0,
-        precoLabel:   btnOrigem.dataset.precoLabel,
-        unidade:      btnOrigem.dataset.unidade || 'unidade',
+        preco,
+        precoLabel,
+        unidade,
         pedidoMinimo: minimo,
         quantidade:   qtd,
       };

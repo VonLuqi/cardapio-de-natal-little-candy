@@ -251,18 +251,19 @@
     const minimo = produto.pedidoMinimo || 1;
 
     /* Helper: cria stepper de quantidade */
-    function criarStepper() {
-      let qtd = minimo;
+    function criarStepper(minimoEfetivo) {
+      if (minimoEfetivo === undefined) minimoEfetivo = minimo;
+      let qtd = minimoEfetivo;
 
       const wrap = document.createElement('div');
       wrap.className = 'produto-qty-wrap';
       wrap.innerHTML = `
         <span class="produto-qty-label">
           Quantidade
-          ${minimo > 1 ? `<small class="produto-qty-min">(mín. ${minimo})</small>` : ''}
+          ${minimoEfetivo > 1 ? `<small class="produto-qty-min">(mín. ${minimoEfetivo})</small>` : ''}
         </span>
         <div class="produto-qty-controles">
-          <button class="produto-qty-btn" type="button" aria-label="Diminuir quantidade" ${qtd <= minimo ? 'disabled' : ''}>
+          <button class="produto-qty-btn" type="button" aria-label="Diminuir quantidade" ${qtd <= minimoEfetivo ? 'disabled' : ''}>
             <i class="fas fa-minus" aria-hidden="true"></i>
           </button>
           <span class="produto-qty-valor">${qtd}</span>
@@ -276,10 +277,10 @@
       const valEl = wrap.querySelector('.produto-qty-valor');
 
       btnDim.addEventListener('click', () => {
-        if (qtd > minimo) {
+        if (qtd > minimoEfetivo) {
           qtd--;
           valEl.textContent = qtd;
-          btnDim.disabled   = qtd <= minimo;
+          btnDim.disabled   = qtd <= minimoEfetivo;
         }
       });
       btnAum.addEventListener('click', () => {
@@ -330,35 +331,86 @@
       ctaWrap.insertBefore(stepper, btn);
       ctaWrap.insertBefore(selectWrap, stepper);
     } else {
-      /* Produto simples: stepper + botão */
-      const preco      = produto.precoUnidade
-        ? window.Carrinho.parsePrecoBRL(produto.precoUnidade)
-        : window.Carrinho.parsePrecoBRL(produto.precoLabel);
-      const precoLabel = produto.precoUnidade || produto.precoLabel;
-      const unidade    = produto.precoUnidade ? 'unidade' : (produto.precoPor || 'unidade');
+      /* Produto simples: stepper + botão (+ toggle UN/CENTO quando aplicável) */
+      const temModoCento = produto.precoPor === 'cento' && !!produto.precoUnidade;
 
-      const stepper = criarStepper();
+      /* Estado mutável do modo — lido no click do botão */
+      let modoPreco    = 'un';
+      let minimoAtivo  = minimo;
 
+      /* Valores por modo */
+      const precos = temModoCento
+        ? {
+            un:    { preco: window.Carrinho.parsePrecoBRL(produto.precoUnidade), precoLabel: produto.precoUnidade, unidade: 'unidade', minimo },
+            cento: { preco: window.Carrinho.parsePrecoBRL(produto.precoLabel),   precoLabel: produto.precoLabel,   unidade: 'cento',   minimo: 1 },
+          }
+        : null;
+
+      /* Stepper inicial */
+      let stepper = criarStepper(minimoAtivo);
+
+      /* Botão Adicionar */
       const btn = document.createElement('button');
       btn.className = 'btn-adicionar-carrinho';
       btn.type      = 'button';
       btn.setAttribute('aria-label', `Adicionar ${produto.nome} ao pedido`);
       btn.innerHTML = '<i class="fas fa-shopping-bag" aria-hidden="true"></i> Adicionar ao Pedido';
       btn.addEventListener('click', () => {
+        const cfg = temModoCento ? precos[modoPreco] : {
+          preco:      produto.precoUnidade
+            ? window.Carrinho.parsePrecoBRL(produto.precoUnidade)
+            : window.Carrinho.parsePrecoBRL(produto.precoLabel),
+          precoLabel: produto.precoUnidade || produto.precoLabel,
+          unidade:    produto.precoUnidade ? 'unidade' : (produto.precoPor || 'unidade'),
+          minimo,
+        };
         window.Carrinho.adicionar({
           id:           produto.id,
           variante:     '',
           nome:         produto.nome,
-          preco,
-          precoLabel,
-          unidade,
-          pedidoMinimo: minimo,
+          preco:        cfg.preco,
+          precoLabel:   cfg.precoLabel,
+          unidade:      cfg.unidade,
+          pedidoMinimo: minimoAtivo,
           quantidade:   stepper.getQtd(),
         });
       });
 
       ctaWrap.insertBefore(btn, ctaWrap.firstChild);
       ctaWrap.insertBefore(stepper, btn);
+
+      /* Toggle UN / CENTO — só exibido quando aplicável */
+      if (temModoCento) {
+        const toggleWrap = document.createElement('div');
+        toggleWrap.className = 'produto-modo-preco-wrap';
+        toggleWrap.innerHTML = `
+          <span class="produto-modo-preco-label">Calcular por</span>
+          <div class="produto-modo-preco-opcoes">
+            <button class="produto-modo-preco-btn ativo" data-modo="un" type="button">
+              Unidade <small>${produto.precoUnidade}</small>
+            </button>
+            <button class="produto-modo-preco-btn" data-modo="cento" type="button">
+              Cento <small>${produto.precoLabel}</small>
+            </button>
+          </div>
+        `;
+
+        toggleWrap.querySelectorAll('.produto-modo-preco-btn').forEach((b) => {
+          b.addEventListener('click', () => {
+            toggleWrap.querySelectorAll('.produto-modo-preco-btn').forEach((x) => x.classList.remove('ativo'));
+            b.classList.add('ativo');
+            modoPreco   = b.dataset.modo;
+            minimoAtivo = precos[modoPreco].minimo;
+
+            /* Substitui o stepper pelo novo mínimo */
+            const novoStepper = criarStepper(minimoAtivo);
+            stepper.replaceWith(novoStepper);
+            stepper = novoStepper;
+          });
+        });
+
+        ctaWrap.insertBefore(toggleWrap, stepper);
+      }
     }
   }
 

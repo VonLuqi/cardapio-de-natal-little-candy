@@ -173,6 +173,17 @@
           cartUnidade    = produto.precoPor || 'unidade';
         }
 
+        /* Atributos extras para produtos com precoPor === 'cento':
+           permite ao QtyPicker oferecer toggle UN / CENTO */
+        const temModoCento = produto.precoPor === 'cento' && !!produto.precoUnidade;
+        const extraCentoAttrs = temModoCento
+          ? ` data-preco-un="${parsePrecoBRL(produto.precoUnidade)}"` +
+            ` data-preco-un-label="${escaparHTML(produto.precoUnidade)}"` +
+            ` data-preco-cento="${parsePrecoBRL(produto.precoLabel)}"` +
+            ` data-preco-cento-label="${escaparHTML(produto.precoLabel)}"` +
+            ` data-min-cento="1"`
+          : '';
+
         const btnAdicionar =
           !temTamanhos && produto.precoLabel
             ? `<button
@@ -184,6 +195,7 @@
                 data-unidade="${escaparHTML(cartUnidade)}"
                 data-variante=""
                 data-pedido-minimo="${produto.pedidoMinimo || 1}"
+                ${extraCentoAttrs}
                 aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                 title="Adicionar ao pedido"
               ><i class="fas fa-plus" aria-hidden="true"></i></button>`

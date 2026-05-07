@@ -257,6 +257,7 @@
 .produto-item {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   border-bottom: 1px solid #f0e8de;
   transition: background-color 0.15s ease;
   padding-right: 0.25rem;
@@ -315,6 +316,18 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.produto-item-nome.texto-overflow {
+  text-overflow: clip;
+}
+
+.nome-inner {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .produto-item-right {

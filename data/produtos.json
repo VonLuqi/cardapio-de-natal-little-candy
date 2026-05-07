@@ -509,6 +509,7 @@
       "precoMinimo": false,
       "sabores": ["Coco", "Chocolate", "Morango", "Abacaxi", "Doce de Leite", "Limão"],
       "saboresTitulo": "Sabores Disponíveis",
+      "saborUnico": true,
       "imagem": null,
       "disponivel": true,
       "destaque": true,
@@ -555,6 +556,7 @@
         "Abacaxi com Creme Patissière"
       ],
       "saboresTitulo": "Sabores",
+      "saborUnico": true,
       "detalhes": ["Cobertura de Creme", "Cobertura de Merengue"],
       "detalhesTitulo": "Opções de Cobertura",
       "imagem": null,
@@ -583,7 +585,7 @@
       "imagem": null,
       "disponivel": true,
       "destaque": true,
-      "obs": "Pedido mínimo de 5 unidades. Produto pode conter traços de glúten e lactose."
+      "obs": "Produto pode conter traços de glúten e lactose."
     },
 
     {

@@ -192,6 +192,9 @@
         const gruposAttr = produto.grupos && produto.grupos.length
           ? ` data-grupos='${JSON.stringify(produto.grupos)}'`
           : '';
+        const saborUnicoAttr = produto.saborUnico
+          ? ` data-sabor-unico="true"`
+          : '';
 
         /* Tamanhos: toggle de pills */
         const tamanhoPadrao = temTamanhos ? produto.tamanhos[0] : null;
@@ -222,7 +225,7 @@
                 data-unidade="${escaparHTML(cartUnidade)}"
                 data-variante=""
                 data-pedido-minimo="${produto.pedidoMinimo || 1}"
-                ${extraCentoAttrs}${saboresAttr}${gruposAttr}
+                ${extraCentoAttrs}${saboresAttr}${gruposAttr}${saborUnicoAttr}
                 aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                 title="Adicionar ao pedido"
               ><i class="fas fa-plus" aria-hidden="true"></i></button>`
@@ -236,7 +239,7 @@
                   data-unidade="unidade"
                   data-variante="${escaparHTML(tamanhoPadrao.nome)}"
                   data-pedido-minimo="${produto.pedidoMinimo || 1}"
-                  ${saboresAttr}${gruposAttr}
+                  ${saboresAttr}${gruposAttr}${saborUnicoAttr}
                   aria-label="Adicionar ${escaparHTML(produto.nome)} ao pedido"
                   title="Adicionar ao pedido"
                 ><i class="fas fa-plus" aria-hidden="true"></i></button>`
@@ -279,7 +282,7 @@
             </a>
             ${temTamanhos ? tamanhosToggleHTML : toggleModoHTML}
             ${btnAdicionar}
-            ${produto.obs ? `<div class="produto-item-obs" role="note">
+            ${(produto.obs && !produto.pedidoMinimo) ? `<div class="produto-item-obs" role="note">
               <i class="fas fa-info-circle" aria-hidden="true"></i>
               <span>${escaparHTML(produto.obs)}</span>
             </div>` : ''}
@@ -646,6 +649,78 @@
 
     /* Footer */
     wrapper.appendChild(renderFooter(config));
+
+    /* Marquee para nomes truncados — controlado por JS */
+    requestAnimationFrame(function () {
+      var VELOCIDADE = 30;  /* px por segundo */
+      var PAUSA_MS  = 5000; /* pausa entre ciclos (ms) */
+
+      var items = [];
+      document.querySelectorAll('.produto-item-nome').forEach(function (el) {
+        var overflow = el.scrollWidth - el.offsetWidth;
+        if (overflow > 6) {
+          var inner = document.createElement('span');
+          inner.className = 'nome-inner';
+          inner.textContent = el.textContent;
+          el.textContent = '';
+          el.appendChild(inner);
+          el.classList.add('texto-overflow');
+          items.push({ inner: inner, overflow: overflow });
+        }
+      });
+
+      function rodaCiclo() {
+        if (!items.length) return;
+
+        /* Fase 1: todos deslizam para o fim */
+        var fase1 = items.map(function (it) {
+          it.inner.style.transform = '';
+          var ms = (it.overflow / VELOCIDADE) * 1000;
+          return it.inner.animate(
+            [
+              { transform: 'translateX(0)' },
+              { transform: 'translateX(-' + it.overflow + 'px)' }
+            ],
+            { duration: ms, easing: 'linear', fill: 'forwards' }
+          );
+        });
+
+        Promise.all(fase1.map(function (a) { return a.finished; }))
+          .then(function () {
+            /* Commita posição no inline style e cancela o fill para desbloquear */
+            items.forEach(function (it) {
+              it.inner.style.transform = 'translateX(-' + it.overflow + 'px)';
+            });
+            fase1.forEach(function (a) { a.cancel(); });
+            /* Pausa 2s com todos no fim */
+            return new Promise(function (res) { setTimeout(res, 2000); });
+          })
+          .then(function () {
+            /* Fase 2: todos voltam ao início */
+            var fase2 = items.map(function (it) {
+              var ms = (it.overflow / VELOCIDADE) * 1000;
+              return it.inner.animate(
+                [
+                  { transform: 'translateX(-' + it.overflow + 'px)' },
+                  { transform: 'translateX(0)' }
+                ],
+                { duration: ms, easing: 'linear', fill: 'forwards' }
+              );
+            });
+            return Promise.all(fase2.map(function (a) { return a.finished; }))
+              .then(function () {
+                /* Commita posição zero e cancela o fill */
+                fase2.forEach(function (a) { a.cancel(); });
+                items.forEach(function (it) { it.inner.style.transform = ''; });
+              });
+          })
+          /* Todos voltaram → pausa 5s e reinicia */
+          .then(function () { setTimeout(rodaCiclo, PAUSA_MS); })
+          .catch(function () { /* navegação interrompeu, ignorar */ });
+      }
+
+      rodaCiclo();
+    });
   }
 
   /* ── Bootstrap ── */

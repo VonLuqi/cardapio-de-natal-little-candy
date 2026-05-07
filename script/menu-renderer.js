@@ -8,6 +8,82 @@
 (function () {
   'use strict';
 
+  /* ── Marquee: estado global ── */
+  var _MARQUEE_VELOCIDADE = 30; /* px por segundo */
+  var _MARQUEE_PAUSA_MS  = 5000;
+  var _marqueeItems      = [];
+  var _marqueeAtivo      = false;
+
+  function _initMarqueeEl(el) {
+    if (el.classList.contains('texto-overflow')) return; /* já inicializado */
+    var overflow = el.scrollWidth - el.offsetWidth;
+    if (overflow > 6) {
+      var inner = document.createElement('span');
+      inner.className = 'nome-inner';
+      inner.textContent = el.textContent;
+      el.textContent = '';
+      el.appendChild(inner);
+      el.classList.add('texto-overflow');
+      _marqueeItems.push({ inner: inner, overflow: overflow });
+    }
+  }
+
+  function _rodaMarqueeCiclo() {
+    if (!_marqueeItems.length) { _marqueeAtivo = false; return; }
+
+    var items = _marqueeItems.slice(); /* snapshot do ciclo atual */
+
+    var fase1 = items.map(function (it) {
+      it.inner.style.transform = '';
+      var ms = (it.overflow / _MARQUEE_VELOCIDADE) * 1000;
+      return it.inner.animate(
+        [
+          { transform: 'translateX(0)' },
+          { transform: 'translateX(-' + it.overflow + 'px)' }
+        ],
+        { duration: ms, easing: 'linear', fill: 'forwards' }
+      );
+    });
+
+    Promise.all(fase1.map(function (a) { return a.finished; }))
+      .then(function () {
+        items.forEach(function (it) {
+          it.inner.style.transform = 'translateX(-' + it.overflow + 'px)';
+        });
+        fase1.forEach(function (a) { a.cancel(); });
+        return new Promise(function (res) { setTimeout(res, 2000); });
+      })
+      .then(function () {
+        var fase2 = items.map(function (it) {
+          var ms = (it.overflow / _MARQUEE_VELOCIDADE) * 1000;
+          return it.inner.animate(
+            [
+              { transform: 'translateX(-' + it.overflow + 'px)' },
+              { transform: 'translateX(0)' }
+            ],
+            { duration: ms, easing: 'linear', fill: 'forwards' }
+          );
+        });
+        return Promise.all(fase2.map(function (a) { return a.finished; }))
+          .then(function () {
+            fase2.forEach(function (a) { a.cancel(); });
+            items.forEach(function (it) { it.inner.style.transform = ''; });
+          });
+      })
+      .then(function () { setTimeout(_rodaMarqueeCiclo, _MARQUEE_PAUSA_MS); })
+      .catch(function () { /* navegação interrompeu */ });
+  }
+
+  function _iniciarMarquee() {
+    document.querySelectorAll('.produto-item-nome').forEach(function (el) {
+      _initMarqueeEl(el);
+    });
+    if (_marqueeItems.length && !_marqueeAtivo) {
+      _marqueeAtivo = true;
+      _rodaMarqueeCiclo();
+    }
+  }
+
   /** Configuração por categoria */
   const CATEGORIAS = {
     classico: {
@@ -614,6 +690,9 @@
         if (precoElTam) {
           precoElTam.innerHTML = `${escaparHTML(btn.dataset.precoLabel)} <small style="font-weight:400;color:#aaa">/ un</small>`;
         }
+        /* Verifica se o nome ficou truncado após a mudança de preço */
+        const nomeEl = li.querySelector('.produto-item-nome');
+        if (nomeEl) requestAnimationFrame(function () { _initMarqueeEl(nomeEl); });
         return;
       }
 
@@ -652,76 +731,7 @@
     wrapper.appendChild(renderFooter(config));
 
     /* Marquee para nomes truncados — controlado por JS */
-    requestAnimationFrame(function () {
-      var VELOCIDADE = 30;  /* px por segundo */
-      var PAUSA_MS  = 5000; /* pausa entre ciclos (ms) */
-
-      var items = [];
-      document.querySelectorAll('.produto-item-nome').forEach(function (el) {
-        var overflow = el.scrollWidth - el.offsetWidth;
-        if (overflow > 6) {
-          var inner = document.createElement('span');
-          inner.className = 'nome-inner';
-          inner.textContent = el.textContent;
-          el.textContent = '';
-          el.appendChild(inner);
-          el.classList.add('texto-overflow');
-          items.push({ inner: inner, overflow: overflow });
-        }
-      });
-
-      function rodaCiclo() {
-        if (!items.length) return;
-
-        /* Fase 1: todos deslizam para o fim */
-        var fase1 = items.map(function (it) {
-          it.inner.style.transform = '';
-          var ms = (it.overflow / VELOCIDADE) * 1000;
-          return it.inner.animate(
-            [
-              { transform: 'translateX(0)' },
-              { transform: 'translateX(-' + it.overflow + 'px)' }
-            ],
-            { duration: ms, easing: 'linear', fill: 'forwards' }
-          );
-        });
-
-        Promise.all(fase1.map(function (a) { return a.finished; }))
-          .then(function () {
-            /* Commita posição no inline style e cancela o fill para desbloquear */
-            items.forEach(function (it) {
-              it.inner.style.transform = 'translateX(-' + it.overflow + 'px)';
-            });
-            fase1.forEach(function (a) { a.cancel(); });
-            /* Pausa 2s com todos no fim */
-            return new Promise(function (res) { setTimeout(res, 2000); });
-          })
-          .then(function () {
-            /* Fase 2: todos voltam ao início */
-            var fase2 = items.map(function (it) {
-              var ms = (it.overflow / VELOCIDADE) * 1000;
-              return it.inner.animate(
-                [
-                  { transform: 'translateX(-' + it.overflow + 'px)' },
-                  { transform: 'translateX(0)' }
-                ],
-                { duration: ms, easing: 'linear', fill: 'forwards' }
-              );
-            });
-            return Promise.all(fase2.map(function (a) { return a.finished; }))
-              .then(function () {
-                /* Commita posição zero e cancela o fill */
-                fase2.forEach(function (a) { a.cancel(); });
-                items.forEach(function (it) { it.inner.style.transform = ''; });
-              });
-          })
-          /* Todos voltaram → pausa 5s e reinicia */
-          .then(function () { setTimeout(rodaCiclo, PAUSA_MS); })
-          .catch(function () { /* navegação interrompeu, ignorar */ });
-      }
-
-      rodaCiclo();
-    });
+    requestAnimationFrame(_iniciarMarquee);
   }
 
   /* ── Bootstrap ── */

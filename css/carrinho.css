@@ -714,6 +714,8 @@ body.carrinho-open {
 }
 .produto-item-com-modo .produto-item-link {
   /* link ocupa linha inteira quando há toggle */
+  flex-basis: 100%;
+  width: 100%;
 }
 
 .produto-modo-toggle {

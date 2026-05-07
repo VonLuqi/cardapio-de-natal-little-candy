@@ -77,11 +77,12 @@
 
   function parsePrecoBRL(label) {
     if (!label) return 0;
-    return (
-      parseFloat(
-        label.replace(/R\$\s*/g, '').replace(/\./g, '').replace(',', '.')
-      ) || 0
-    );
+    /* Extrai o número após R$ mesmo com prefixos como "a partir de" */
+    const match = label.match(/R\$\s*([\d.,]+)/);
+    if (match) {
+      return parseFloat(match[1].replace(/\./g, '').replace(',', '.')) || 0;
+    }
+    return 0;
   }
 
   /* ── Renderização do header ── */

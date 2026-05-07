@@ -111,6 +111,7 @@
       "precoMinimo": false,
       "sabores": ["Brigadeiro", "Beijinho", "Doce de Leite", "Ninho"],
       "saboresTitulo": "Recheios Disponíveis",
+      "saborUnico": true,
       "detalhes": [
         "Chocolate Branco",
         "Chocolate ao Leite"
